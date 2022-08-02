@@ -1,20 +1,34 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import "react-native-gesture-handler";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LandingScreen from "./screens/LandingScreen";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import TabIcon from "./components/UI/TabIcon";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Platform } from "react-native";
+import LandingScreen from "./screens/LandingScreen";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const UserBefAuthTabs = () => {
+const platform = Platform.OS;
+
+const Authentication = () => {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarHideOnKeyboard: true,
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "black",
+        },
       }}
     >
       <Tab.Screen
@@ -22,7 +36,7 @@ const UserBefAuthTabs = () => {
         component={Login}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-log-in-outline" color={color} size={size} />
+            <TabIcon name="log-in" color={color} size={size} />
           ),
         }}
       />
@@ -32,7 +46,7 @@ const UserBefAuthTabs = () => {
         options={{
           tabBarLabel: "Signup",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-person-add-outline" color={color} size={size} />
+            <TabIcon name="ios-person-add-outline" color={color} size={size} />
           ),
         }}
       />
@@ -40,61 +54,37 @@ const UserBefAuthTabs = () => {
   );
 };
 
-// const UserAftAuthTabs = () => {
-//   return (
-//     <Tab.Navigator
-//       screenOptions={{
-//         tabBarHideOnKeyboard: true,
-//       }}
-//     >
-//       <Tab.Screen
-//         name="Home"
-//         component={Home}
-//         options={{
-//           tabBarIcon: ({ color, size }) => (
-//             <Ionicons name="ios-home-outline" color={color} size={size} />
-//           ),
-//           headerShown: false,
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Profile"
-//         component={Profile}
-//         options={{
-//           tabBarLabel: "Profile",
-//           tabBarIcon: ({ color, size }) => (
-//             <Ionicons name="ios-person-outline" color={color} size={size} />
-//           ),
-//           headerShown: false,
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// }
+const AppOnFirstLaunch = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="LandingScreen" component={LandingScreen} />
+      <Stack.Screen name="Authentication" component={Authentication} />
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="USER_AUTH"
-          component={UserBefAuthTabs}
-          options={{
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
             headerShown: false,
           }}
-        />
-        <Stack.Screen
-          name="LANDING_SCREEN"
-          component={LandingScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        >
+          <Stack.Screen name="AppOnFirstLaunch" component={AppOnFirstLaunch} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style="light" backgroundColor="black" />
+    </SafeAreaView>
   );
 }

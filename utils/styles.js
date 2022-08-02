@@ -3,10 +3,13 @@ export const GlobalStyles = {
     inputBgColor: "#e0d9d9",
     inputBgError: "#fcbcbc",
     titleColor: "#ffffff",
-    buttonColor: "#1c5bd1",
+    buttonColor1: "#1c5bd1",
+    buttonColor2: "#e02323",
   },
   gradientColors: {
-    color1: "#2954b3",
-    color2: "#298321",
+    // color1: "#7b00ff",
+    // color2: "#281766",
+    color1: "#0d3488",
+    color2: "#0f5708",
   },
 };

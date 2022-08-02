@@ -1,18 +1,19 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "@react-navigation/native";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
+import GradientContainer from "../components/UI/GradientContainer";
 import InputField from "../components/UI/InputField";
-import { GlobalStyles as gs } from "../utils/styles";
+import PasswordEye from "../components/UI/PasswordEye";
+import { GlobalStyles, GlobalStyles as gs } from "../utils/styles";
+import { GLOBALS } from "../utils/config";
 
-export default function Signup() {
-  const baseURL = "http://192.168.100.3:4000/api/user";
+export default function Login() {
+  const URL = `${GLOBALS.BASE_URL}/login`;
 
-  // const baseURL = process.env.BASE_URL;
   const [record, setRecord] = useState({
     email: "",
     password: "",
@@ -41,7 +42,10 @@ export default function Signup() {
       setPasswordInfo("");
     }
 
-    if (record.email.includes("@") === false) {
+    if (
+      record.email.trim().includes("@") === false ||
+      record.email.trim().includes(".com") === false
+    ) {
       setEmailError(true);
       setEmailInfo("Please provide a correct email address");
     } else {
@@ -56,21 +60,12 @@ export default function Signup() {
 
   const onLogInHandler = () => {
     if (!emailError || !passwordError) {
+      console.log("Logging in...", record);
       axios
-        .post(baseURL + "/login", record)
+        .post(URL, record)
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          // if (res.status === 400) {
-          //   alert("Invalid email or password");
-          // } else if (res.status === 200) {
-          //   alert("Login successful");
-          // } else {
-          //   alert("Signup failed");
-          // }
           const message = res.data.message;
-          console.log(message);
-          // alert(message);
+          alert(message);
         })
         .catch((err) => {
           console.log(err);
@@ -81,91 +76,74 @@ export default function Signup() {
   };
 
   return (
-    <View style={styles.rootContainer}>
-      <LinearGradient
-        colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
-        style={styles.gradientContainer}
+    <GradientContainer
+      colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
+      centerContent={true}
+      stylesProp={styles.gradientContainer}
+    >
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareScrollViewContainer}
+        style={styles.keyboardAwareScrollViewContent}
       >
-        <KeyboardAwareScrollView
-          contentContainerStyle={styles.keyboardAwareScrollViewContainer}
-          style={styles.keyboardAwareScrollViewContent}
-        >
-          <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <View style={styles.inputContainer}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Login</Text>
+          <View style={styles.inputContainer}>
+            <InputField
+              style={emailError && styles.inputError}
+              placeholder="Email"
+              value={record.email}
+              onChangeText={(text) => onChangeRecord("email", text)}
+              keyboardType="email-address"
+              innerRef={Email}
+              onSubmitEditing={() => Password.current.focus()}
+            />
+            <Text style={[styles.info, emailError && styles.infoActivated]}>
+              {emailInfo}
+            </Text>
+            <View style={styles.passwordContainer}>
               <InputField
-                style={emailError && styles.inputError}
-                placeholder="Email"
-                value={record.email}
-                onChangeText={(text) => onChangeRecord("email", text)}
-                keyboardType="email-address"
-                innerRef={Email}
-                onSubmitEditing={() => Password.current.focus()}
+                style={[
+                  styles.passwordInput,
+                  passwordError && styles.inputError,
+                ]}
+                placeholder="Password"
+                value={record.password}
+                onChangeText={(text) => onChangeRecord("password", text)}
+                secureTextEntry={!showPassword}
+                innerRef={Password}
+                onSubmitEditing={() => ConfirmPassword.current.focus()}
               />
-              <Text style={[styles.info, emailError && styles.infoActivated]}>
-                {emailInfo}
-              </Text>
-              <View style={styles.passwordContainer}>
-                <InputField
-                  style={[
-                    styles.passwordInput,
-                    passwordError && styles.inputError,
-                  ]}
-                  placeholder="Password"
-                  value={record.password}
-                  onChangeText={(text) => onChangeRecord("password", text)}
-                  secureTextEntry={!showPassword}
-                  innerRef={Password}
-                  onSubmitEditing={() => ConfirmPassword.current.focus()}
-                />
-                <Pressable
-                  onPress={showPasswordHandler}
-                  style={styles.passwordEye}
-                >
-                  <Ionicons
-                    name={showPassword ? "ios-eye" : "ios-eye-off"}
-                    size={26}
-                    color={passwordError ? "red" : "black"}
-                    style={styles.eyeIcon}
-                  />
-                </Pressable>
-              </View>
+              <PasswordEye
+                onPress={showPasswordHandler}
+                iconSwitch={showPassword}
+                colorSwitch={passwordError}
+              />
+            </View>
 
-              <Text
-                style={[styles.info, passwordError && styles.infoActivated]}
-              >
-                {passwordInfo}
-              </Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button style={styles.button} onPress={onLogInHandler}>
-                Login
-              </Button>
-              <Link style={styles.link} to={{ screen: "Signup" }}>
-                Not a user? Sign up
-              </Link>
-            </View>
+            <Text style={[styles.info, passwordError && styles.infoActivated]}>
+              {passwordInfo}
+            </Text>
           </View>
-        </KeyboardAwareScrollView>
-      </LinearGradient>
-    </View>
+          <View>
+            <Button
+              buttonColor={GlobalStyles.colors.buttonColor1}
+              onPress={onLogInHandler}
+            >
+              Login
+            </Button>
+            <Link style={styles.link} to={{ screen: "Signup" }}>
+              Not a user? Sign up
+            </Link>
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
+    </GradientContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   gradientContainer: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 10,
+    // paddingBottom: 10,
   },
   keyboardAwareScrollViewContainer: {
     justifyContent: "center",
@@ -173,7 +151,8 @@ const styles = StyleSheet.create({
   },
 
   keyboardAwareScrollViewContent: {
-    marginTop: 25,
+    marginTop: 40,
+    marginBottom: 10,
   },
   container: {
     marginHorizontal: "5%",
@@ -184,7 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: gs.colors.titleColor,
-    alignSelf: "center",
   },
   inputContainer: {
     marginVertical: 20,
@@ -211,17 +189,8 @@ const styles = StyleSheet.create({
     width: "85%",
     marginRight: 15,
   },
-  passwordEye: {
-    alignItems: "center",
-    paddingTop: 15,
-    justifyContent: "center",
-  },
-  inputName: {
-    width: "47%",
-  },
   inputError: {
     backgroundColor: gs.colors.inputBgError,
-    // color: gs.colors.inputBgColor,
   },
   nameContainer: {
     flexDirection: "row",
@@ -237,14 +206,6 @@ const styles = StyleSheet.create({
   infoActivated: {
     height: 15,
     marginTop: 10,
-  },
-  buttonContainer: {
-    alignSelf: "center",
-    // width: "100%",
-  },
-  button: {
-    width: 100,
-    alignSelf: "center",
   },
   link: {
     borderBottomColor: "black",

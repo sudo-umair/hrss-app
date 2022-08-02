@@ -1,16 +1,19 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "@react-navigation/native";
 import axios from "axios";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
 import InputField from "../components/UI/InputField";
+import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utils/styles";
+import { Platform } from "react-native";
+import GradientContainer from "../components/UI/GradientContainer";
+import { GLOBALS } from "../utils/config";
 
 export default function Signup({}) {
-  const baseURL = "http://192.168.100.3:4000/api/user";
+  const URL = `${GLOBALS.BASE_URL}/signup`;
+
   const [record, setRecord] = useState({
     fName: "",
     lName: "",
@@ -49,7 +52,10 @@ export default function Signup({}) {
       setPasswordInfo("");
     }
 
-    if (record.email.trim().includes("@") === false) {
+    if (
+      record.email.trim().includes("@") === false ||
+      record.email.trim().includes(".com") === false
+    ) {
       setEmailError(true);
       setEmailInfo("Please provide a correct email address");
     } else {
@@ -65,7 +71,7 @@ export default function Signup({}) {
   const onSignUpHandler = () => {
     if (!passwordError && !emailError) {
       axios
-        .post(baseURL + "/signup", record)
+        .post(URL, record)
         .then((res) => {
           console.log(res);
           console.log(res.data);
@@ -88,135 +94,120 @@ export default function Signup({}) {
     }
   };
 
+  const platform = Platform.OS;
   return (
-    <View style={styles.rootContainer}>
-      <LinearGradient
-        colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
-        style={styles.gradientContainer}
+    <GradientContainer
+      colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
+      stylesProp={styles.gradientContainer}
+      centerContent={true}
+    >
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareScrollViewContainer}
+        style={styles.keyboardAwareScrollViewContent}
       >
-        <KeyboardAwareScrollView
-          contentContainerStyle={styles.keyboardAwareScrollViewContainer}
-          style={styles.keyboardAwareScrollViewContent}
-        >
-          <View style={styles.container}>
-            <Text style={styles.title}>SignUp</Text>
-            <View style={styles.inputContainer}>
-              <View style={styles.nameContainer}>
-                <InputField
-                  style={styles.inputName}
-                  placeholder="First Name"
-                  value={record.fName}
-                  onChangeText={(text) => onChangeRecord("fName", text)}
-                  autoCapitalize="words"
-                  autoFocus={true}
-                />
-                <InputField
-                  style={styles.inputName}
-                  placeholder="Last Name"
-                  value={record.lName}
-                  onChangeText={(text) => onChangeRecord("lName", text)}
-                  autoCapitalize="words"
-                  innerRef={L_Name}
-                  onSubmitEditing={() => Email.current.focus()}
-                />
-              </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>SignUp</Text>
+          <View style={styles.inputContainer}>
+            <View style={styles.nameContainer}>
               <InputField
-                style={emailError && styles.inputError}
-                placeholder="Email"
-                value={record.email}
-                onChangeText={(text) => onChangeRecord("email", text)}
-                keyboardType="email-address"
-                innerRef={Email}
-                onSubmitEditing={() => Password.current.focus()}
+                style={styles.inputName}
+                placeholder="First Name"
+                value={record.fName}
+                onChangeText={(text) => onChangeRecord("fName", text)}
+                autoCapitalize="words"
+                autoFocus={true}
               />
-              <Text style={[styles.info, emailError && styles.infoActivated]}>
-                {emailInfo}
-              </Text>
-              <View style={styles.passwordContainer}>
-                <InputField
-                  style={[
-                    styles.passwordInput,
-                    passwordError && styles.inputError,
-                  ]}
-                  placeholder="Password"
-                  value={record.password}
-                  onChangeText={(text) => onChangeRecord("password", text)}
-                  secureTextEntry={!showPassword}
-                  innerRef={Password}
-                  onSubmitEditing={() => ConfirmPassword.current.focus()}
-                />
-                <Pressable
-                  onPress={showPasswordHandler}
-                  style={styles.passwordEye}
-                >
-                  <Ionicons
-                    name={showPassword ? "ios-eye" : "ios-eye-off"}
-                    size={26}
-                    color={passwordError ? "red" : "black"}
-                    style={styles.eyeIcon}
-                  />
-                </Pressable>
-              </View>
               <InputField
-                style={passwordError && styles.inputError}
-                placeholder="Confirm Password"
-                value={record.confirmPassword}
-                onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+                style={styles.inputName}
+                placeholder="Last Name"
+                value={record.lName}
+                onChangeText={(text) => onChangeRecord("lName", text)}
+                autoCapitalize="words"
+                innerRef={L_Name}
+                onSubmitEditing={() => Email.current.focus()}
+              />
+            </View>
+            <InputField
+              style={emailError && styles.inputError}
+              placeholder="Email"
+              value={record.email}
+              onChangeText={(text) => onChangeRecord("email", text)}
+              keyboardType="email-address"
+              innerRef={Email}
+              onSubmitEditing={() => Password.current.focus()}
+            />
+            <Text style={[styles.info, emailError && styles.infoActivated]}>
+              {emailInfo}
+            </Text>
+            <View style={styles.passwordContainer}>
+              <InputField
+                style={[
+                  styles.passwordInput,
+                  passwordError && styles.inputError,
+                ]}
+                placeholder="Password"
+                value={record.password}
+                onChangeText={(text) => onChangeRecord("password", text)}
                 secureTextEntry={!showPassword}
-                innerRef={ConfirmPassword}
-                onSubmitEditing={() => PhoneNumber.current.focus()}
+                innerRef={Password}
+                onSubmitEditing={() => ConfirmPassword.current.focus()}
               />
-
-              <Text
-                style={[styles.info, passwordError && styles.infoActivated]}
-              >
-                {passwordInfo}
-              </Text>
-
-              <InputField
-                placeholder="Phone Number"
-                value={record.phone}
-                onChangeText={(text) => onChangeRecord("phone", text)}
-                keyboardType="phone-pad"
-                innerRef={PhoneNumber}
+              <PasswordEye
+                onPress={showPasswordHandler}
+                iconSwitch={showPassword}
+                colorSwitch={passwordError}
               />
             </View>
-            <View style={styles.buttonContainer}>
-              <Button style={styles.button} onPress={onSignUpHandler}>
-                Signup
-              </Button>
-              <Link style={styles.link} to={{ screen: "Login" }}>
-                Already a user? Login
-              </Link>
-            </View>
+            <InputField
+              style={passwordError && styles.inputError}
+              placeholder="Confirm Password"
+              value={record.confirmPassword}
+              onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+              secureTextEntry={!showPassword}
+              innerRef={ConfirmPassword}
+              onSubmitEditing={() => PhoneNumber.current.focus()}
+            />
+
+            <Text style={[styles.info, passwordError && styles.infoActivated]}>
+              {passwordInfo}
+            </Text>
+
+            <InputField
+              placeholder="Phone Number"
+              value={record.phone}
+              onChangeText={(text) => onChangeRecord("phone", text)}
+              keyboardType="phone-pad"
+              innerRef={PhoneNumber}
+            />
           </View>
-        </KeyboardAwareScrollView>
-      </LinearGradient>
-    </View>
+          <View>
+            <Button
+              buttonColor={gs.colors.buttonColor2}
+              onPress={onSignUpHandler}
+            >
+              Signup
+            </Button>
+            <Link style={styles.link} to={{ screen: "Login" }}>
+              Already a user? Login
+            </Link>
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
+    </GradientContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   gradientContainer: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 10,
+    // height: "100%",
   },
   keyboardAwareScrollViewContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   keyboardAwareScrollViewContent: {
-    marginTop: 25,
+    marginTop: 40,
+    marginBottom: 10,
   },
   container: {
     marginHorizontal: "5%",
@@ -229,6 +220,7 @@ const styles = StyleSheet.create({
     color: gs.colors.titleColor,
   },
   inputContainer: {
+    justifyContent: "center",
     marginVertical: 20,
   },
   input: {
@@ -260,10 +252,10 @@ const styles = StyleSheet.create({
   },
   inputName: {
     width: "48%",
+    maxWidth: Platform.OS === "web" ? 115 : "100%",
   },
   inputError: {
     backgroundColor: gs.colors.inputBgError,
-    // color: gs.colors.inputBgColor,
   },
   nameContainer: {
     flexDirection: "row",
@@ -280,10 +272,7 @@ const styles = StyleSheet.create({
     height: 15,
     marginTop: 10,
   },
-  buttonContainer: {
-    alignSelf: "center",
-    width: "100%",
-  },
+
   button: {
     width: 100,
     alignSelf: "center",
