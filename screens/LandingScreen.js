@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function LandingScreen({ navigation }) {
   const navigate = useNavigation();
   const onPressLogin = () => {
-    navigation.navigate("Authentication", { screen: "Signup" });
+    navigation.navigate("Authentication", { screen: "Login" });
   };
 
   const onPressSignup = () => {
@@ -23,7 +23,7 @@ export default function LandingScreen({ navigation }) {
   };
 
   return (
-    <GradientContainer colors={["#3b2a25", "transparent"]}>
+    <GradientContainer colors={["transparent", "#3b2a25"]}>
       <ImageBackground
         source={require("../assets/LandingPageBackground.png")}
         style={styles.backgroundImageContainer}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   backgroundImage: {
-    opacity: 0.5,
+    // opacity: 0.7,
   },
   container: {
     flex: 1,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
     // color: "white",
-    textTransform: "uppercase",
+    // textTransform: "uppercase",
   },
   subtitle: {
     marginTop: "5%",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "40%",
     justifyContent: "space-between",
-    marginTop: 40,
+    marginTop: "5%",
   },
   button: {
     width: "100%",

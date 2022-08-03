@@ -10,6 +10,8 @@ import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles, GlobalStyles as gs } from "../utils/styles";
 import { GLOBALS } from "../utils/config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import userCredentialsStore from "../store/userCredentialsStore";
 
 export default function Login() {
   const URL = `${GLOBALS.BASE_URL}/login`;
@@ -58,6 +60,16 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
+  const storeUserCredentials = async (jsonRecord) => {
+    try {
+      const record = JSON.stringify(jsonRecord);
+      await AsyncStorage.setItem("userCreds", record);
+      console.log("jsonrecord in login.js", record);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onLogInHandler = () => {
     if (!emailError || !passwordError) {
       console.log("Logging in...", record);
@@ -65,7 +77,10 @@ export default function Login() {
         .post(URL, record)
         .then((res) => {
           const message = res.data.message;
+          const status = res.data.status;
           alert(message);
+          console.log(status);
+          storeUserCredentials(record);
         })
         .catch((err) => {
           console.log(err);
