@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   requests: {
     fontSize: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     color: "black",
     paddingRight: 20,
   },

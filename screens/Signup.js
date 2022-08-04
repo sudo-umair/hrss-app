@@ -1,5 +1,4 @@
 import { Link } from "@react-navigation/native";
-import axios from "axios";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
@@ -9,7 +8,6 @@ import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utils/styles";
 import { Platform } from "react-native";
 import GradientContainer from "../components/UI/GradientContainer";
-import { GLOBALS } from "../utils/config";
 import { signup } from "../utils/auth";
 
 export default function Signup({}) {
@@ -23,7 +21,6 @@ export default function Signup({}) {
     phone: "",
   });
 
-  const F_Name = useRef();
   const L_Name = useRef();
   const Email = useRef();
   const Password = useRef();
@@ -176,7 +173,13 @@ export default function Signup({}) {
             >
               Signup
             </Button>
-            <Link style={styles.link} to={{ screen: "Login" }}>
+            <Link
+              style={({ pressed }) => [
+                styles.link,
+                pressed && styles.linkPressed,
+              ]}
+              to={{ screen: "Login" }}
+            >
               Already a user? Login
             </Link>
           </View>
@@ -272,5 +275,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 14,
     color: gs.colors.titleColor,
+  },
+  linkPressed: {
+    borderBottomColor: gs.colors.buttonColor2,
+    color: gs.colors.buttonColor2,
   },
 });

@@ -1,29 +1,51 @@
 import axios from "axios";
 import { GLOBALS } from "./config";
+import { getData } from "./local-storage";
 
-export async function login(rec) {
+export const checkCredentials = async () => {
   try {
-    const res = await axios.post(`${GLOBALS.BASE_URL}/login`, rec);
-    const status = res.data.status;
-    if (status === "200") {
-      return res.data.message;
+    const data = await getData();
+    console.log(data);
+    if (data != null) {
+      const res = await login(data);
+      const status = res.status;
+      console.log(status);
+      if (status === "200") {
+        console.log(res.message);
+        return true;
+      } else {
+        console.log(res.message);
+        return false;
+      }
     } else {
-      return res.data.message;
+      console.log("No data found");
+      return false;
     }
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export async function login(record) {
+  try {
+    const response = await axios.post(`${GLOBALS.BASE_URL}/login`, record);
+    return (res = {
+      status: response.data.status,
+      message: response.data.message,
+    });
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function signup(rec) {
+export async function signup(record) {
   try {
-    const res = await axios.post(`${GLOBALS.BASE_URL}/signup`, rec);
-    const status = res.data.status;
-    if (status === "200") {
-      return res.data.message;
-    } else {
-      return res.data.message;
-    }
+    const response = await axios.post(`${GLOBALS.BASE_URL}/signup`, record);
+    return (res = {
+      status: response.data.status,
+      message: response.data.message,
+    });
   } catch (err) {
     console.log(err);
   }

@@ -7,18 +7,18 @@ import GradientContainer from "../components/UI/GradientContainer";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utils/styles";
-import { GLOBALS } from "../utils/config";
-import axios from "axios";
 import { login } from "../utils/auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setData } from "../utils/local-storage";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, setIsLoggedIn } from "../store/user";
 
 export default function Login() {
-  const URL = `${GLOBALS.BASE_URL}/login`;
-
   const [record, setRecord] = useState({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
 
   const [renderCount, setRenderCount] = useState(1);
 
@@ -63,26 +63,18 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const storeUserCredentials = async (jsonRecord) => {
-    try {
-      const record = JSON.stringify(jsonRecord);
-      await AsyncStorage.setItem("userCreds", record);
-      console.log("jsonrecord in login.js", record);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const onLogInHandler = async () => {
     if (!emailError || !passwordError) {
       console.log("Logging in...", record);
       const response = await login(record);
       console.log(response);
-      alert(response);
-      // if (response === "Login successful") {
-      storeUserCredentials(record);
-      // navigate to home screen
-      // }
+      if (response.status === "200") {
+        setData(record);
+        dispatch(addUser(record.email, record.password));
+        dispatch(setIsLoggedIn(true));
+      } else {
+        alert(response.message);
+      }
     } else {
       alert("Please fill out all the fields");
     }

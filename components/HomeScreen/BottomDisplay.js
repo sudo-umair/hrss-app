@@ -12,7 +12,7 @@ export default function BottomDisplay() {
           size={24}
           color="blue"
           lib="f"
-          title="Resources"
+          title="Request Resources"
           onPress={() => {
             console.log("Request Resources");
           }}
@@ -30,7 +30,7 @@ export default function BottomDisplay() {
           name="volunteer-activism"
           size={24}
           color="blue"
-          title="Volunteer"
+          title="Interested to Volunteer?"
           lib="m"
         />
         <HomeScreenButton
