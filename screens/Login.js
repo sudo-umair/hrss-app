@@ -1,17 +1,16 @@
 import { Link } from "@react-navigation/native";
-import axios from "axios";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
 import GradientContainer from "../components/UI/GradientContainer";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
-import { GlobalStyles, GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utils/styles";
 import { GLOBALS } from "../utils/config";
+import axios from "axios";
+import { login } from "../utils/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import userCredentialsStore from "../store/userCredentialsStore";
 
 export default function Login() {
   const URL = `${GLOBALS.BASE_URL}/login`;
@@ -21,7 +20,8 @@ export default function Login() {
     password: "",
   });
 
-  const Email = useRef();
+  const [renderCount, setRenderCount] = useState(1);
+
   const Password = useRef();
 
   const [passwordError, setPasswordError] = useState(false);
@@ -36,25 +36,28 @@ export default function Login() {
   };
 
   useLayoutEffect(() => {
-    if (record.password.length < 6) {
-      setPasswordError(true);
-      setPasswordInfo("Password must be at least 6 characters");
-    } else {
-      setPasswordError(false);
-      setPasswordInfo("");
-    }
+    if (renderCount > 1) {
+      if (record.password.length < 6) {
+        setPasswordError(true);
+        setPasswordInfo("Password must be at least 6 characters");
+      } else {
+        setPasswordError(false);
+        setPasswordInfo("");
+      }
 
-    if (
-      record.email.trim().includes("@") === false ||
-      record.email.trim().includes(".com") === false
-    ) {
-      setEmailError(true);
-      setEmailInfo("Please provide a correct email address");
-    } else {
-      setEmailError(false);
-      setEmailInfo("");
+      if (
+        record.email.trim().includes("@") === true &&
+        record.email.trim().endsWith(".com") === true
+      ) {
+        setEmailInfo("");
+        setEmailError(false);
+      } else {
+        setEmailError(true);
+        setEmailInfo("Please provide a correct email address");
+      }
     }
-  }, [record.password, record.email]);
+    setRenderCount(renderCount + 1);
+  }, [record.email, record.password]);
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
@@ -70,21 +73,16 @@ export default function Login() {
     }
   };
 
-  const onLogInHandler = () => {
+  const onLogInHandler = async () => {
     if (!emailError || !passwordError) {
       console.log("Logging in...", record);
-      axios
-        .post(URL, record)
-        .then((res) => {
-          const message = res.data.message;
-          const status = res.data.status;
-          alert(message);
-          console.log(status);
-          storeUserCredentials(record);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const response = await login(record);
+      console.log(response);
+      alert(response);
+      // if (response === "Login successful") {
+      storeUserCredentials(record);
+      // navigate to home screen
+      // }
     } else {
       alert("Please fill out all the fields");
     }
@@ -109,7 +107,6 @@ export default function Login() {
               value={record.email}
               onChangeText={(text) => onChangeRecord("email", text)}
               keyboardType="email-address"
-              innerRef={Email}
               onSubmitEditing={() => Password.current.focus()}
             />
             <Text style={[styles.info, emailError && styles.infoActivated]}>
@@ -126,7 +123,7 @@ export default function Login() {
                 onChangeText={(text) => onChangeRecord("password", text)}
                 secureTextEntry={!showPassword}
                 innerRef={Password}
-                onSubmitEditing={() => ConfirmPassword.current.focus()}
+                onSubmitEditing={onLogInHandler}
               />
               <PasswordEye
                 onPress={showPasswordHandler}
@@ -141,7 +138,7 @@ export default function Login() {
           </View>
           <View>
             <Button
-              buttonColor={GlobalStyles.colors.buttonColor1}
+              buttonColor={gs.colors.buttonColor1}
               onPress={onLogInHandler}
             >
               Login

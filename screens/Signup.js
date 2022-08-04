@@ -10,10 +10,10 @@ import { GlobalStyles as gs } from "../utils/styles";
 import { Platform } from "react-native";
 import GradientContainer from "../components/UI/GradientContainer";
 import { GLOBALS } from "../utils/config";
+import { signup } from "../utils/auth";
 
 export default function Signup({}) {
-  const URL = `${GLOBALS.BASE_URL}/signup`;
-
+  const [renderCount, setRenderCount] = useState(1);
   const [record, setRecord] = useState({
     fName: "",
     lName: "",
@@ -23,6 +23,7 @@ export default function Signup({}) {
     phone: "",
   });
 
+  const F_Name = useRef();
   const L_Name = useRef();
   const Email = useRef();
   const Password = useRef();
@@ -41,60 +42,46 @@ export default function Signup({}) {
   };
 
   useLayoutEffect(() => {
-    if (record.password.length < 6) {
-      setPasswordError(true);
-      setPasswordInfo("Password must be at least 6 characters");
-    } else if (record.password !== record.confirmPassword) {
-      setPasswordError(true);
-      setPasswordInfo("Password does not match");
-    } else {
-      setPasswordError(false);
-      setPasswordInfo("");
-    }
+    if (renderCount > 1) {
+      if (record.password.length < 6) {
+        setPasswordError(true);
+        setPasswordInfo("Password must be at least 6 characters");
+      } else if (record.password !== record.confirmPassword) {
+        setPasswordError(true);
+        setPasswordInfo("Password does not match");
+      } else {
+        setPasswordError(false);
+        setPasswordInfo("");
+      }
 
-    if (
-      record.email.trim().includes("@") === false ||
-      record.email.trim().includes(".com") === false
-    ) {
-      setEmailError(true);
-      setEmailInfo("Please provide a correct email address");
-    } else {
-      setEmailError(false);
-      setEmailInfo("");
+      if (
+        record.email.trim().includes("@") === true &&
+        record.email.trim().endsWith(".com") === true
+      ) {
+        setEmailError(false);
+        setEmailInfo("");
+      } else {
+        setEmailError(true);
+        setEmailInfo("Please provide a correct email address");
+      }
     }
+    setRenderCount(renderCount + 1);
   }, [record.password, record.confirmPassword, record.email]);
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSignUpHandler = () => {
+  const onSignUpHandler = async () => {
     if (!passwordError && !emailError) {
-      axios
-        .post(URL, record)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          // if (res.status === 400) {
-          //   alert("Email already exists");
-          // } else if (res.status === 201) {
-          //   alert("Signup successful");
-          // } else {
-          //   alert("Signup failed");
-          // }
-          const message = res.data.message;
-          console.log(message);
-          alert(message);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const response = await signup(record);
+      console.log(response);
+      alert(response);
     } else {
       alert("Please fill out all fields and check for existing errors");
     }
   };
 
-  const platform = Platform.OS;
   return (
     <GradientContainer
       colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
@@ -116,6 +103,7 @@ export default function Signup({}) {
                 onChangeText={(text) => onChangeRecord("fName", text)}
                 autoCapitalize="words"
                 autoFocus={true}
+                onSubmitEditing={() => L_Name.current.focus()}
               />
               <InputField
                 style={styles.inputName}
@@ -178,6 +166,7 @@ export default function Signup({}) {
               onChangeText={(text) => onChangeRecord("phone", text)}
               keyboardType="phone-pad"
               innerRef={PhoneNumber}
+              onSubmitEditing={onSignUpHandler}
             />
           </View>
           <View>

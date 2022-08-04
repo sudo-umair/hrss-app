@@ -6,14 +6,12 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import GradientContainer from "../components/UI/GradientContainer";
 import { GlobalStyles as gs } from "../utils/styles";
 import Button from "../components/UI/Button";
-import { useNavigation } from "@react-navigation/native";
 
 export default function LandingScreen({ navigation }) {
-  const navigate = useNavigation();
   const onPressLogin = () => {
     navigation.navigate("Authentication", { screen: "Login" });
   };

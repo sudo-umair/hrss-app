@@ -5,6 +5,8 @@ export const GlobalStyles = {
     titleColor: "#ffffff",
     buttonColor1: "#1c5bd1",
     buttonColor2: "#e02323",
+    homeScreenBackground: "#ffffff",
+    homeScreenTopDisplay: "#356aba",
   },
   gradientColors: {
     // color1: "#7b00ff",

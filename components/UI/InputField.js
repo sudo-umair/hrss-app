@@ -12,6 +12,7 @@ export default function InputField({
   autoCapitalize,
   keyboardType,
   returnKeyType,
+  onSubmitEditing,
 }) {
   return (
     <TextInput
@@ -20,9 +21,11 @@ export default function InputField({
       value={value}
       onChangeText={onChangeText}
       autoCapitalize={autoCapitalize || "none"}
+      // autoComplete={false}
       secureTextEntry={secureTextEntry || false}
       keyboardType={keyboardType || "default"}
-      // ref={innerRef}
+      ref={innerRef}
+      onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
       returnKeyType={returnKeyType || "next"}
     />
