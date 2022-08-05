@@ -126,7 +126,7 @@ export default function SignupScreen({ navigation }) {
           </Text>
           <View style={styles.passwordContainer}>
             <InputField
-              style={[styles.passwordInput, passwordError && styles.inputError]}
+              style={styles.passwordInput}
               placeholder="Password"
               value={record.password}
               onChangeText={(text) => onChangeRecord("password", text)}
@@ -141,7 +141,7 @@ export default function SignupScreen({ navigation }) {
             />
           </View>
           <InputField
-            style={passwordError && styles.inputError}
+            // style={passwordError && styles.inputError}
             placeholder="Confirm Password"
             value={record.confirmPassword}
             onChangeText={(text) => onChangeRecord("confirmPassword", text)}

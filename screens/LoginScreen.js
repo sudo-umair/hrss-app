@@ -98,7 +98,7 @@ export default function LoginScreen() {
           </Text>
           <View style={styles.passwordContainer}>
             <InputField
-              style={[styles.passwordInput, passwordError && styles.inputError]}
+              style={[styles.passwordInput]}
               placeholder="Password"
               value={record.password}
               onChangeText={(text) => onChangeRecord("password", text)}
@@ -174,9 +174,6 @@ const styles = StyleSheet.create({
   passwordInput: {
     width: "85%",
     marginRight: 15,
-  },
-  inputError: {
-    // backgroundColor: gs.colors.inputBgError,
   },
   nameContainer: {
     flexDirection: "row",
