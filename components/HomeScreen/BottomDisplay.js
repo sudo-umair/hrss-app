@@ -2,8 +2,15 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import HomeScreenButton from "./HomeScreenButton";
 import { GlobalStyles as gs } from "../../utils/styles";
+import { useNavigation } from "@react-navigation/native";
 
 export default function BottomDisplay() {
+  const navigation = useNavigation();
+
+  const goToLogoutScreen = () => {
+    navigation.navigate("Logout");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -39,6 +46,7 @@ export default function BottomDisplay() {
           color="red"
           lib="m"
           title="Logout"
+          onPress={goToLogoutScreen}
         />
       </View>
     </View>

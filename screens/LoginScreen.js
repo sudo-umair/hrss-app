@@ -1,6 +1,6 @@
 import { Link } from "@react-navigation/native";
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
 import GradientContainer from "../components/UI/GradientContainer";
@@ -9,10 +9,10 @@ import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utils/styles";
 import { login } from "../utils/auth";
 import { setData } from "../utils/local-storage";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser, setIsLoggedIn } from "../store/user";
 
-export default function Login() {
+export default function LoginScreen() {
   const [record, setRecord] = useState({
     email: "",
     password: "",
@@ -81,87 +81,69 @@ export default function Login() {
   };
 
   return (
-    <GradientContainer
-      colors={[gs.gradientColors.color1, gs.gradientColors.color2]}
-      centerContent={true}
-      stylesProp={styles.gradientContainer}
-    >
-      <KeyboardAwareScrollView
-        contentContainerStyle={styles.keyboardAwareScrollViewContainer}
-        style={styles.keyboardAwareScrollViewContent}
-      >
-        <View style={styles.container}>
-          <Text style={styles.title}>Login</Text>
-          <View style={styles.inputContainer}>
+    <KeyboardAvoidingView style={styles.rootContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Login</Text>
+        <View style={styles.inputContainer}>
+          <InputField
+            style={emailError && styles.inputError}
+            placeholder="Email"
+            value={record.email}
+            onChangeText={(text) => onChangeRecord("email", text)}
+            keyboardType="email-address"
+            onSubmitEditing={() => Password.current.focus()}
+          />
+          <Text style={[styles.info, emailError && styles.infoActivated]}>
+            {emailInfo}
+          </Text>
+          <View style={styles.passwordContainer}>
             <InputField
-              style={emailError && styles.inputError}
-              placeholder="Email"
-              value={record.email}
-              onChangeText={(text) => onChangeRecord("email", text)}
-              keyboardType="email-address"
-              onSubmitEditing={() => Password.current.focus()}
+              style={[styles.passwordInput, passwordError && styles.inputError]}
+              placeholder="Password"
+              value={record.password}
+              onChangeText={(text) => onChangeRecord("password", text)}
+              secureTextEntry={!showPassword}
+              innerRef={Password}
+              onSubmitEditing={onLogInHandler}
             />
-            <Text style={[styles.info, emailError && styles.infoActivated]}>
-              {emailInfo}
-            </Text>
-            <View style={styles.passwordContainer}>
-              <InputField
-                style={[
-                  styles.passwordInput,
-                  passwordError && styles.inputError,
-                ]}
-                placeholder="Password"
-                value={record.password}
-                onChangeText={(text) => onChangeRecord("password", text)}
-                secureTextEntry={!showPassword}
-                innerRef={Password}
-                onSubmitEditing={onLogInHandler}
-              />
-              <PasswordEye
-                onPress={showPasswordHandler}
-                iconSwitch={showPassword}
-                colorSwitch={passwordError}
-              />
-            </View>
+            <PasswordEye
+              onPress={showPasswordHandler}
+              iconSwitch={showPassword}
+              colorSwitch={passwordError}
+            />
+          </View>
 
-            <Text style={[styles.info, passwordError && styles.infoActivated]}>
-              {passwordInfo}
-            </Text>
-          </View>
-          <View>
-            <Button
-              buttonColor={gs.colors.buttonColor1}
-              onPress={onLogInHandler}
-            >
-              Login
-            </Button>
-            <Link style={styles.link} to={{ screen: "Signup" }}>
-              Not a user? Sign up
-            </Link>
-          </View>
+          <Text style={[styles.info, passwordError && styles.infoActivated]}>
+            {passwordInfo}
+          </Text>
         </View>
-      </KeyboardAwareScrollView>
-    </GradientContainer>
+        <View>
+          <Button buttonColor={gs.colors.buttonColor1} onPress={onLogInHandler}>
+            Login
+          </Button>
+          <Link style={styles.link} to={{ screen: "Signup" }}>
+            Not a user? Sign up
+          </Link>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  gradientContainer: {
-    // paddingBottom: 10,
-  },
-  keyboardAwareScrollViewContainer: {
+  rootContainer: {
+    flex: 1,
+    backgroundColor: gs.colors.homeScreenBackground,
     justifyContent: "center",
-    alignItems: "center",
-  },
-
-  keyboardAwareScrollViewContent: {
-    marginTop: 40,
-    marginBottom: 10,
   },
   container: {
-    marginHorizontal: "5%",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: gs.colors.homeScreenTopDisplay,
+    margin: 20,
+    margin: "5%",
+    padding: "5%",
+    borderRadius: 10,
   },
   title: {
     fontSize: 30,
@@ -169,7 +151,7 @@ const styles = StyleSheet.create({
     color: gs.colors.titleColor,
   },
   inputContainer: {
-    marginVertical: 20,
+    marginBottom: 20,
   },
   input: {
     padding: 10,
@@ -194,7 +176,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   inputError: {
-    backgroundColor: gs.colors.inputBgError,
+    // backgroundColor: gs.colors.inputBgError,
   },
   nameContainer: {
     flexDirection: "row",

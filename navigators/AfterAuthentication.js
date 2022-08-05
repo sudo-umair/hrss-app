@@ -1,7 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import HomeSreen from "../screens/HomeScreen";
-import Notifications from "../screens/Notifications";
+import LogoutScreen from "../screens/LogoutScreen";
+import NotificationsScreen from "../screens/NotificationsScreen";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -12,7 +13,8 @@ export default function AfterAuthentication() {
       }}
     >
       <Stack.Screen name="HomeScreen" component={HomeSreen} />
-      <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} />
+      <Stack.Screen name="Logout" component={LogoutScreen} />
     </Stack.Navigator>
   );
 }

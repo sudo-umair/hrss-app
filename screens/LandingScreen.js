@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  SafeAreaView,
-  StatusBar,
-} from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import React from "react";
 import GradientContainer from "../components/UI/GradientContainer";
 import { GlobalStyles as gs } from "../utils/styles";
 import Button from "../components/UI/Button";
@@ -39,6 +32,7 @@ export default function LandingScreen({ navigation }) {
               style={styles.button}
               buttonColor={gs.colors.buttonColor1}
               onPress={onPressLogin}
+              textSize={18}
             >
               Login
             </Button>
@@ -46,6 +40,7 @@ export default function LandingScreen({ navigation }) {
               style={styles.button}
               buttonColor={gs.colors.buttonColor2}
               onPress={onPressSignup}
+              textSize={18}
             >
               Signup
             </Button>
@@ -84,7 +79,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonContainer: {
-    width: "40%",
+    width: "80%",
     justifyContent: "space-between",
     marginTop: "5%",
   },

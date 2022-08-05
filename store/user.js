@@ -20,7 +20,7 @@ export const userSlice = createSlice({
       // state.phone = action.payload.phone;
     },
 
-    clearUser: (state, action) => {
+    removeUser: (state) => {
       state.name = null;
       state.email = null;
       state.password = null;
@@ -38,6 +38,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addUser, setIsLoading, setIsLoggedIn } = userSlice.actions;
+export const { addUser, removeUser, setIsLoading, setIsLoggedIn } =
+  userSlice.actions;
 
 export default userSlice.reducer;

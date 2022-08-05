@@ -8,6 +8,7 @@ export default function Button({
   mode,
   style,
   buttonColor,
+  textSize,
 }) {
   return (
     <View style={style}>
@@ -24,7 +25,13 @@ export default function Button({
             mode === "flat" && styles.flat,
           ]}
         >
-          <Text style={[styles.buttonText, mode === "flat" && styles.flatText]}>
+          <Text
+            style={[
+              styles.buttonText,
+              { fontSize: textSize },
+              mode === "flat" && styles.flatText,
+            ]}
+          >
             {children}
           </Text>
         </View>

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-export default function Notifications() {
+export default function NotificationsScreen() {
   return (
     <View>
       <Text>Notifications</Text>

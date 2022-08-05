@@ -8,7 +8,7 @@ export default function BeforeAuthentication() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerTitleAlign: "center",
       }}
     >
       <Stack.Screen name="LandingScreen" component={LandingScreen} />

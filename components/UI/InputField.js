@@ -34,9 +34,9 @@ export default function InputField({
 
 const styles = StyleSheet.create({
   input: {
-    padding: 10,
+    padding: 8,
     marginTop: 15,
-    backgroundColor: gs.colors.inputBgColor,
+    backgroundColor: "#f8f8f8",
     borderRadius: 10,
     elevation: 15,
     fontSize: 16,

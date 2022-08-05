@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useLayoutEffect } from "react";
 import TopDisplay from "../components/HomeScreen/TopDisplay";
 import BottomDisplay from "../components/HomeScreen/BottomDisplay";
@@ -15,9 +15,6 @@ export default function HomeSreen({ navigation, route }) {
         fontSize: 24,
         fontWeight: "bold",
       },
-      headerRightContainerStyle: {
-        marginRight: 10,
-      },
       headerRight: () => (
         <Icon
           onPress={goToNotificationsScreen}
@@ -28,6 +25,12 @@ export default function HomeSreen({ navigation, route }) {
           style={{ backgroundColor: "#e3edfa", borderRadius: 50, padding: 5 }}
         />
       ),
+      headerRightContainerStyle: {
+        paddingRight: 10,
+      },
+      headerLeftContainerStyle: {
+        paddingLeft: 10,
+      },
     });
   }, [navigation]);
 
