@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: gs.colors.homeScreenTopDisplay,
+    backgroundColor: gs.colors.primary,
     margin: 20,
     padding: 20,
     borderRadius: 10,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   resources: {
     flexDirection: "row",
     marginTop: 20,
-    backgroundColor: "#f5f3f3",
+    backgroundColor: gs.colors.background,
     borderRadius: 10,
     paddingVertical: 5,
     paddingHorizontal: 15,

@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
-import { GlobalStyles } from "../../utils/styles";
+import { GlobalStyles as gs } from "../../utils/styles";
 
 export default function Button({
   children,
@@ -9,6 +9,7 @@ export default function Button({
   style,
   buttonColor,
   textSize,
+  textColor,
 }) {
   return (
     <View style={style}>
@@ -19,16 +20,15 @@ export default function Button({
         <View
           style={[
             styles.button,
-            {
-              backgroundColor: buttonColor,
-            },
+            buttonColor && { backgroundColor: buttonColor },
             mode === "flat" && styles.flat,
           ]}
         >
           <Text
             style={[
               styles.buttonText,
-              { fontSize: textSize },
+              textSize && { fontSize: textSize },
+              textColor && { color: textColor },
               mode === "flat" && styles.flatText,
             ]}
           >
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingVertical: 8,
     paddingHorizontal: 16,
-    backgroundColor: GlobalStyles.colors.buttonColor,
+    backgroundColor: gs.colors.buttonColor1,
   },
   flat: {
     backgroundColor: "transparent",
@@ -55,11 +55,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   flatText: {
-    // color: GlobalStyles.colors.primary200,
     color: "white",
   },
   pressed: {
-    backgroundColor: GlobalStyles.colors.inputBgColor,
+    backgroundColor: gs.colors.inputBgColor,
     opacity: 0.75,
     borderRadius: 4,
   },

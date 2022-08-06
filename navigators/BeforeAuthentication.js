@@ -11,7 +11,13 @@ export default function BeforeAuthentication() {
         headerTitleAlign: "center",
       }}
     >
-      <Stack.Screen name="LandingScreen" component={LandingScreen} />
+      <Stack.Screen
+        name="LandingScreen"
+        component={LandingScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="Authentication" component={AuthenticationTabs} />
     </Stack.Navigator>
   );

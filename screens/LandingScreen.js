@@ -71,8 +71,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "bold",
-    // color: "white",
-    // textTransform: "uppercase",
   },
   subtitle: {
     marginTop: "5%",

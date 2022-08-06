@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: gs.colors.homeScreenBackground,
+    backgroundColor: gs.colors.background,
   },
 });

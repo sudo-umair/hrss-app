@@ -1,9 +1,7 @@
 import { Link } from "@react-navigation/native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
-import GradientContainer from "../components/UI/GradientContainer";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utils/styles";
@@ -117,14 +115,14 @@ export default function LoginScreen() {
             {passwordInfo}
           </Text>
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           <Button buttonColor={gs.colors.buttonColor1} onPress={onLogInHandler}>
             Login
           </Button>
-          <Link style={styles.link} to={{ screen: "Signup" }}>
-            Not a user? Sign up
-          </Link>
         </View>
+        <Link style={styles.link} to={{ screen: "Signup" }}>
+          Not a user? Sign up
+        </Link>
       </View>
     </KeyboardAvoidingView>
   );
@@ -133,13 +131,13 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: gs.colors.homeScreenBackground,
+    backgroundColor: gs.colors.background,
     justifyContent: "center",
   },
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: gs.colors.homeScreenTopDisplay,
+    backgroundColor: gs.colors.primary,
     margin: 20,
     margin: "5%",
     padding: "5%",
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     color: gs.colors.titleColor,
   },
   inputContainer: {
-    marginBottom: 20,
+    marginVertical: 20,
   },
   input: {
     padding: 10,
@@ -182,13 +180,15 @@ const styles = StyleSheet.create({
   info: {
     height: 0,
     fontSize: 13,
-    marginTop: 1,
     paddingLeft: 5,
     color: gs.colors.inputBgColor,
   },
   infoActivated: {
     height: 15,
-    marginTop: 10,
+    marginVertical: 5,
+  },
+  buttonContainer: {
+    width: "40%",
   },
   link: {
     borderBottomColor: "black",

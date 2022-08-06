@@ -83,10 +83,7 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{
-        justifyContent: "center",
-        paddingVertical: 20,
-      }}
+      keyboardShouldPersistTaps="always"
       style={styles.rootContainer}
     >
       <View style={styles.container}>
@@ -163,17 +160,17 @@ export default function SignupScreen({ navigation }) {
             onSubmitEditing={onSignUpHandler}
           />
         </View>
-        <View>
+        <View style={styles.buttonContainer}>
           <Button
             buttonColor={gs.colors.buttonColor2}
             onPress={onSignUpHandler}
           >
             Signup
           </Button>
-          <Link style={styles.link} to={{ screen: "Login" }}>
-            Already a user? Login
-          </Link>
         </View>
+        <Link style={styles.link} to={{ screen: "Login" }}>
+          Already a user? Login
+        </Link>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -182,13 +179,12 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: gs.colors.homeScreenBackground,
+    backgroundColor: gs.colors.background,
   },
   container: {
-    marginHorizontal: "5%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: gs.colors.homeScreenTopDisplay,
+    backgroundColor: gs.colors.primary,
     margin: "5%",
     padding: "5%",
     borderRadius: 10,
@@ -218,9 +214,6 @@ const styles = StyleSheet.create({
     width: "48%",
     maxWidth: Platform.OS === "web" ? 115 : "100%",
   },
-  inputError: {
-    // backgroundColor: gs.colors.inputBgError,
-  },
   nameContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -228,17 +221,15 @@ const styles = StyleSheet.create({
   info: {
     height: 0,
     fontSize: 13,
-    marginTop: 1,
     paddingLeft: 5,
     color: gs.colors.inputBgColor,
+    marginVertical: 5,
   },
   infoActivated: {
     height: 15,
-    marginTop: 10,
   },
-  button: {
-    width: 100,
-    alignSelf: "center",
+  buttonContainer: {
+    width: "40%",
   },
   link: {
     borderBottomColor: "black",

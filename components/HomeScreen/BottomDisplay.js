@@ -11,6 +11,10 @@ export default function BottomDisplay() {
     navigation.navigate("Logout");
   };
 
+  const goToResourcesScreen = () => {
+    navigation.navigate("Resources");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -20,9 +24,7 @@ export default function BottomDisplay() {
           color="blue"
           lib="f"
           title="Request Resources"
-          onPress={() => {
-            console.log("Request Resources");
-          }}
+          onPress={goToResourcesScreen}
         />
         <HomeScreenButton
           name="heart-plus"
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: gs.colors.homeScreenBackground,
+    backgroundColor: gs.colors.background,
     margin: 20,
     marginTop: 40,
     padding: 10,

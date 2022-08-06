@@ -13,6 +13,9 @@ export default function InputField({
   keyboardType,
   returnKeyType,
   onSubmitEditing,
+  multiline,
+  numberOfLines,
+  autoComplete,
 }) {
   return (
     <TextInput
@@ -21,13 +24,15 @@ export default function InputField({
       value={value}
       onChangeText={onChangeText}
       autoCapitalize={autoCapitalize || "none"}
-      // autoComplete={false}
+      // autoComplete={autoComplete || false}
       secureTextEntry={secureTextEntry || false}
       keyboardType={keyboardType || "default"}
       ref={innerRef}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
       returnKeyType={returnKeyType || "next"}
+      multiline={multiline || false}
+      numberOfLines={numberOfLines || 1}
     />
   );
 }
@@ -35,8 +40,8 @@ export default function InputField({
 const styles = StyleSheet.create({
   input: {
     padding: 8,
-    marginTop: 15,
-    backgroundColor: "#f8f8f8",
+    marginVertical: 8,
+    backgroundColor: gs.colors.inputBgColor,
     borderRadius: 10,
     elevation: 15,
     fontSize: 16,

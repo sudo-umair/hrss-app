@@ -35,6 +35,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/axios": "^0.14.0",
+    "@types/react-native": "^0.69.5",
     "metro-react-native-babel-preset": "^0.72.0"
   },
   "private": true

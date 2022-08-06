@@ -1,12 +1,11 @@
 export const GlobalStyles = {
   colors: {
-    inputBgColor: "#e0d9d9",
-    inputBgError: "#fcbcbc",
     titleColor: "#ffffff",
+    inputBgColor: "#e0d9d9",
     buttonColor1: "#033597",
     buttonColor2: "#f87000",
-    homeScreenBackground: "#ffffff",
-    homeScreenTopDisplay: "#356aba",
+    background: "#ffffff",
+    primary: "#356aba",
   },
   gradientColors: {
     // color1: "#7b00ff",
