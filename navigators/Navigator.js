@@ -5,23 +5,44 @@ import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
 import { checkCredentials } from "../utils/auth";
-import { setIsLoggedIn } from "../store/user";
+import { setIsLoggedIn, addUser } from "../store/user";
+import { checkForConnectionOnce } from "../utils/intenet-connection";
+import LoadingScreen from "../screens/LoadingScreen";
+import NoConnectionScreen from "../screens/NoConnectionScreen";
 
 export default function Navigator() {
-  const dispatch = useDispatch();
   const Stack = createStackNavigator();
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+
+  const checkForInternetConnection = async () => {
+    const res = await checkForConnectionOnce();
+    if (res) {
+      setIsConnected(true);
+    }
+  };
+
+  const checkForCredentialsInLocalStorage = async () => {
+    const response = await checkCredentials();
+    if (response.status === true) {
+      dispatch(setIsLoggedIn(true));
+      dispatch(addUser(response.user));
+    }
+    setIsLoading(false);
+  };
 
   useLayoutEffect(() => {
-    const check = async () => {
-      const res = await checkCredentials();
-      if (res) {
-        dispatch(setIsLoggedIn(true));
-      }
-    };
+    checkForInternetConnection();
+    checkForCredentialsInLocalStorage();
+  }),
+    [dispatch];
 
-    check();
-  }, [dispatch]);
+  if (!isConnected)
+    return <NoConnectionScreen onPress={checkForInternetConnection} />;
+
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <NavigationContainer>

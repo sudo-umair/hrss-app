@@ -9,8 +9,9 @@ export default function AuthenticationTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: true,
+        headerTitleAlign: "center",
         // tabBarHideOnKeyboard: true,
-        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -26,7 +27,6 @@ export default function AuthenticationTabs() {
         name="Signup"
         component={SignupScreen}
         options={{
-          tabBarLabel: "Signup",
           tabBarIcon: ({ color, size }) => (
             <Icon
               mode="tb"

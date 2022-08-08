@@ -23,7 +23,7 @@ export default function BottomDisplay() {
           size={24}
           color="blue"
           lib="f"
-          title="Request Resources"
+          title="Resources"
           onPress={goToResourcesScreen}
         />
         <HomeScreenButton
@@ -39,7 +39,7 @@ export default function BottomDisplay() {
           name="volunteer-activism"
           size={24}
           color="blue"
-          title="Interested to Volunteer?"
+          title="Volunteers"
           lib="m"
         />
         <HomeScreenButton

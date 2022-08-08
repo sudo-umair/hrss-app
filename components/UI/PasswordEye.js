@@ -17,7 +17,6 @@ export default function PasswordEye({ onPress, iconSwitch, colorSwitch }) {
 const styles = StyleSheet.create({
   passwordEye: {
     alignItems: "center",
-    paddingTop: 15,
     justifyContent: "center",
   },
 });

@@ -68,7 +68,8 @@ export default function LoginScreen() {
       console.log(response);
       if (response.status === "200") {
         setData(record);
-        dispatch(addUser(record.email, record.password));
+        const user = response.user;
+        dispatch(addUser(user));
         dispatch(setIsLoggedIn(true));
       } else {
         alert(response.message);
@@ -132,7 +133,6 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: gs.colors.background,
-    justifyContent: "center",
   },
   container: {
     justifyContent: "center",
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: 20,
     margin: "5%",
+    marginTop: "10%",
     padding: "5%",
     borderRadius: 10,
   },

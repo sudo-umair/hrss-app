@@ -9,14 +9,13 @@ export default function BeforeAuthentication() {
     <Stack.Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        headerShown: false,
       }}
     >
       <Stack.Screen
         name="LandingScreen"
         component={LandingScreen}
-        options={{
-          headerShown: false,
-        }}
+        options={{}}
       />
       <Stack.Screen name="Authentication" component={AuthenticationTabs} />
     </Stack.Navigator>

@@ -7,8 +7,8 @@ import Label from "../components/UI/Label";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
 
-export default function RequestResourceScreen() {
-  const navigation = useNavigation();
+export default function RequestResourceScreen({ navigation }) {
+  // const navigation = useNavigation();
 
   const NAME = useRef();
   const RESOURCE = useRef();
@@ -32,12 +32,24 @@ export default function RequestResourceScreen() {
     setRecord({ ...record, [key]: value });
   };
 
+  const emptyFields = () => {
+    setRecord({
+      name: "",
+      resource: "",
+      quantity: "",
+      duration: "",
+      phone: "",
+      address: "",
+    });
+  };
+
   const onPostRequest = () => {
     if (missingFields) {
       alert("Please fill in all fields");
     } else {
       alert("Request sent");
       console.log(record);
+      emptyFields();
     }
   };
 
@@ -55,11 +67,16 @@ export default function RequestResourceScreen() {
       record.address.trim() === ""
     ) {
       setMissingFields(true);
+    } else {
+      setMissingFields(false);
     }
   }, [navigation, record]);
 
   return (
-    <KeyboardAwareScrollView style={styles.rootContainer}>
+    <KeyboardAwareScrollView
+      style={styles.rootContainer}
+      keyboardShouldPersistTaps="always"
+    >
       <View style={styles.rootContainer}>
         <View style={styles.container}>
           <Text style={styles.title}>
@@ -73,6 +90,7 @@ export default function RequestResourceScreen() {
             onChangeText={(value) => onChangeRecord("name", value)}
             onSubmitEditing={() => RESOURCE.current.focus()}
             returnKeyType="next"
+            autoCapitalize={"words"}
           />
           <Label>Resource Name</Label>
           <InputField
@@ -82,6 +100,7 @@ export default function RequestResourceScreen() {
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
             returnKeyType="next"
+            autoCapitalize={"words"}
           />
           <Label>Quantity</Label>
           <InputField
@@ -101,6 +120,7 @@ export default function RequestResourceScreen() {
             onSubmitEditing={() => PHONE.current.focus()}
             innerRef={DURATION}
             returnKeyType="next"
+            autoCapitalize={"words"}
           />
           <Label>Contact Number</Label>
           <InputField
@@ -110,6 +130,7 @@ export default function RequestResourceScreen() {
             onSubmitEditing={() => ADDRESS.current.focus()}
             innerRef={PHONE}
             returnKeyType="next"
+            keyboardType={"phone-pad"}
           />
           <Label>Address</Label>
           <InputField
@@ -119,6 +140,7 @@ export default function RequestResourceScreen() {
             value={record.address}
             onChangeText={(value) => onChangeRecord("address", value)}
             innerRef={ADDRESS}
+            autoCapitalize={"words"}
           />
           <View style={styles.button}>
             <Button

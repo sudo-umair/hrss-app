@@ -138,7 +138,6 @@ export default function SignupScreen({ navigation }) {
             />
           </View>
           <InputField
-            // style={passwordError && styles.inputError}
             placeholder="Confirm Password"
             value={record.confirmPassword}
             onChangeText={(text) => onChangeRecord("confirmPassword", text)}
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: "5%",
     padding: "5%",
+    marginVertical: "10%",
     borderRadius: 10,
   },
   title: {
@@ -223,10 +223,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     paddingLeft: 5,
     color: gs.colors.inputBgColor,
-    marginVertical: 5,
   },
   infoActivated: {
     height: 15,
+    marginVertical: 5,
   },
   buttonContainer: {
     width: "40%",

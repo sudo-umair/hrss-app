@@ -12,9 +12,16 @@ export const checkCredentials = async () => {
       console.log(status);
       if (status === "200") {
         console.log(res.message);
-        return true;
+        return {
+          status: true,
+          message: res.message,
+          user: res.user,
+        };
       } else {
-        console.log(res.message);
+        console.log({
+          status: false,
+          message: res.message,
+        });
         return false;
       }
     } else {
@@ -33,6 +40,7 @@ export async function login(record) {
     return (res = {
       status: response.data.status,
       message: response.data.message,
+      user: response.data.user,
     });
   } catch (err) {
     console.log(err);
