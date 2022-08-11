@@ -6,6 +6,8 @@ const initialState = {
   password: null,
   phone: null,
   isLoggedIn: false,
+  isLoading: true,
+  isConnected: false,
 };
 
 export const userSlice = createSlice({
@@ -30,9 +32,23 @@ export const userSlice = createSlice({
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
+    setIsConnected: (state, action) => {
+      state.isConnected = action.payload;
+    },
   },
 });
 
-export const { setUser, removeUser, setIsLoggedIn } = userSlice.actions;
+export const {
+  setUser,
+  removeUser,
+  setIsLoggedIn,
+  setIsConnected,
+  setIsLoading,
+} = userSlice.actions;
 
 export default userSlice.reducer;

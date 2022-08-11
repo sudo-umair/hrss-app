@@ -32,7 +32,7 @@ export default function AccountScreen() {
   const [passwordInfo, setPasswordInfo] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const previousPassword = user?.password;
+  const oldPassword = user?.password;
 
   useLayoutEffect(() => {
     if (record.password.length < 6) {
@@ -53,9 +53,8 @@ export default function AccountScreen() {
     if (!passwordError) {
       const updatedRecord = {
         ...record,
-        previousPassword,
+        oldPassword,
       };
-
       const response = await update(updatedRecord);
       console.log(response);
       alert(response.message);
