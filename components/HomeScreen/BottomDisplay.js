@@ -7,12 +7,16 @@ import { useNavigation } from "@react-navigation/native";
 export default function BottomDisplay() {
   const navigation = useNavigation();
 
-  const goToLogoutScreen = () => {
-    navigation.navigate("Logout");
+  const goToSignoutScreen = () => {
+    navigation.navigate("Signout");
   };
 
   const goToResourcesScreen = () => {
     navigation.navigate("Resources");
+  };
+
+  const goToDontationsScreen = () => {
+    navigation.navigate("Donations");
   };
 
   return (
@@ -23,32 +27,34 @@ export default function BottomDisplay() {
           size={24}
           color="blue"
           lib="f"
-          title="Resources"
+          title="Requests for Resources"
           onPress={goToResourcesScreen}
         />
         <HomeScreenButton
-          name="heart-plus"
+          name="volunteer-activism"
           size={24}
-          color="blue"
-          title="Donations"
-          lib="mc"
+          color={gs.colors.primary}
+          title="Want to Volunteer?"
+          lib="m"
         />
       </View>
       <View style={styles.buttonContainer}>
         <HomeScreenButton
-          name="volunteer-activism"
+          name="heart-plus"
           size={24}
           color="blue"
-          title="Volunteers"
-          lib="m"
+          title="Donatations"
+          lib="mc"
+          onPress={goToDontationsScreen}
         />
+
         <HomeScreenButton
           name="logout"
           size={24}
           color="red"
           lib="m"
-          title="Logout"
-          onPress={goToLogoutScreen}
+          title="Signout"
+          onPress={goToSignoutScreen}
         />
       </View>
     </View>
@@ -57,17 +63,15 @@ export default function BottomDisplay() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: gs.colors.background,
-    margin: 20,
-    marginTop: 40,
-    padding: 10,
-    borderRadius: 10,
-    elevation: 5,
+    marginTop: "10%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    width: "50%",
+    justifyContent: "center",
+    // borderWidth: 1,
   },
 });

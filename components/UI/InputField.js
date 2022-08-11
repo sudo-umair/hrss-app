@@ -16,23 +16,25 @@ export default function InputField({
   multiline,
   numberOfLines,
   autoComplete,
+  editable,
 }) {
   return (
     <TextInput
       style={[styles.input, style]}
-      placeholder={placeholder || "Enter text"}
+      placeholder={placeholder ?? "Enter text"}
       value={value}
       onChangeText={onChangeText}
-      autoCapitalize={autoCapitalize || "none"}
-      // autoComplete={autoComplete || false}
+      autoCapitalize={autoCapitalize ?? "none"}
       secureTextEntry={secureTextEntry || false}
-      keyboardType={keyboardType || "default"}
+      keyboardType={keyboardType ?? "default"}
       ref={innerRef}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
-      returnKeyType={returnKeyType || "next"}
-      multiline={multiline || false}
-      numberOfLines={numberOfLines || 1}
+      returnKeyType={returnKeyType ?? "next"}
+      multiline={multiline ?? false}
+      numberOfLines={numberOfLines ?? 1}
+      editable={editable ?? true}
+      enablesReturnKeyAutomatically={true}
     />
   );
 }

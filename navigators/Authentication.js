@@ -1,26 +1,27 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "../components/UI/Icon";
-import LoginScreen from "../screens/LoginScreen";
+import SigninScreen from "../screens/SigninScreen";
 import SignupScreen from "../screens/SignupScreen";
 
-export default function AuthenticationTabs() {
+export default function Authentication() {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         headerTitleAlign: "center",
-        // tabBarHideOnKeyboard: true,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tab.Screen
-        name="Login"
-        component={LoginScreen}
+        name="Signin"
+        component={SigninScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon mode="tb" name="log-in" color={color} size={size} />
           ),
+          headerTitle: "Sign In",
         }}
       />
       <Tab.Screen
@@ -35,6 +36,7 @@ export default function AuthenticationTabs() {
               size={size}
             />
           ),
+          headerTitle: "Sign Up",
         }}
       />
     </Tab.Navigator>

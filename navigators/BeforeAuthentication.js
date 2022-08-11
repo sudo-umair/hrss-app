@@ -1,7 +1,7 @@
 import React from "react";
 import LandingScreen from "../screens/LandingScreen";
 import { createStackNavigator } from "@react-navigation/stack";
-import AuthenticationTabs from "./AuthenticationTabs";
+import Authentication from "./Authentication";
 
 export default function BeforeAuthentication() {
   const Stack = createStackNavigator();
@@ -17,7 +17,7 @@ export default function BeforeAuthentication() {
         component={LandingScreen}
         options={{}}
       />
-      <Stack.Screen name="Authentication" component={AuthenticationTabs} />
+      <Stack.Screen name="Authentication" component={Authentication} />
     </Stack.Navigator>
   );
 }

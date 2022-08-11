@@ -1,6 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import Icon from "../UI/Icon";
+import { GlobalStyles as gs } from "../../utils/styles";
 
 export default function HomeScreenButton({ onPress, name, lib, color, title }) {
   return (
@@ -20,16 +21,15 @@ export default function HomeScreenButton({ onPress, name, lib, color, title }) {
 
 const styles = StyleSheet.create({
   container: {
-    // justifyContent: "center",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
-    backgroundColor: "#e2fcea",
+    backgroundColor: "#e5ffed",
     width: 130,
     height: 130,
     paddingHorizontal: 10,
     elevation: 5,
-    marginVertical: 10,
-    paddingTop: 25,
+    margin: "5%",
   },
   icon: {
     backgroundColor: "#b2ffd1",
@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 5,
-    // fontWeight: "bold",
-    color: "#000",
     textAlign: "center",
+    // color: "white",
   },
 });

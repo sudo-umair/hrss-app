@@ -2,7 +2,7 @@ import axios from "axios";
 import { GLOBALS } from "./config";
 import { getData } from "./local-storage";
 
-export const checkCredentials = async () => {
+export async function checkCredentials() {
   try {
     const data = await getData();
     console.log(data);
@@ -32,11 +32,11 @@ export const checkCredentials = async () => {
     console.log(err);
     return false;
   }
-};
+}
 
 export async function login(record) {
   try {
-    const response = await axios.post(`${GLOBALS.BASE_URL}/login`, record);
+    const response = await axios.post(`${GLOBALS.BASE_URL}/user/login`, record);
     return (res = {
       status: response.data.status,
       message: response.data.message,
@@ -44,17 +44,63 @@ export async function login(record) {
     });
   } catch (err) {
     console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
   }
 }
 
 export async function signup(record) {
   try {
-    const response = await axios.post(`${GLOBALS.BASE_URL}/signup`, record);
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/user/signup`,
+      record
+    );
     return (res = {
       status: response.data.status,
       message: response.data.message,
     });
   } catch (err) {
     console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+
+export async function update(record) {
+  try {
+    const response = await axios.put(`${GLOBALS.BASE_URL}/user/update`, record);
+    return (res = {
+      status: response.data.status,
+      message: response.data.message,
+    });
+  } catch (err) {
+    console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+
+export async function deleteAccount(record) {
+  try {
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/user/delete`,
+      record
+    );
+    return (res = {
+      status: response.data.status,
+      message: response.data.message,
+    });
+  } catch (err) {
+    console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
   }
 }

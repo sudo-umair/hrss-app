@@ -5,7 +5,7 @@ import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
 import { checkCredentials } from "../utils/auth";
-import { setIsLoggedIn, addUser } from "../store/user";
+import { setIsLoggedIn, setUser } from "../store/user";
 import { checkForConnectionOnce } from "../utils/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
@@ -28,21 +28,26 @@ export default function Navigator() {
     const response = await checkCredentials();
     if (response.status === true) {
       dispatch(setIsLoggedIn(true));
-      dispatch(addUser(response.user));
+      dispatch(setUser(response.user));
     }
     setIsLoading(false);
   };
 
   useLayoutEffect(() => {
     checkForInternetConnection();
-    checkForCredentialsInLocalStorage();
+    if (isConnected) {
+      checkForCredentialsInLocalStorage();
+    }
   }),
-    [dispatch];
+    [isConnected];
 
-  if (!isConnected)
-    return <NoConnectionScreen onPress={checkForInternetConnection} />;
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
-  if (isLoading) return <LoadingScreen />;
+  if (!isConnected) {
+    return <NoConnectionScreen />;
+  }
 
   return (
     <NavigationContainer>

@@ -42,7 +42,7 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 4,
+    borderRadius: 5,
     paddingVertical: 8,
     paddingHorizontal: 16,
     backgroundColor: gs.colors.buttonColor1,
@@ -58,8 +58,6 @@ const styles = StyleSheet.create({
     color: "white",
   },
   pressed: {
-    backgroundColor: gs.colors.inputBgColor,
     opacity: 0.75,
-    borderRadius: 4,
   },
 });

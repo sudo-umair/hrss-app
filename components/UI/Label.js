@@ -9,7 +9,7 @@ const style = StyleSheet.create({
   label: {
     fontSize: 14,
     color: "#ffffff",
-    paddingLeft: 6,
+    paddingLeft: 5,
     marginBottom: -5,
   },
 });

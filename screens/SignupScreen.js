@@ -38,30 +38,27 @@ export default function SignupScreen({ navigation }) {
   };
 
   useLayoutEffect(() => {
-    if (renderCount > 1) {
-      if (record.password.length < 6) {
-        setPasswordError(true);
-        setPasswordInfo("Password must be at least 6 characters");
-      } else if (record.password !== record.confirmPassword) {
-        setPasswordError(true);
-        setPasswordInfo("Password does not match");
-      } else {
-        setPasswordError(false);
-        setPasswordInfo("");
-      }
-
-      if (
-        record.email.trim().includes("@") === true &&
-        record.email.trim().endsWith(".com") === true
-      ) {
-        setEmailError(false);
-        setEmailInfo("");
-      } else {
-        setEmailError(true);
-        setEmailInfo("Please provide a correct email address");
-      }
+    if (record.password.length < 6) {
+      setPasswordError(true);
+      setPasswordInfo("Password must be at least 6 characters");
+    } else if (record.password !== record.confirmPassword) {
+      setPasswordError(true);
+      setPasswordInfo("Password does not match");
+    } else {
+      setPasswordError(false);
+      setPasswordInfo("");
     }
-    setRenderCount(renderCount + 1);
+
+    if (
+      record.email.trim().includes("@") === true &&
+      record.email.trim().endsWith(".com") === true
+    ) {
+      setEmailError(false);
+      setEmailInfo("");
+    } else {
+      setEmailError(true);
+      setEmailInfo("Please provide a valid email address");
+    }
   }, [record.password, record.confirmPassword, record.email]);
 
   const showPasswordHandler = () => {
@@ -74,7 +71,7 @@ export default function SignupScreen({ navigation }) {
       console.log(response);
       alert(response.message);
       if (response.status === "200") {
-        navigation.navigate("Login");
+        navigation.navigate("Sign In");
       }
     } else {
       alert("Please fill out all fields and check for existing errors");
@@ -87,7 +84,7 @@ export default function SignupScreen({ navigation }) {
       style={styles.rootContainer}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>SignUp</Text>
+        <Text style={styles.title}>Sign Up</Text>
         <View style={styles.inputContainer}>
           <View style={styles.nameContainer}>
             <InputField
@@ -110,7 +107,6 @@ export default function SignupScreen({ navigation }) {
             />
           </View>
           <InputField
-            style={emailError && styles.inputError}
             placeholder="Email"
             value={record.email}
             onChangeText={(text) => onChangeRecord("email", text)}
@@ -164,11 +160,11 @@ export default function SignupScreen({ navigation }) {
             buttonColor={gs.colors.buttonColor2}
             onPress={onSignUpHandler}
           >
-            Signup
+            Sign Up
           </Button>
         </View>
-        <Link style={styles.link} to={{ screen: "Login" }}>
-          Already a user? Login
+        <Link style={styles.link} to={{ screen: "Signin" }}>
+          Already a user? Sign In
         </Link>
       </View>
     </KeyboardAwareScrollView>
@@ -186,7 +182,8 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: "5%",
     padding: "5%",
-    marginVertical: "10%",
+    marginTop: "20%",
+    marginBottom: "10%",
     borderRadius: 10,
   },
   title: {
@@ -225,7 +222,8 @@ const styles = StyleSheet.create({
     color: gs.colors.inputBgColor,
   },
   infoActivated: {
-    height: 15,
+    height: 18,
+    marginTop: -2,
     marginVertical: 5,
   },
   buttonContainer: {

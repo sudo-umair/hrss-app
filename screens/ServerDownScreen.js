@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import LottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
 
-export default function NoConnectionScreen({ onPress }) {
+export default function ServerDownScreen({ onPress }) {
   const animation = useRef(null);
 
   return (
@@ -18,11 +18,11 @@ export default function NoConnectionScreen({ onPress }) {
             width: 300,
             height: 300,
           }}
-          source={require("../assets/animations/no-internet-connection.json")}
+          source={require("../assets/animations/error-404.json")}
         />
-        <Text style={styles.text}>No internet connection</Text>
+        <Text style={styles.text}>Error Reaching Server</Text>
         <Text style={styles.subTitle}>
-          Please check your Wifi or Cellular Connection
+          Looks like the server is down. Please try again later.
         </Text>
       </View>
       <Button onPress={onPress}>Retry</Button>

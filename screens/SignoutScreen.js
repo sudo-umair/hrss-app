@@ -1,16 +1,26 @@
 import { View, Text, StyleSheet } from "react-native";
-import { GlobalStyles as gs } from "../utils/styles";
 import React, { useRef } from "react";
-import LottieView from "lottie-react-native";
+import { clearData } from "../utils/local-storage";
+import { useDispatch } from "react-redux";
+import { removeUser, setIsLoggedIn } from "../store/user";
+import AnimatedLottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
+import { GlobalStyles as gs } from "../utils/styles";
 
-export default function NoConnectionScreen({ onPress }) {
+export default function SignoutScreen() {
+  const dispatch = useDispatch();
+
+  const onSignoutHandler = () => {
+    clearData();
+    dispatch(removeUser());
+  };
+
   const animation = useRef(null);
 
   return (
     <View style={styles.rootContainer}>
       <View style={styles.container}>
-        <LottieView
+        <AnimatedLottieView
           loop={true}
           autoPlay={true}
           ref={animation}
@@ -18,14 +28,12 @@ export default function NoConnectionScreen({ onPress }) {
             width: 300,
             height: 300,
           }}
-          source={require("../assets/animations/no-internet-connection.json")}
+          source={require("../assets/animations/signout.json")}
         />
-        <Text style={styles.text}>No internet connection</Text>
-        <Text style={styles.subTitle}>
-          Please check your Wifi or Cellular Connection
-        </Text>
+        <Text style={styles.text}>Signing out??</Text>
+        <Text style={styles.subTitle}>Are you sure you want to sign out?</Text>
       </View>
-      <Button onPress={onPress}>Retry</Button>
+      <Button onPress={onSignoutHandler}>Signout</Button>
     </View>
   );
 }

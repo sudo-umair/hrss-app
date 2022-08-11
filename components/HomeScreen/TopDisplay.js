@@ -4,21 +4,23 @@ import { GlobalStyles as gs } from "../../utils/styles";
 import UserAvatar from "react-native-user-avatar";
 import Icon from "../UI/Icon";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 export default function TopDisplay() {
   const user = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [fName, setFName] = useState("");
 
+  const navigation = useNavigation();
+
   useLayoutEffect(() => {
-    if (user.name === null) {
-      setName("");
-      setFName("");
-    } else {
-      setName(user.name);
-      setFName(name.split(" ")[0]);
-    }
+    setName(user.name ? user.name : "");
+    setFName(name?.split(" ")[0]);
   });
+
+  const goToProfile = () => {
+    navigation.navigate("Account");
+  };
 
   return (
     <View style={styles.container}>
@@ -29,20 +31,17 @@ export default function TopDisplay() {
         </View>
         <View style={styles.userCompleteDetails}>
           <Icon
-            lib="m"
-            name="navigate-next"
+            lib="mc"
+            name="account-cog-outline"
             color="white"
             size={30}
-            style={{
-              backgroundColor: "blue",
-              borderRadius: 50,
-            }}
+            onPress={goToProfile}
           />
         </View>
       </View>
       <Pressable style={styles.resources}>
         <Text style={styles.requests}>Total Requests:</Text>
-        <Text style={styles.requestsNumber}>10</Text>
+        <Text style={styles.requestsNumber}>1330</Text>
       </Pressable>
     </View>
   );
@@ -53,8 +52,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: gs.colors.primary,
-    margin: 20,
-    padding: 20,
+    margin: "5%",
+    padding: "5%",
     borderRadius: 10,
     elevation: 5,
   },
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     width: "10%",
   },
   userName: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     marginLeft: 10,
     color: gs.colors.titleColor,
@@ -81,17 +80,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 20,
     backgroundColor: gs.colors.background,
-    borderRadius: 10,
+    borderRadius: 5,
     paddingVertical: 5,
     paddingHorizontal: 8,
   },
   requests: {
-    fontSize: 20,
+    fontSize: 16,
     color: "black",
-    paddingRight: 5,
+    paddingRight: 10,
   },
   requestsNumber: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: "black",
   },

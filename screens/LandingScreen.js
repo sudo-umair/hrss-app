@@ -6,7 +6,7 @@ import Button from "../components/UI/Button";
 
 export default function LandingScreen({ navigation }) {
   const onPressLogin = () => {
-    navigation.navigate("Authentication", { screen: "Login" });
+    navigation.navigate("Authentication", { screen: "Signin" });
   };
 
   const onPressSignup = () => {
@@ -16,7 +16,7 @@ export default function LandingScreen({ navigation }) {
   return (
     <GradientContainer colors={["transparent", "#3b2a25"]}>
       <ImageBackground
-        source={require("../assets/LandingPageBackground.png")}
+        source={require("../assets/images/LandingPage.png")}
         style={styles.backgroundImageContainer}
         imageStyle={styles.backgroundImage}
       >
@@ -34,7 +34,7 @@ export default function LandingScreen({ navigation }) {
               onPress={onPressLogin}
               textSize={18}
             >
-              Login
+              Sign In
             </Button>
             <Button
               style={styles.button}
@@ -42,7 +42,7 @@ export default function LandingScreen({ navigation }) {
               onPress={onPressSignup}
               textSize={18}
             >
-              Signup
+              Sign up
             </Button>
           </View>
         </View>

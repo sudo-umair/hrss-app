@@ -8,17 +8,15 @@ import { GlobalStyles as gs } from "../utils/styles";
 import { login } from "../utils/auth";
 import { setData } from "../utils/local-storage";
 import { useDispatch } from "react-redux";
-import { addUser, setIsLoggedIn } from "../store/user";
+import { setUser, setIsLoggedIn } from "../store/user";
 
-export default function LoginScreen() {
+export default function SigninScreen() {
   const [record, setRecord] = useState({
     email: "",
     password: "",
   });
 
   const dispatch = useDispatch();
-
-  const [renderCount, setRenderCount] = useState(1);
 
   const Password = useRef();
 
@@ -34,27 +32,24 @@ export default function LoginScreen() {
   };
 
   useLayoutEffect(() => {
-    if (renderCount > 1) {
-      if (record.password.length < 6) {
-        setPasswordError(true);
-        setPasswordInfo("Password must be at least 6 characters");
-      } else {
-        setPasswordError(false);
-        setPasswordInfo("");
-      }
-
-      if (
-        record.email.trim().includes("@") === true &&
-        record.email.trim().endsWith(".com") === true
-      ) {
-        setEmailInfo("");
-        setEmailError(false);
-      } else {
-        setEmailError(true);
-        setEmailInfo("Please provide a correct email address");
-      }
+    if (record.password.length < 6) {
+      setPasswordError(true);
+      setPasswordInfo("Password must be at least 6 characters");
+    } else {
+      setPasswordError(false);
+      setPasswordInfo("");
     }
-    setRenderCount(renderCount + 1);
+
+    if (
+      record.email.trim().includes("@") === true &&
+      record.email.trim().endsWith(".com") === true
+    ) {
+      setEmailInfo("");
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+      setEmailInfo("Please provide a valid email address");
+    }
   }, [record.email, record.password]);
 
   const showPasswordHandler = () => {
@@ -69,23 +64,22 @@ export default function LoginScreen() {
       if (response.status === "200") {
         setData(record);
         const user = response.user;
-        dispatch(addUser(user));
+        dispatch(setUser(user));
         dispatch(setIsLoggedIn(true));
       } else {
         alert(response.message);
       }
     } else {
-      alert("Please fill out all the fields");
+      alert("Please fill out all fields and check for existing errors");
     }
   };
 
   return (
     <KeyboardAvoidingView style={styles.rootContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Sign In</Text>
         <View style={styles.inputContainer}>
           <InputField
-            style={emailError && styles.inputError}
             placeholder="Email"
             value={record.email}
             onChangeText={(text) => onChangeRecord("email", text)}
@@ -118,11 +112,11 @@ export default function LoginScreen() {
         </View>
         <View style={styles.buttonContainer}>
           <Button buttonColor={gs.colors.buttonColor1} onPress={onLogInHandler}>
-            Login
+            Sign In
           </Button>
         </View>
         <Link style={styles.link} to={{ screen: "Signup" }}>
-          Not a user? Sign up
+          Not a user? Sign Up
         </Link>
       </View>
     </KeyboardAvoidingView>
@@ -140,7 +134,8 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: 20,
     margin: "5%",
-    marginTop: "10%",
+    marginTop: "20%",
+    marginBottom: "10%",
     padding: "5%",
     borderRadius: 10,
   },
@@ -185,6 +180,7 @@ const styles = StyleSheet.create({
     color: gs.colors.inputBgColor,
   },
   infoActivated: {
+    marginTop: -2,
     height: 15,
     marginVertical: 5,
   },
