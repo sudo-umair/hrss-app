@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
-import { GlobalStyles as gs } from "../../utils/styles";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import UserAvatar from "react-native-user-avatar";
 import Icon from "../UI/Icon";
 import { useSelector } from "react-redux";

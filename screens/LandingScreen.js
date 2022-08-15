@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import React from "react";
 import GradientContainer from "../components/UI/GradientContainer";
-import { GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Button from "../components/UI/Button";
 
 export default function LandingScreen({ navigation }) {

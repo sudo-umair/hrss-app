@@ -2,16 +2,16 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useState, useRef, useLayoutEffect } from "react";
 import UserAvatar from "react-native-user-avatar";
 import { useSelector } from "react-redux";
-import { GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Button from "../components/UI/Button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import Label from "../components/UI/Label";
-import { update } from "../utils/auth";
+import { update } from "../utilities/routes/user";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
-import { setData } from "../utils/local-storage";
+import { setData } from "../utilities/helpers/local-storage";
 import { useNavigation } from "@react-navigation/native";
 
 export default function AccountScreen() {

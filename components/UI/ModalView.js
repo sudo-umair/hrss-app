@@ -5,7 +5,7 @@ export default function ModalView({ modalVisible, setModalVisible, children }) {
   return (
     <View style={styles.container}>
       <Modal
-        animationType="fade"
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#00000010",
   },
 });

@@ -4,9 +4,9 @@ import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import Button from "../components/UI/Button";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../utils/styles";
-import { login } from "../utils/auth";
-import { setData } from "../utils/local-storage";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
+import { signIn } from "../utilities/routes/user";
+import { setData } from "../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { setUser, setIsLoggedIn } from "../store/user";
 
@@ -56,10 +56,10 @@ export default function SigninScreen() {
     setShowPassword(!showPassword);
   };
 
-  const onLogInHandler = async () => {
+  const onSignInHandler = async () => {
     if (!emailError || !passwordError) {
-      console.log("Logging in...", record);
-      const response = await login(record);
+      console.log("Signing in...", record);
+      const response = await signIn(record);
       console.log(response);
       if (response.status === "200") {
         setData(record);
@@ -111,7 +111,10 @@ export default function SigninScreen() {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button buttonColor={gs.colors.buttonColor1} onPress={onLogInHandler}>
+          <Button
+            buttonColor={gs.colors.buttonColor1}
+            onPress={onSignInHandler}
+          >
             Sign In
           </Button>
         </View>

@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import Icon from "../UI/Icon";
-import { GlobalStyles as gs } from "../../utils/styles";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 
 export default function HomeScreenButton({ onPress, name, lib, color, title }) {
   return (

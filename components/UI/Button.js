@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
-import { GlobalStyles as gs } from "../../utils/styles";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 
 export default function Button({
   children,

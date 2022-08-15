@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import HomeScreenButton from "./HomeScreenButton";
-import { GlobalStyles as gs } from "../../utils/styles";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useNavigation } from "@react-navigation/native";
 
 export default function BottomDisplay() {

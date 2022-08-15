@@ -1,16 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useRef } from "react";
-import { clearData } from "../utils/local-storage";
+import { clearData } from "../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { removeUser, setIsLoggedIn } from "../store/user";
 import AnimatedLottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
-import { GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 
 export default function SignoutScreen() {
   const dispatch = useDispatch();
 
-  const onSignoutHandler = () => {
+  const onSignOutHandler = () => {
     clearData();
     dispatch(removeUser());
   };
@@ -33,7 +33,7 @@ export default function SignoutScreen() {
         <Text style={styles.text}>Signing out??</Text>
         <Text style={styles.subTitle}>Are you sure you want to sign out?</Text>
       </View>
-      <Button onPress={onSignoutHandler}>Signout</Button>
+      <Button onPress={onSignOutHandler}>Signout</Button>
     </View>
   );
 }

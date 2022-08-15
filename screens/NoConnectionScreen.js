@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 import React, { useRef } from "react";
 import LottieView from "lottie-react-native";
 import Button from "../components/UI/Button";

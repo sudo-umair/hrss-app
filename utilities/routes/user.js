@@ -1,13 +1,13 @@
 import axios from "axios";
-import { GLOBALS } from "./config";
-import { getData } from "./local-storage";
+import { GLOBALS } from "../constants/config";
+import { getData } from "../helpers/local-storage";
 
 export async function checkCredentials() {
   try {
     const data = await getData();
     console.log(data);
     if (data != null) {
-      const res = await login(data);
+      const res = await signIn(data);
       const status = res.status;
       console.log(status);
       if (status === "200") {
@@ -34,7 +34,7 @@ export async function checkCredentials() {
   }
 }
 
-export async function login(record) {
+export async function signIn(record) {
   try {
     const response = await axios.post(`${GLOBALS.BASE_URL}/user/login`, record);
     return (res = {
@@ -51,7 +51,7 @@ export async function login(record) {
   }
 }
 
-export async function signup(record) {
+export async function signUp(record) {
   try {
     const response = await axios.post(
       `${GLOBALS.BASE_URL}/user/signup`,

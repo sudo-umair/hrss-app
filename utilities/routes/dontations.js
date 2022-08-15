@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GLOBALS } from "./config";
+import { GLOBALS } from "../constants/config";
 
 export async function getDonationsList(record) {
   try {

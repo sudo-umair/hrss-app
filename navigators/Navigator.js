@@ -4,14 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
-import { checkCredentials } from "../utils/auth";
+import { checkCredentials } from "../utilities/routes/user";
 import {
   setIsLoggedIn,
   setUser,
   setIsConnected,
   setIsLoading,
 } from "../store/user";
-import { checkForConnectionOnce } from "../utils/intenet-connection";
+import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
 
@@ -54,18 +54,20 @@ export default function Navigator() {
       >
         {isLoading ? (
           <Stack.Screen name="Loading" component={LoadingScreen} />
-        ) : !isConnected ? (
-          <Stack.Screen name="NoConnection" component={NoConnectionScreen} />
-        ) : isLoggedIn ? (
-          <Stack.Screen
-            name="AfterAuthentication"
-            component={AfterAuthentication}
-          />
+        ) : isConnected ? (
+          isLoggedIn ? (
+            <Stack.Screen
+              name="AfterAuthentication"
+              component={AfterAuthentication}
+            />
+          ) : (
+            <Stack.Screen
+              name="BeforeAuthentication"
+              component={BeforeAuthentication}
+            />
+          )
         ) : (
-          <Stack.Screen
-            name="BeforeAuthentication"
-            component={BeforeAuthentication}
-          />
+          <Stack.Screen name="NoConnection" component={NoConnectionScreen} />
         )}
       </Stack.Navigator>
     </NavigationContainer>

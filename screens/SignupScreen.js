@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 import Button from "../components/UI/Button";
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../utils/styles";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 import { Platform } from "react-native";
-import { signup } from "../utils/auth";
+import { signUp } from "../utilities/routes/user";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 export default function SignupScreen({ navigation }) {
@@ -67,7 +67,7 @@ export default function SignupScreen({ navigation }) {
 
   const onSignUpHandler = async () => {
     if (!passwordError && !emailError) {
-      const response = await signup(record);
+      const response = await signUp(record);
       console.log(response);
       alert(response.message);
       if (response.status === "200") {

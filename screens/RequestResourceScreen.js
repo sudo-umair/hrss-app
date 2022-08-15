@@ -1,30 +1,31 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useState, useRef } from "react";
-import { GlobalStyles as gs } from "../utils/styles";
-import { useNavigation } from "@react-navigation/native";
+import { GlobalStyles as gs } from "../utilities/constants/styles";
 import InputField from "../components/UI/InputField";
 import Label from "../components/UI/Label";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import Button from "../components/UI/Button";
+import { postResourceRequest } from "../utilities/routes/resource";
+import { useSelector } from "react-redux";
 
 export default function RequestResourceScreen({ navigation }) {
-  // const navigation = useNavigation();
-
-  const NAME = useRef();
   const RESOURCE = useRef();
   const QUANTITY = useRef();
   const DURATION = useRef();
   const PHONE = useRef();
   const ADDRESS = useRef();
 
+  const email = useSelector((state) => state.user.email);
+  const phone = useSelector((state) => state.user.phone);
+
   const [missingFields, setMissingFields] = useState(false);
 
   const [record, setRecord] = useState({
-    name: "",
+    email: email,
     resource: "",
     quantity: "",
     duration: "",
-    phone: "",
+    phone: phone,
     address: "",
   });
 
@@ -34,7 +35,6 @@ export default function RequestResourceScreen({ navigation }) {
 
   const emptyFields = () => {
     setRecord({
-      name: "",
       resource: "",
       quantity: "",
       duration: "",
@@ -43,23 +43,29 @@ export default function RequestResourceScreen({ navigation }) {
     });
   };
 
-  const onPostRequest = () => {
+  const onPostRequest = async () => {
     if (missingFields) {
       alert("Please fill in all fields");
     } else {
-      alert("Request sent");
-      console.log(record);
-      emptyFields();
+      try {
+        const res = await postResourceRequest(record);
+        alert(res.message);
+        if (res.status === "201") {
+          emptyFields();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Request Resource",
+      headerTitle: "Request Resource Form",
+      headerTitleAlign: "center",
     });
 
     if (
-      record.name.trim() === "" ||
       record.resource.trim() === "" ||
       record.quantity.trim() === "" ||
       record.duration.trim() === "" ||
@@ -83,15 +89,8 @@ export default function RequestResourceScreen({ navigation }) {
             Please fill out the form below to request a resource.
           </Text>
           <Text style={styles.subTitle}>Use one form for each request *</Text>
-          <Label>Full Name</Label>
-          <InputField
-            placeholder="Muhammad Ali"
-            value={record.name}
-            onChangeText={(value) => onChangeRecord("name", value)}
-            onSubmitEditing={() => RESOURCE.current.focus()}
-            returnKeyType="next"
-            autoCapitalize={"words"}
-          />
+          <Label>Email</Label>
+          <InputField value={record.email} editable={false} />
           <Label>Resource Name</Label>
           <InputField
             placeholder="Oxygen Cylinder"
