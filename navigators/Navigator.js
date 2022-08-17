@@ -31,19 +31,16 @@ export default function Navigator() {
   const checkForCredentialsInLocalStorage = async () => {
     const res = await checkCredentials();
     if (res.status) {
-      dispatch(setIsLoggedIn(true));
       dispatch(setUser(res.user));
+      dispatch(setIsLoggedIn(true));
     }
     dispatch(setIsLoading(false));
   };
 
   useLayoutEffect(() => {
     checkForInternetConnection();
-    if (isConnected) {
-      checkForCredentialsInLocalStorage();
-    }
-  }),
-    [isConnected, isLoading];
+    checkForCredentialsInLocalStorage();
+  }, []);
 
   return (
     <NavigationContainer>

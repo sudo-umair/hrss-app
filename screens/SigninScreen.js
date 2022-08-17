@@ -97,7 +97,7 @@ export default function SigninScreen() {
               onChangeText={(text) => onChangeRecord("password", text)}
               secureTextEntry={!showPassword}
               innerRef={Password}
-              onSubmitEditing={onLogInHandler}
+              onSubmitEditing={onSignInHandler}
             />
             <PasswordEye
               onPress={showPasswordHandler}
@@ -137,8 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: 20,
     margin: "5%",
-    marginTop: "20%",
-    marginBottom: "10%",
+    marginVertical: "10%",
     padding: "5%",
     borderRadius: 10,
   },
@@ -150,21 +149,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 20,
   },
-  input: {
-    padding: 10,
-    marginTop: 15,
-    backgroundColor: gs.colors.inputBgColor,
-    borderRadius: 10,
-    elevation: 15,
-    fontSize: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
+
   passwordContainer: {
     flexDirection: "row",
   },

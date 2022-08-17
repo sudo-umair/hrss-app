@@ -26,7 +26,7 @@ export default function AccountScreen() {
   };
 
   const Password = useRef();
-  const PhoneNumber = useRef();
+  const Phone = useRef();
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInfo, setPasswordInfo] = useState("");
@@ -65,7 +65,8 @@ export default function AccountScreen() {
           password: record.password,
         });
         console.log(user);
-        navigation.navigate("HomeScreen");
+        // navigation.navigate("HomeScreen");
+        alert("Account updated successfully");
       }
     } else {
       alert("Please fill out all fields and check for existing errors");
@@ -106,8 +107,10 @@ export default function AccountScreen() {
         />
         <Label>Email</Label>
         <InputField value={record.email} editable={false} />
+        <Label>Cnic</Label>
+        <InputField value={record.cnic} editable={false} />
         <Text style={[styles.info, styles.infoActivated]}>
-          Once set Email cant be changed
+          Once set Email or Cnic cant be changed
         </Text>
         <Label>Password</Label>
         <View style={styles.passwordContainer}>
@@ -117,7 +120,7 @@ export default function AccountScreen() {
             onChangeText={(text) => onChangeRecord("password", text)}
             secureTextEntry={!showPassword}
             innerRef={Password}
-            onSubmitEditing={() => PhoneNumber.current.focus()}
+            onSubmitEditing={() => Phone.current.focus()}
           />
           <PasswordEye
             onPress={showPasswordHandler}
@@ -128,12 +131,13 @@ export default function AccountScreen() {
         <Text style={[styles.info, passwordError && styles.infoActivated]}>
           {passwordInfo}
         </Text>
+
         <Label>Phone Number</Label>
         <InputField
           value={record.phone}
           onChangeText={(text) => onChangeRecord("phone", text)}
           keyboardType="phone-pad"
-          innerRef={PhoneNumber}
+          innerRef={Phone}
           onSubmitEditing={onUpdateAccountHandler}
         />
         <Button

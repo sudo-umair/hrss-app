@@ -26,11 +26,17 @@ export async function checkCredentials() {
       }
     } else {
       console.log("No data found");
-      return false;
+      return {
+        status: false,
+        message: "No data found",
+      };
     }
   } catch (err) {
     console.log(err);
-    return false;
+    return {
+      status: false,
+      message: err.message,
+    };
   }
 }
 

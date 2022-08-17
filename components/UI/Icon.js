@@ -6,6 +6,7 @@ import {
   MaterialCommunityIcons,
   AntDesign,
   FontAwesome5,
+  Entypo,
 } from "@expo/vector-icons";
 
 export default function Icon({ color, size, name, lib, onPress, style, mode }) {
@@ -20,6 +21,8 @@ export default function Icon({ color, size, name, lib, onPress, style, mode }) {
     Icon = <FontAwesome5 name={name} color={color} size={size} />;
   } else if (lib === "i") {
     Icon = <Ionicons name={name} color={color} size={size} />;
+  } else if (lib === "e") {
+    Icon = <Entypo name={name} color={color} size={size} />;
   }
 
   if (mode === "tb") {

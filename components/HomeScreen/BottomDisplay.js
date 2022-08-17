@@ -23,18 +23,18 @@ export default function BottomDisplay() {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <HomeScreenButton
-          name="clinic-medical"
+          name="news"
           size={24}
           color="blue"
-          lib="f"
-          title="Requests for Resources"
+          lib="e"
+          title="Feed"
           onPress={goToResourcesScreen}
         />
         <HomeScreenButton
           name="volunteer-activism"
           size={24}
           color={gs.colors.primary}
-          title="Want to Volunteer?"
+          title="Volunteer"
           lib="m"
         />
       </View>

@@ -10,13 +10,13 @@ import { signUp } from "../utilities/routes/user";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 export default function SignupScreen({ navigation }) {
-  const [renderCount, setRenderCount] = useState(1);
   const [record, setRecord] = useState({
     fName: "",
     lName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    cnic: "",
     phone: "",
   });
 
@@ -24,7 +24,8 @@ export default function SignupScreen({ navigation }) {
   const Email = useRef();
   const Password = useRef();
   const ConfirmPassword = useRef();
-  const PhoneNumber = useRef();
+  const Cnic = useRef();
+  const Phone = useRef();
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInfo, setPasswordInfo] = useState("");
@@ -32,6 +33,9 @@ export default function SignupScreen({ navigation }) {
 
   const [emailError, setEmailError] = useState(false);
   const [emailInfo, setEmailInfo] = useState("");
+
+  const [cnicError, setCnicError] = useState(false);
+  const [cnicInfo, setCnicInfo] = useState("");
 
   const onChangeRecord = (key, value) => {
     setRecord({ ...record, [key]: value });
@@ -59,7 +63,15 @@ export default function SignupScreen({ navigation }) {
       setEmailError(true);
       setEmailInfo("Please provide a valid email address");
     }
-  }, [record.password, record.confirmPassword, record.email]);
+
+    if (record.cnic.length !== 13) {
+      setCnicError(true);
+      setCnicInfo("Please provide a valid CNIC");
+    } else {
+      setCnicError(false);
+      setCnicInfo("");
+    }
+  }, [record.password, record.confirmPassword, record.email, record.cnic]);
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
@@ -82,6 +94,7 @@ export default function SignupScreen({ navigation }) {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="always"
       style={styles.rootContainer}
+      // contentContainerStyle={styles.container}
     >
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
@@ -139,7 +152,7 @@ export default function SignupScreen({ navigation }) {
             onChangeText={(text) => onChangeRecord("confirmPassword", text)}
             secureTextEntry={!showPassword}
             innerRef={ConfirmPassword}
-            onSubmitEditing={() => PhoneNumber.current.focus()}
+            onSubmitEditing={() => Cnic.current.focus()}
           />
 
           <Text style={[styles.info, passwordError && styles.infoActivated]}>
@@ -147,11 +160,22 @@ export default function SignupScreen({ navigation }) {
           </Text>
 
           <InputField
-            placeholder="Phone Number"
+            placeholder="CNIC (without dashes)"
+            value={record.cnic}
+            onChangeText={(text) => onChangeRecord("cnic", text)}
+            keyboardType="phone-pad"
+            innerRef={Cnic}
+            onSubmitEditing={() => Phone.current.focus()}
+          />
+          <Text style={[styles.info, cnicError && styles.infoActivated]}>
+            {cnicInfo}
+          </Text>
+          <InputField
+            placeholder="Phone Number (starting with 92)"
             value={record.phone}
             onChangeText={(text) => onChangeRecord("phone", text)}
             keyboardType="phone-pad"
-            innerRef={PhoneNumber}
+            innerRef={Phone}
             onSubmitEditing={onSignUpHandler}
           />
         </View>
@@ -182,8 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: "5%",
     padding: "5%",
-    marginTop: "20%",
-    marginBottom: "10%",
+    marginVertical: "10%",
     borderRadius: 10,
   },
   title: {

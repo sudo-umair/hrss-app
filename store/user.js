@@ -5,6 +5,7 @@ const initialState = {
   email: null,
   password: null,
   phone: null,
+  cnic: null,
   isLoggedIn: false,
   isLoading: true,
   isConnected: false,
@@ -19,6 +20,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.password = action.payload.password;
       state.phone = action.payload.phone;
+      state.cnic = action.payload.cnic;
     },
 
     removeUser: (state) => {
