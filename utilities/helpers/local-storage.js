@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const getData = async () => {
+export const getDataFromLocalStorage = async () => {
   try {
     const jsonRecord = await AsyncStorage.getItem("userCreds");
     console.log("localstorage.js", jsonRecord);
@@ -10,7 +10,7 @@ export const getData = async () => {
   }
 };
 
-export const setData = async (jsonRecord) => {
+export const setDataInLocalStorage = async (jsonRecord) => {
   try {
     const record = JSON.stringify(jsonRecord);
     await AsyncStorage.setItem("userCreds", record);

@@ -5,12 +5,7 @@ import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
 import { checkCredentials } from "../utilities/routes/user";
-import {
-  setIsLoggedIn,
-  setUser,
-  setIsConnected,
-  setIsLoading,
-} from "../store/user";
+import { setUser, setIsConnected, setIsLoading } from "../store/user";
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
@@ -32,7 +27,6 @@ export default function Navigator() {
     const res = await checkCredentials();
     if (res.status) {
       dispatch(setUser(res.user));
-      dispatch(setIsLoggedIn(true));
     }
     dispatch(setIsLoading(false));
   };

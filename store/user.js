@@ -16,11 +16,13 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action) => {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.password = action.payload.password;
-      state.phone = action.payload.phone;
-      state.cnic = action.payload.cnic;
+      const { name, email, password, phone, cnic } = action.payload;
+      state.name = name;
+      state.email = email;
+      state.password = password;
+      state.phone = phone;
+      state.cnic = cnic;
+      state.isLoggedIn = true;
     },
 
     removeUser: (state) => {

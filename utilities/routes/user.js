@@ -1,26 +1,27 @@
 import axios from "axios";
 import { GLOBALS } from "../constants/config";
-import { getData } from "../helpers/local-storage";
+import { getDataFromLocalStorage } from "../helpers/local-storage";
 
 export async function checkCredentials() {
   try {
-    const data = await getData();
+    const data = await getDataFromLocalStorage();
     console.log(data);
     if (data != null) {
-      const res = await signIn(data);
-      const status = res.status;
+      const response = await signIn(data);
+      const status = response.status;
       console.log(status);
       if (status === "200") {
-        console.log(res.message);
+        console.log(response.message);
         return {
           status: true,
-          message: res.message,
-          user: res.user,
+          message: response.message,
+          user: { ...response.user, password: data.password },
+          // storing plain text password in user object instead of hashed password
         };
       } else {
         console.log({
           status: false,
-          message: res.message,
+          message: response.message,
         });
         return false;
       }

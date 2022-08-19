@@ -6,9 +6,9 @@ import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import { signIn } from "../utilities/routes/user";
-import { setData } from "../utilities/helpers/local-storage";
+import { setDataInLocalStorage } from "../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
-import { setUser, setIsLoggedIn } from "../store/user";
+import { setUser } from "../store/user";
 
 export default function SigninScreen() {
   const [record, setRecord] = useState({
@@ -62,10 +62,17 @@ export default function SigninScreen() {
       const response = await signIn(record);
       console.log(response);
       if (response.status === "200") {
-        setData(record);
-        const user = response.user;
+        const responseFromBackend = response.user;
+        const user = {
+          ...responseFromBackend,
+          password: record.password,
+          // storing plain text password in user object instead of hashed password
+        };
+        setDataInLocalStorage({
+          email: user.email,
+          password: record.password,
+        });
         dispatch(setUser(user));
-        dispatch(setIsLoggedIn(true));
       } else {
         alert(response.message);
       }
