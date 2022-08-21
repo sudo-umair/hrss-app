@@ -5,45 +5,51 @@ import { getDataFromLocalStorage } from "../helpers/local-storage";
 export async function checkCredentials() {
   try {
     const data = await getDataFromLocalStorage();
-    console.log(data);
     if (data != null) {
-      const response = await signIn(data);
-      const status = response.status;
-      console.log(status);
-      if (status === "200") {
-        console.log(response.message);
-        return {
-          status: true,
-          message: response.message,
-          user: { ...response.user, password: data.password },
-          // storing plain text password in user object instead of hashed password
-        };
-      } else {
-        console.log({
+      try {
+        const response = await signIn(data);
+        if (response.status === "200") {
+          console.log(response.message);
+          return (res = {
+            status: true,
+            message: response.message,
+            user: { ...response.user, password: data.password },
+          });
+        } else {
+          console.log(response.message);
+          return (res = {
+            status: false,
+            message: response.message,
+          });
+        }
+      } catch (error) {
+        console.log(error, "Error checkCredentials");
+        return (res = {
           status: false,
-          message: response.message,
+          message: error.message,
         });
-        return false;
       }
     } else {
-      console.log("No data found");
-      return {
+      return (res = {
         status: false,
-        message: "No data found",
-      };
+        message: "No data found in local storage",
+      });
     }
-  } catch (err) {
-    console.log(err);
-    return {
-      status: false,
-      message: err.message,
-    };
+  } catch (error) {
+    console.log(error);
+    return (res = {
+      status: "error retrieving data from local storage",
+      message: error.message,
+    });
   }
 }
 
 export async function signIn(record) {
   try {
-    const response = await axios.post(`${GLOBALS.BASE_URL}/user/login`, record);
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/users/login`,
+      record
+    );
     return (res = {
       status: response.data.status,
       message: response.data.message,
@@ -61,7 +67,7 @@ export async function signIn(record) {
 export async function signUp(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/user/signup`,
+      `${GLOBALS.BASE_URL}/users/signup`,
       record
     );
     return (res = {
@@ -79,7 +85,10 @@ export async function signUp(record) {
 
 export async function update(record) {
   try {
-    const response = await axios.put(`${GLOBALS.BASE_URL}/user/update`, record);
+    const response = await axios.put(
+      `${GLOBALS.BASE_URL}/users/update`,
+      record
+    );
     return (res = {
       status: response.data.status,
       message: response.data.message,
@@ -96,7 +105,7 @@ export async function update(record) {
 export async function deleteAccount(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/user/delete`,
+      `${GLOBALS.BASE_URL}/users/delete`,
       record
     );
     return (res = {

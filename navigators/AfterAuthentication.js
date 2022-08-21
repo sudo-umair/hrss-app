@@ -11,6 +11,7 @@ import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
 import DonationsScreen from "../screens/DonationsScreen";
 import ServerDownScreen from "../screens/ServerDownScreen";
+import DonationDetailsScreen from "../screens/DonationDetailsScreen";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ export default function AfterAuthentication() {
         />
       </Stack.Group>
       <Stack.Screen name="Donations" component={DonationsScreen} />
+      <Stack.Screen name="DonationDetails" component={DonationDetailsScreen} />
       <Stack.Screen name="Signout" component={SignoutScreen} />
       <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
       <Stack.Screen

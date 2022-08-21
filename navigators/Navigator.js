@@ -5,10 +5,17 @@ import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
 import { checkCredentials } from "../utilities/routes/user";
-import { setUser, setIsConnected, setIsLoading } from "../store/user";
+import {
+  setUser,
+  setIsConnected,
+  setIsLoading,
+  setIsServerReachable,
+  setIsLoggedIn,
+} from "../store/user";
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
+import ServerDownScreen from "../screens/ServerDownScreen";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
@@ -16,6 +23,9 @@ export default function Navigator() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const isLoading = useSelector((state) => state.user.isLoading);
   const isConnected = useSelector((state) => state.user.isConnected);
+  const isServerReachable = useSelector(
+    (state) => state.user.isServerReachable
+  );
 
   const checkForInternetConnection = async () => {
     if (await checkForConnectionOnce()) {
@@ -26,7 +36,8 @@ export default function Navigator() {
   const checkForCredentialsInLocalStorage = async () => {
     const res = await checkCredentials();
     if (res.status) {
-      dispatch(setUser(res.user));
+      dispatch(setUser(res?.user));
+      dispatch(setIsLoggedIn(true));
     }
     dispatch(setIsLoading(false));
   };
@@ -46,16 +57,20 @@ export default function Navigator() {
         {isLoading ? (
           <Stack.Screen name="Loading" component={LoadingScreen} />
         ) : isConnected ? (
-          isLoggedIn ? (
-            <Stack.Screen
-              name="AfterAuthentication"
-              component={AfterAuthentication}
-            />
+          isServerReachable ? (
+            isLoggedIn ? (
+              <Stack.Screen
+                name="AfterAuthentication"
+                component={AfterAuthentication}
+              />
+            ) : (
+              <Stack.Screen
+                name="BeforeAuthentication"
+                component={BeforeAuthentication}
+              />
+            )
           ) : (
-            <Stack.Screen
-              name="BeforeAuthentication"
-              component={BeforeAuthentication}
-            />
+            <Stack.Screen name="ServerDown" component={ServerDownScreen} />
           )
         ) : (
           <Stack.Screen name="NoConnection" component={NoConnectionScreen} />

@@ -20,7 +20,7 @@ export const setDataInLocalStorage = async (jsonRecord) => {
   }
 };
 
-export const clearData = async () => {
+export const clearDataInLocalStorage = async () => {
   try {
     await AsyncStorage.removeItem("userCreds");
     console.log("localstorage.js", "cleared");

@@ -3,9 +3,14 @@ import { GlobalStyles as gs } from "../utilities/constants/styles";
 import React, { useRef } from "react";
 import LottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
+import { checkCredentials } from "../utilities/routes/user";
 
-export default function ServerDownScreen({ onPress }) {
+export default function ServerDownScreen({ navigation }) {
   const animation = useRef(null);
+
+  const onRetryHandler = async () => {
+    checkCredentials();
+  };
 
   return (
     <View style={styles.rootContainer}>
@@ -25,7 +30,9 @@ export default function ServerDownScreen({ onPress }) {
           Looks like the server is down. Please try again later.
         </Text>
       </View>
-      <Button onPress={onPress}>Retry</Button>
+
+      <Button onPress={onRetryHandler}>Retry SignIn </Button>
+      <Button onPress={onRetryHandler}>Go To SignIn Page </Button>
     </View>
   );
 }

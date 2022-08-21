@@ -11,8 +11,9 @@ import Label from "../components/UI/Label";
 import { update } from "../utilities/routes/user";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
-import { setData } from "../utilities/helpers/local-storage";
+import { setDataInLocalStorage } from "../utilities/helpers/local-storage";
 import { useNavigation } from "@react-navigation/native";
+import { BaseButton } from "react-native-gesture-handler";
 
 export default function AccountScreen() {
   const user = useSelector((state) => state.user);
@@ -57,10 +58,9 @@ export default function AccountScreen() {
       };
       const response = await update(updatedRecord);
       console.log(response);
-      alert(response.message);
       if (response.status === "200") {
         dispatch(setUser(record));
-        setData({
+        setDataInLocalStorage({
           email: record.email,
           password: record.password,
         });
@@ -83,8 +83,8 @@ export default function AccountScreen() {
       keyboardShouldPersistTaps="always"
     >
       <View style={styles.container}>
-        <UserAvatar size={100} name={record.name} />
-        <Text style={styles.name}>{record.name}</Text>
+        <UserAvatar size={100} name={record?.name} />
+        <Text style={styles.name}>{record?.name}</Text>
         <Button
           onPress={goToDeleteAccountScreen}
           style={{

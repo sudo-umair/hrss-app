@@ -1,11 +1,17 @@
-import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import { getDonationsList } from "../utilities/routes/dontations";
-// import ModalView from "../components/UI/ModalView";
 import SearchBar from "../components/UI/SearchBar";
 
-export default function DonationsScreen({ navigation }) {
+export default function DonationsScreen({ navigation, route }) {
   const [donationResults, setDonationResults] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -20,6 +26,10 @@ export default function DonationsScreen({ navigation }) {
       });
   }, []);
 
+  const goToDonationDetails = (donation) => {
+    navigation.navigate("DonationDetails", { donation });
+  };
+
   const onSearch = (text) => {
     const results = donationResults.filter((item) => {
       return item.name.toLowerCase().includes(text.toLowerCase());
@@ -31,7 +41,12 @@ export default function DonationsScreen({ navigation }) {
   const renderItem = useCallback(
     ({ item }) => {
       return (
-        <Pressable onPress={() => {}} style={styles.itemContainer}>
+        <Pressable
+          onPress={() => {
+            goToDonationDetails(item);
+          }}
+          style={styles.itemContainer}
+        >
           <View style={styles.itemNameContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
           </View>
@@ -50,7 +65,8 @@ export default function DonationsScreen({ navigation }) {
       <View style={styles.noResultsContainer}>
         <Text style={styles.noResultsText}>
           Sorry, no results found for
-          {"\n"}"{searchText}""
+          {"\n"}
+          {searchText}
         </Text>
       </View>
     );
@@ -63,6 +79,7 @@ export default function DonationsScreen({ navigation }) {
         searchText={searchText}
         setSearchText={setSearchText}
       />
+
       <FlatList
         data={searchText === "" ? donationResults : searchResults}
         renderItem={renderItem}
@@ -84,7 +101,6 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: "white",
-    // backgroundColor: gs.colors.primary,
   },
   noResultsContainer: {
     flex: 1,

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useRef } from "react";
-import { clearData } from "../utilities/helpers/local-storage";
+import { clearDataInLocalStorage } from "../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { removeUser, setIsLoggedIn } from "../store/user";
 import AnimatedLottieView from "lottie-react-native";
@@ -11,7 +11,7 @@ export default function SignoutScreen() {
   const dispatch = useDispatch();
 
   const onSignOutHandler = () => {
-    clearData();
+    clearDataInLocalStorage();
     dispatch(removeUser());
   };
 

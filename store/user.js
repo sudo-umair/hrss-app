@@ -9,6 +9,7 @@ const initialState = {
   isLoggedIn: false,
   isLoading: true,
   isConnected: false,
+  isServerReachable: true,
 };
 
 export const userSlice = createSlice({
@@ -44,6 +45,10 @@ export const userSlice = createSlice({
     setIsConnected: (state, action) => {
       state.isConnected = action.payload;
     },
+
+    setIsServerReachable: (state, action) => {
+      state.isServerReachable = action.payload;
+    },
   },
 });
 
@@ -53,6 +58,7 @@ export const {
   setIsLoggedIn,
   setIsConnected,
   setIsLoading,
+  setIsServerReachable,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useRef } from "react";
-import { clearData } from "../utilities/helpers/local-storage";
+import { clearDataInLocalStorage } from "../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../store/user";
 import AnimatedLottieView from "lottie-react-native";
@@ -17,7 +17,7 @@ export default function DeleteAccountScreen({ navigation }) {
     alert(response.message);
     if (response.status === "200") {
       dispatch(removeUser());
-      clearData();
+      clearDataInLocalStorage();
       navigation.navigate("LandingScreen");
     }
   };
