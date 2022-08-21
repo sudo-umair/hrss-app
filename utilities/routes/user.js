@@ -47,7 +47,7 @@ export async function checkCredentials() {
 export async function signIn(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/users/login`,
+      `${GLOBALS.BASE_URL}/users/signin`,
       record
     );
     return (res = {
