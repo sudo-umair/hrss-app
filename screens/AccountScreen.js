@@ -8,12 +8,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import InputField from "../components/UI/InputField";
 import PasswordEye from "../components/UI/PasswordEye";
 import Label from "../components/UI/Label";
-import { update } from "../utilities/routes/user";
+import { updateAccount } from "../utilities/routes/user";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
 import { setDataInLocalStorage } from "../utilities/helpers/local-storage";
 import { useNavigation } from "@react-navigation/native";
-import { BaseButton } from "react-native-gesture-handler";
 
 export default function AccountScreen() {
   const user = useSelector((state) => state.user);
@@ -56,7 +55,7 @@ export default function AccountScreen() {
         ...record,
         oldPassword,
       };
-      const response = await update(updatedRecord);
+      const response = await updateAccount(updatedRecord);
       console.log(response);
       if (response.status === "200") {
         dispatch(setUser(record));

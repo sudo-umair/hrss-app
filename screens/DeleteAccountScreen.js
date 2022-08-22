@@ -7,6 +7,7 @@ import AnimatedLottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import { Link } from "@react-navigation/native";
+import { deleteAccount } from "../utilities/routes/user";
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();

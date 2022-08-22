@@ -83,7 +83,7 @@ export async function signUp(record) {
   }
 }
 
-export async function update(record) {
+export async function updateAccount(record) {
   try {
     const response = await axios.put(
       `${GLOBALS.BASE_URL}/users/update`,
