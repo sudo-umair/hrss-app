@@ -9,7 +9,6 @@ import {
   setUser,
   setIsConnected,
   setIsLoading,
-  setIsServerReachable,
   setIsLoggedIn,
 } from "../store/user";
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
@@ -23,9 +22,6 @@ export default function Navigator() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const isLoading = useSelector((state) => state.user.isLoading);
   const isConnected = useSelector((state) => state.user.isConnected);
-  const isServerReachable = useSelector(
-    (state) => state.user.isServerReachable
-  );
 
   const checkForInternetConnection = async () => {
     if (await checkForConnectionOnce()) {
@@ -57,20 +53,16 @@ export default function Navigator() {
         {isLoading ? (
           <Stack.Screen name="Loading" component={LoadingScreen} />
         ) : isConnected ? (
-          isServerReachable ? (
-            isLoggedIn ? (
-              <Stack.Screen
-                name="AfterAuthentication"
-                component={AfterAuthentication}
-              />
-            ) : (
-              <Stack.Screen
-                name="BeforeAuthentication"
-                component={BeforeAuthentication}
-              />
-            )
+          isLoggedIn ? (
+            <Stack.Screen
+              name="AfterAuthentication"
+              component={AfterAuthentication}
+            />
           ) : (
-            <Stack.Screen name="ServerDown" component={ServerDownScreen} />
+            <Stack.Screen
+              name="BeforeAuthentication"
+              component={BeforeAuthentication}
+            />
           )
         ) : (
           <Stack.Screen name="NoConnection" component={NoConnectionScreen} />
