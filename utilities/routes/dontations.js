@@ -4,7 +4,7 @@ import { GLOBALS } from "../constants/config";
 export async function getDonationsList(record) {
   try {
     const response = await axios.get(
-      `${GLOBALS.BASE_URL}/donations/getDonationsList`
+      `${GLOBALS.BASE_URL}/donations/fetchDonations`
     );
     return (res = {
       status: response.data.status,

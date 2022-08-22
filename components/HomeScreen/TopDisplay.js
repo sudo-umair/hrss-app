@@ -5,18 +5,31 @@ import UserAvatar from "react-native-user-avatar";
 import Icon from "../UI/Icon";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { getTotalNumberOfRequests } from "../../utilities/routes/resource";
 
 export default function TopDisplay() {
   const user = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [fName, setFName] = useState("");
+  const [requestsCount, setRequestsCount] = useState(5);
 
   const navigation = useNavigation();
+
+  const getTotalNumberOfRequestsForUser = async (email) => {
+    const response = await getTotalNumberOfRequests(email);
+    if (response.status === "200") {
+      setRequestsCount(response.data);
+    }
+  };
 
   useLayoutEffect(() => {
     setName(user.name ? user.name : "");
     setFName(name?.split(" ")[0]);
   });
+
+  useLayoutEffect(() => {
+    getTotalNumberOfRequestsForUser(user.email);
+  }, [user.email]);
 
   const goToProfile = () => {
     navigation.navigate("Account");
@@ -40,8 +53,8 @@ export default function TopDisplay() {
         </View>
       </View>
       <Pressable style={styles.resources}>
-        <Text style={styles.requests}>Total Requests:</Text>
-        <Text style={styles.requestsNumber}>1330</Text>
+        <Text style={styles.requests}>Your Total Requests:</Text>
+        <Text style={styles.requestsNumber}>{requestsCount}</Text>
       </Pressable>
     </View>
   );
