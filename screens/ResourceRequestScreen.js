@@ -8,25 +8,29 @@ import Button from "../components/UI/Button";
 import { postResourceRequest } from "../utilities/routes/resource";
 import { useSelector } from "react-redux";
 
-export default function RequestResourceScreen({ navigation }) {
+export default function ResourceRequestScreen({ navigation }) {
   const RESOURCE = useRef();
   const QUANTITY = useRef();
   const DURATION = useRef();
   const PHONE = useRef();
   const ADDRESS = useRef();
+  const NOTES = useRef();
 
-  const email = useSelector((state) => state.user.email);
-  const phone = useSelector((state) => state.user.phone);
+  const user = useSelector((state) => state.user);
+  const { name, email, phone } = user;
 
   const [missingFields, setMissingFields] = useState(false);
 
   const [record, setRecord] = useState({
+    name: name,
     email: email,
-    resource: "",
+    userType: "user",
+    resourceName: "",
     quantity: "",
     duration: "",
     phone: phone,
     address: "",
+    notes: "",
   });
 
   const onChangeRecord = (key, value) => {
@@ -35,11 +39,11 @@ export default function RequestResourceScreen({ navigation }) {
 
   const emptyFields = () => {
     setRecord({
-      resource: "",
+      resourceName: "",
       quantity: "",
       duration: "",
-      phone: "",
       address: "",
+      notes: "",
     });
   };
 
@@ -66,7 +70,7 @@ export default function RequestResourceScreen({ navigation }) {
     });
 
     if (
-      record.resource.trim() === "" ||
+      record.resourceName.trim() === "" ||
       record.quantity.trim() === "" ||
       record.duration.trim() === "" ||
       record.phone.trim() === "" ||
@@ -91,17 +95,17 @@ export default function RequestResourceScreen({ navigation }) {
           <Text style={styles.subTitle}>Use one form for each request *</Text>
           <Label>Email</Label>
           <InputField value={record.email} editable={false} />
-          <Label>Resource Name</Label>
+          <Label>Resource Name *</Label>
           <InputField
             placeholder="Oxygen Cylinder"
             value={record.resource}
-            onChangeText={(value) => onChangeRecord("resource", value)}
+            onChangeText={(value) => onChangeRecord("resourceName", value)}
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
             returnKeyType="next"
             autoCapitalize={"words"}
           />
-          <Label>Quantity</Label>
+          <Label>Quantity *</Label>
           <InputField
             placeholder="3"
             keyboardType="decimal-pad"
@@ -111,7 +115,7 @@ export default function RequestResourceScreen({ navigation }) {
             innerRef={QUANTITY}
             returnKeyType="next"
           />
-          <Label>Duration</Label>
+          <Label>Duration *</Label>
           <InputField
             placeholder="1 Week"
             value={record.duration}
@@ -121,7 +125,7 @@ export default function RequestResourceScreen({ navigation }) {
             returnKeyType="next"
             autoCapitalize={"words"}
           />
-          <Label>Contact Number</Label>
+          <Label>Contact Number *</Label>
           <InputField
             placeholder="Phone or Landline Number"
             value={record.phone}
@@ -131,7 +135,7 @@ export default function RequestResourceScreen({ navigation }) {
             returnKeyType="next"
             keyboardType={"phone-pad"}
           />
-          <Label>Address</Label>
+          <Label>Address *</Label>
           <InputField
             placeholder="House ABC, Street 8, ...."
             multiline={true}
@@ -140,11 +144,23 @@ export default function RequestResourceScreen({ navigation }) {
             onChangeText={(value) => onChangeRecord("address", value)}
             innerRef={ADDRESS}
             autoCapitalize={"words"}
+            onSubmitEditing={() => PHONE.current.focus()}
+            returnKeyType="next"
+          />
+          <Label>Any Additional Information</Label>
+          <InputField
+            placeholder="Any additional information"
+            multiline={true}
+            numberOfLines={3}
+            value={record.notes}
+            onChangeText={(value) => onChangeRecord("notes", value)}
+            innerRef={NOTES}
+            autoCapitalize={"words"}
+            returnKeyType="done"
           />
           <View style={styles.button}>
             <Button
               buttonColor={gs.colors.buttonColor2}
-              textColor={"black"}
               onPress={onPostRequest}
             >
               Request Resource

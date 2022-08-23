@@ -4,7 +4,7 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import UserAvatar from "react-native-user-avatar";
 import Icon from "../UI/Icon";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { getTotalNumberOfRequests } from "../../utilities/routes/resource";
 
 export default function TopDisplay() {
@@ -22,7 +22,7 @@ export default function TopDisplay() {
     }
   };
 
-  useLayoutEffect(() => {
+  useFocusEffect(() => {
     setName(user.name ? user.name : "");
     setFName(name?.split(" ")[0]);
   });

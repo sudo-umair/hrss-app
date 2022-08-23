@@ -20,17 +20,17 @@ export async function postResourceRequest(record) {
   }
 }
 
-export async function getResourceRequestsList(userType) {
+export async function getResourceRequestsList() {
+  const userType = "user";
   try {
     const response = await axios.get(
       `${GLOBALS.BASE_URL}/resources/fetchRequests`,
-
       userType
     );
     return (res = {
       status: response.data.status,
       message: response.data.message,
-      results: response.data.results,
+      results: response.data.data,
     });
   } catch (err) {
     console.log(err);
