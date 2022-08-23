@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import AfterAuthentication from "./AfterAuthentication";
@@ -14,7 +14,6 @@ import {
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
-import ServerDownScreen from "../screens/ServerDownScreen";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
@@ -27,13 +26,13 @@ export default function Navigator() {
     if (await checkForConnectionOnce()) {
       dispatch(setIsConnected(true));
     }
+    // dispatch(setIsConnected(true));
   };
 
   const checkForCredentialsInLocalStorage = async () => {
     const res = await checkCredentials();
     if (res.status) {
       dispatch(setUser(res?.user));
-      dispatch(setIsLoggedIn(true));
     }
     dispatch(setIsLoading(false));
   };
@@ -65,7 +64,13 @@ export default function Navigator() {
             />
           )
         ) : (
-          <Stack.Screen name="NoConnection" component={NoConnectionScreen} />
+          <Stack.Screen
+            name="NoConnection"
+            options={{
+              presentation: "modal",
+            }}
+            component={NoConnectionScreen}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>

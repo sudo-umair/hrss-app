@@ -4,14 +4,15 @@ import HomeSreen from "../screens/HomeScreen";
 import SignoutScreen from "../screens/SignoutScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import ResourcesScreen from "../screens/ResourcesScreen";
-import RequestResourceScreen from "../screens/RequestResourceScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
 import AccountScreen from "../screens/AccountScreen";
 import DeleteAccountScreen from "../screens/DeleteAccountScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
 import DonationsScreen from "../screens/DonationsScreen";
-import ServerDownScreen from "../screens/ServerDownScreen";
+import ResourceRequestScreen from "../screens/ResourceRequestScreen";
 import DonationDetailsScreen from "../screens/DonationDetailsScreen";
+import ResourceRequestsByUserScreen from "../screens/ResourceRequestsByUserScreen";
+import ResourceRequestDetailsScreen from "../screens/ResourceRequestDetailsScreen";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -26,14 +27,33 @@ export default function AfterAuthentication() {
         <Stack.Screen name="Resources" component={ResourcesScreen} />
         <Stack.Screen
           name="RequestResource"
-          component={RequestResourceScreen}
+          component={ResourceRequestScreen}
+          // options={{
+          //   presentation: "modal",
+          // }}
+        />
+        <Stack.Screen
+          name="UserRequests"
+          component={ResourceRequestsByUserScreen}
+        />
+        <Stack.Screen
+          name="ResourceRequestDetails"
+          component={ResourceRequestDetailsScreen}
           options={{
             presentation: "modal",
           }}
         />
       </Stack.Group>
-      <Stack.Screen name="Donations" component={DonationsScreen} />
-      <Stack.Screen name="DonationDetails" component={DonationDetailsScreen} />
+      <Stack.Group name="Donations">
+        <Stack.Screen name="Donations" component={DonationsScreen} />
+        <Stack.Screen
+          name="DonationDetails"
+          component={DonationDetailsScreen}
+          options={{
+            presentation: "modal",
+          }}
+        />
+      </Stack.Group>
       <Stack.Screen name="Signout" component={SignoutScreen} />
       <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
       <Stack.Screen
@@ -43,7 +63,6 @@ export default function AfterAuthentication() {
           presentation: "modal",
         }}
       />
-      <Stack.Screen name="ServerDown" component={ServerDownScreen} />
     </Stack.Navigator>
   );
 }
