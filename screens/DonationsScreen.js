@@ -10,21 +10,31 @@ import React, { useState, useCallback, useLayoutEffect } from "react";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import { getDonationsList } from "../utilities/routes/dontations";
 import SearchBar from "../components/UI/SearchBar";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function DonationsScreen({ navigation, route }) {
   const [donationResults, setDonationResults] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  useLayoutEffect(() => {
-    getDonationsList()
-      .then((response) => {
-        setDonationResults(response.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const fetchDonations = useCallback(async () => {
+    const response = await getDonationsList();
+    if (response.status === "200") {
+      setDonationResults(response.results);
+    } else {
+      alert(response.message);
+    }
+    setIsLoading(false);
   }, []);
+
+  useFocusEffect(() => {
+    fetchDonations();
+  });
+
+  // useLayoutEffect(() => {
+  //   fetchDonations();
+  // });
 
   const goToDonationDetails = (donation) => {
     navigation.navigate("DonationDetails", { donation });
@@ -38,27 +48,33 @@ export default function DonationsScreen({ navigation, route }) {
     setSearchText(text);
   };
 
-  const renderItem = useCallback(
-    ({ item }) => {
-      return (
-        <Pressable
-          onPress={() => {
-            goToDonationDetails(item);
-          }}
-          style={styles.itemContainer}
-        >
-          <View style={styles.itemNameContainer}>
-            <Text style={styles.itemName}>{item.name}</Text>
-          </View>
-          <View style={styles.itemDetailsContainer}>
-            <Text style={styles.itemDetails}>{item.type}</Text>
-            <Text style={styles.itemDetails}>{item.website}</Text>
-          </View>
-        </Pressable>
-      );
-    },
-    [donationResults]
-  );
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <Pressable
+        onPress={() => {
+          goToDonationDetails(item);
+        }}
+        style={styles.itemContainer}
+      >
+        <View style={styles.itemNameContainer}>
+          <Text style={styles.itemName}>{item.name}</Text>
+        </View>
+        <View style={styles.itemDetailsContainer}>
+          <Text style={styles.itemDetails}>{item.type}</Text>
+          <Text style={styles.itemDetails}>{item.website}</Text>
+        </View>
+      </Pressable>
+    );
+  });
+
+  const Loader = () => {
+    return (
+      <View style={styles.loaderContainer}>
+        <Text style={styles.loaderText}>Loading...</Text>
+        <ActivityIndicator size="large" color={gs.colors.primary} />
+      </View>
+    );
+  };
 
   const NoResults = () => {
     return (
@@ -85,7 +101,8 @@ export default function DonationsScreen({ navigation, route }) {
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         keyboardDismissMode="on-drag"
-        ListEmptyComponent={NoResults}
+        // ListEmptyComponent={NoResults}
+        ListEmptyComponent={isLoading ? Loader : NoResults}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
@@ -155,5 +172,14 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: "white",
     borderRadius: 7,
+  },
+  loaderContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  loaderText: {
+    marginVertical: "5%",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
