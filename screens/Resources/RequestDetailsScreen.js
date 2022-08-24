@@ -56,6 +56,7 @@ export default function RequestDetailsScreen({ navigation, route }) {
       };
       const response = await updateResourceRequest(record);
       alert(response.message);
+      navigation.goBack();
     }
   };
 

@@ -28,13 +28,17 @@ export default function DonationsScreen({ navigation, route }) {
     setIsLoading(false);
   }, []);
 
-  useFocusEffect(() => {
-    fetchDonations();
-  });
-
-  // useLayoutEffect(() => {
+  // useFocusEffect(() => {
   //   fetchDonations();
   // });
+
+  useLayoutEffect(() => {
+    fetchDonations();
+
+    return () => {
+      setDonationResults([]);
+    };
+  }, [fetchDonations]);
 
   const goToDonationDetails = (donation) => {
     navigation.navigate("DonationDetails", { donation });

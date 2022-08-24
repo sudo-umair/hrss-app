@@ -28,9 +28,6 @@ export default function AfterAuthentication() {
         <Stack.Screen
           name="DonationDetails"
           component={DonationDetailsScreen}
-          options={{
-            presentation: "modal",
-          }}
         />
       </Stack.Group>
       <Stack.Screen name="Resources" component={ResourcesScreen} />

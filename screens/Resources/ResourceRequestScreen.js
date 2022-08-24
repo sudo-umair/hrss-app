@@ -56,6 +56,7 @@ export default function ResourceRequestScreen({ navigation }) {
         alert(res.message);
         if (res.status === "201") {
           emptyFields();
+          navigation.navigate("Resources");
         }
       } catch (error) {
         console.log(error);
