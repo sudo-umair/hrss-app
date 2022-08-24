@@ -1,24 +1,20 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { getDonationsList } from "../../utilities/routes/dontations";
 import SearchBar from "../../components/UI/SearchBar";
-import { useFocusEffect } from "@react-navigation/native";
+import RenderItem from "../../components/Donations/RenderItem";
+import Loader from "../../components/UI/Loader";
+import NoResults from "../../components/Donations/NoResults";
 
 export default function DonationsScreen({ navigation, route }) {
   const [donationResults, setDonationResults] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchDonations = useCallback(async () => {
+    setIsLoading(true);
     const response = await getDonationsList();
     if (response.status === "200") {
       setDonationResults(response.results);
@@ -28,21 +24,12 @@ export default function DonationsScreen({ navigation, route }) {
     setIsLoading(false);
   }, []);
 
-  // useFocusEffect(() => {
-  //   fetchDonations();
-  // });
-
   useLayoutEffect(() => {
     fetchDonations();
-
     return () => {
       setDonationResults([]);
     };
   }, [fetchDonations]);
-
-  const goToDonationDetails = (donation) => {
-    navigation.navigate("DonationDetails", { donation });
-  };
 
   const onSearch = (text) => {
     const results = donationResults.filter((item) => {
@@ -52,46 +39,6 @@ export default function DonationsScreen({ navigation, route }) {
     setSearchText(text);
   };
 
-  const renderItem = useCallback(({ item }) => {
-    return (
-      <Pressable
-        onPress={() => {
-          goToDonationDetails(item);
-        }}
-        style={styles.itemContainer}
-      >
-        <View style={styles.itemNameContainer}>
-          <Text style={styles.itemName}>{item.name}</Text>
-        </View>
-        <View style={styles.itemDetailsContainer}>
-          <Text style={styles.itemDetails}>{item.type}</Text>
-          <Text style={styles.itemDetails}>{item.website}</Text>
-        </View>
-      </Pressable>
-    );
-  });
-
-  const Loader = () => {
-    return (
-      <View style={styles.loaderContainer}>
-        <Text style={styles.loaderText}>Loading...</Text>
-        <ActivityIndicator size="large" color={gs.colors.primary} />
-      </View>
-    );
-  };
-
-  const NoResults = () => {
-    return (
-      <View style={styles.noResultsContainer}>
-        <Text style={styles.noResultsText}>
-          Sorry, no results found for
-          {"\n"}
-          {searchText}
-        </Text>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.rootContainer}>
       <SearchBar
@@ -99,14 +46,14 @@ export default function DonationsScreen({ navigation, route }) {
         searchText={searchText}
         setSearchText={setSearchText}
       />
-
       <FlatList
         data={searchText === "" ? donationResults : searchResults}
-        renderItem={renderItem}
+        renderItem={({ item }) => <RenderItem item={item} />}
         keyExtractor={(item) => item._id}
         keyboardDismissMode="on-drag"
-        // ListEmptyComponent={NoResults}
-        ListEmptyComponent={isLoading ? Loader : NoResults}
+        ListEmptyComponent={
+          isLoading ? Loader : NoResults.bind(this, { searchText })
+        }
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
@@ -122,17 +69,6 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     backgroundColor: "white",
-  },
-  noResultsContainer: {
-    flex: 1,
-    alignItems: "center",
-  },
-  noResultsText: {
-    marginVertical: "10%",
-    paddingHorizontal: "10%",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
   },
   searchBar: {
     borderColor: "gray",
