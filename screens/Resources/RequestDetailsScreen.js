@@ -77,32 +77,37 @@ export default function RequestDetailsScreen({ navigation, route }) {
             <Text style={styles.details}>{request.quantity}</Text>
           </View>
         </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Requested By:</Text>
-          <Text style={styles.details}>{request.name}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Contact Number</Text>
-          <Text style={styles.details}>{request.phone}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Email</Text>
-          <Text style={styles.details}>{request.email}</Text>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Additional Notes</Text>
-          <Text style={styles.details}>
-            {request.notes === "" ? "None" : request.notes}
-          </Text>
-        </View>
         <View style={styles.divider}></View>
 
+        {request.email !== user.email && (
+          <>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>Requested By:</Text>
+              <Text style={styles.details}>{request.name}</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>Contact Number</Text>
+              <Text style={styles.details}>{request.phone}</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>Email</Text>
+              <Text style={styles.details}>{request.email}</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>Additional Notes</Text>
+              <Text style={styles.details}>
+                {request.notes === "" ? "None" : request.notes}
+              </Text>
+            </View>
+            <View style={styles.divider}></View>
+          </>
+        )}
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Request Status</Text>
           <Text style={styles.details}>{request.requestStatus}</Text>
         </View>
 
-        {request.requestStatus !== "Pending" && (
+        {request.requestStatus !== "Pending" && request.email === user.email && (
           <>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Request Approved By</Text>
@@ -110,6 +115,7 @@ export default function RequestDetailsScreen({ navigation, route }) {
                 {request.requestApprovedByName}
               </Text>
             </View>
+
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Contact Number</Text>
               <Text style={styles.details}>
@@ -124,7 +130,6 @@ export default function RequestDetailsScreen({ navigation, route }) {
             </View>
           </>
         )}
-
         {request.requestStatus !== "Approved" && request.email !== email && (
           <Button style={styles.button} textSize={16} onPress={approveRequest}>
             Approve Request
