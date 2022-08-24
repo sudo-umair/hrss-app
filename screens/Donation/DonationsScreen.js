@@ -7,9 +7,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
-import { getDonationsList } from "../utilities/routes/dontations";
-import SearchBar from "../components/UI/SearchBar";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { getDonationsList } from "../../utilities/routes/dontations";
+import SearchBar from "../../components/UI/SearchBar";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function DonationsScreen({ navigation, route }) {

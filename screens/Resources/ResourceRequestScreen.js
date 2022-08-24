@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useState, useRef } from "react";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
-import InputField from "../components/UI/InputField";
-import Label from "../components/UI/Label";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import InputField from "../../components/UI/InputField";
+import Label from "../../components/UI/Label";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import Button from "../components/UI/Button";
-import { postResourceRequest } from "../utilities/routes/resource";
+import Button from "../../components/UI/Button";
+import { postResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 
 export default function ResourceRequestScreen({ navigation }) {

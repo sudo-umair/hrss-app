@@ -1,21 +1,21 @@
 import { StyleSheet, Text, View, Linking } from "react-native";
 import React, { useLayoutEffect } from "react";
-import Button from "../components/UI/Button";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
+import Button from "../../components/UI/Button";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 
-export default function ResourceRequestDetailsScreen({ navigation, route }) {
-  const request = route.params.request;
+export default function DonationDetailsScreen({ navigation, route }) {
+  const donation = route.params.donation;
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: request.userName,
+      headerTitle: donation.name,
     });
   }),
-    [navigation, request];
+    [navigation, donation];
 
   const openDialer = () => {
     const phoneNumber =
-      request.phone === "Not Available" ? false : request.phone;
+      donation.phone === "Not Available" ? false : donation.phone;
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
@@ -25,7 +25,7 @@ export default function ResourceRequestDetailsScreen({ navigation, route }) {
   };
 
   const openWebsite = () => {
-    const url = request.website === "Not Available" ? false : request.website;
+    const url = donation.website === "Not Available" ? false : donation.website;
     if (url) {
       Linking.openURL(url);
     } else {
@@ -36,24 +36,24 @@ export default function ResourceRequestDetailsScreen({ navigation, route }) {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.container}>
-        <Text style={styles.name}>{request.name}</Text>
+        <Text style={styles.name}>{donation.name}</Text>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Type</Text>
-          <Text style={styles.details}>{request.type}</Text>
+          <Text style={styles.details}>{donation.type}</Text>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Address</Text>
-          <Text style={styles.details}>{request.address}</Text>
+          <Text style={styles.details}>{donation.address}</Text>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Website</Text>
           <Text onPress={openWebsite} style={[styles.details, styles.website]}>
-            {request.website}
+            {donation.website}
           </Text>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Contact Number</Text>
-          <Text style={styles.details}>{request.phone ?? "null"}</Text>
+          <Text style={styles.details}>{donation.phone ?? "null"}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} textSize={16} onPress={openDialer}>

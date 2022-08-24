@@ -27,7 +27,7 @@ export default function BottomDisplay() {
           size={24}
           color="blue"
           lib="e"
-          title="Feed"
+          title="Resources"
           onPress={goToResourcesScreen}
         />
         <HomeScreenButton

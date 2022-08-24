@@ -1,18 +1,18 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import HomeSreen from "../screens/HomeScreen";
-import SignoutScreen from "../screens/SignoutScreen";
+import SignoutScreen from "../screens/User/SignoutScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
-import ResourcesScreen from "../screens/ResourcesScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
-import AccountScreen from "../screens/AccountScreen";
-import DeleteAccountScreen from "../screens/DeleteAccountScreen";
+import AccountScreen from "../screens/User/AccountScreen";
+import DeleteAccountScreen from "../screens/User/DeleteAccountScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
-import DonationsScreen from "../screens/DonationsScreen";
-import ResourceRequestScreen from "../screens/ResourceRequestScreen";
-import DonationDetailsScreen from "../screens/DonationDetailsScreen";
-import ResourceRequestsByUserScreen from "../screens/ResourceRequestsByUserScreen";
-import ResourceRequestDetailsScreen from "../screens/ResourceRequestDetailsScreen";
+import DonationsScreen from "../screens/Donation/DonationsScreen";
+import DonationDetailsScreen from "../screens/Donation/DonationDetailsScreen";
+import ResourcesScreen from "../screens/Resources/ResourcesScreen";
+import ResourceRequestScreen from "../screens/Resources/ResourceRequestScreen";
+import RequestDetailsScreen from "../screens/Resources/RequestDetailsScreen";
+import ResourceTabs from "./ResourceTabs";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -23,27 +23,6 @@ export default function AfterAuthentication() {
       <Stack.Screen name="NoInternet" component={NoConnectionScreen} />
       <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} />
-      <Stack.Group name="Resources">
-        <Stack.Screen name="Resources" component={ResourcesScreen} />
-        <Stack.Screen
-          name="RequestResource"
-          component={ResourceRequestScreen}
-          // options={{
-          //   presentation: "modal",
-          // }}
-        />
-        <Stack.Screen
-          name="UserRequests"
-          component={ResourceRequestsByUserScreen}
-        />
-        <Stack.Screen
-          name="ResourceRequestDetails"
-          component={ResourceRequestDetailsScreen}
-          options={{
-            presentation: "modal",
-          }}
-        />
-      </Stack.Group>
       <Stack.Group name="Donations">
         <Stack.Screen name="Donations" component={DonationsScreen} />
         <Stack.Screen
@@ -54,6 +33,16 @@ export default function AfterAuthentication() {
           }}
         />
       </Stack.Group>
+      <Stack.Screen name="Resources" component={ResourcesScreen} />
+      <Stack.Screen
+        name="RequestResource"
+        options={{
+          presentation: "modal",
+        }}
+        component={ResourceRequestScreen}
+      />
+      <Stack.Screen name="ResourceTabs" component={ResourceTabs} />
+      <Stack.Screen name="RequestDetails" component={RequestDetailsScreen} />
       <Stack.Screen name="Signout" component={SignoutScreen} />
       <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
       <Stack.Screen

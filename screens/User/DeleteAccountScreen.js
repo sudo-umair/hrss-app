@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useRef } from "react";
-import { clearDataInLocalStorage } from "../utilities/helpers/local-storage";
+import { clearDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../store/user";
+import { removeUser } from "../../store/user";
 import AnimatedLottieView from "lottie-react-native";
-import Button from "../components/UI/Button";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
+import Button from "../../components/UI/Button";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { Link } from "@react-navigation/native";
-import { deleteAccount } from "../utilities/routes/user";
+import { deleteAccount } from "../../utilities/routes/user";
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function DeleteAccountScreen({ navigation }) {
             width: 300,
             height: 300,
           }}
-          source={require("../assets/animations/signout.json")}
+          source={require("../../assets/animations/signout.json")}
         />
         <Text style={styles.title}>Deleting Your Account??</Text>
         <Text style={styles.subTitle}>

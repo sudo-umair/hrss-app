@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import UserAvatar from "react-native-user-avatar";
 import Icon from "../UI/Icon";
@@ -11,15 +11,21 @@ export default function TopDisplay() {
   const user = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [fName, setFName] = useState("");
-  const [requestsCount, setRequestsCount] = useState(5);
+  const [requestsCount, setRequestsCount] = useState(0);
 
   const navigation = useNavigation();
 
-  const getTotalNumberOfRequestsForUser = async (email) => {
-    const response = await getTotalNumberOfRequests(email);
+  const getTotalRequests = async () => {
+    const response = await getTotalNumberOfRequests({
+      email: user.email,
+    });
     if (response.status === "200") {
       setRequestsCount(response.data);
     }
+  };
+
+  const goToUserRequestScreen = () => {
+    navigation.navigate("UserRequests");
   };
 
   useFocusEffect(() => {
@@ -27,9 +33,9 @@ export default function TopDisplay() {
     setFName(name?.split(" ")[0]);
   });
 
-  useLayoutEffect(() => {
-    getTotalNumberOfRequestsForUser(user.email);
-  }, [user.email]);
+  useFocusEffect(() => {
+    getTotalRequests();
+  });
 
   const goToProfile = () => {
     navigation.navigate("Account");
@@ -52,10 +58,10 @@ export default function TopDisplay() {
           />
         </View>
       </View>
-      <Pressable style={styles.resources}>
-        <Text style={styles.requests}>Your Total Requests:</Text>
+      <View style={styles.resources}>
+        <Text style={styles.requests}>Your Requests:</Text>
         <Text style={styles.requestsNumber}>{requestsCount}</Text>
-      </Pressable>
+      </View>
     </View>
   );
 }

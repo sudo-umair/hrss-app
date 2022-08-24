@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "../components/UI/Icon";
-import SigninScreen from "../screens/SigninScreen";
-import SignupScreen from "../screens/SignupScreen";
+import SigninScreen from "../screens/User/SigninScreen";
+import SignupScreen from "../screens/User/SignupScreen";
 
 export default function Authentication() {
   const Tab = createBottomTabNavigator();

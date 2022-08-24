@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useRef } from "react";
-import { clearDataInLocalStorage } from "../utilities/helpers/local-storage";
+import { clearDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
-import { removeUser, setIsLoggedIn } from "../store/user";
+import { removeUser } from "../../store/user";
 import AnimatedLottieView from "lottie-react-native";
-import Button from "../components/UI/Button";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
+import Button from "../../components/UI/Button";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 
 export default function SignoutScreen() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function SignoutScreen() {
             width: 300,
             height: 300,
           }}
-          source={require("../assets/animations/signout.json")}
+          source={require("../../assets/animations/signout.json")}
         />
         <Text style={styles.text}>Signing out??</Text>
         <Text style={styles.subTitle}>Are you sure you want to sign out?</Text>

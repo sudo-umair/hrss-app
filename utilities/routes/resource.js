@@ -20,17 +20,16 @@ export async function postResourceRequest(record) {
   }
 }
 
-export async function getResourceRequestsList() {
-  const userType = "user";
+export async function getResourceRequestsList(record) {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `${GLOBALS.BASE_URL}/resources/fetchRequests`,
-      userType
+      record
     );
     return (res = {
       status: response.data.status,
       message: response.data.message,
-      results: response.data.data,
+      results: response.data.results,
     });
   } catch (err) {
     console.log(err);
@@ -41,11 +40,11 @@ export async function getResourceRequestsList() {
   }
 }
 
-export async function getTotalNumberOfRequests(email) {
+export async function getTotalNumberOfRequests(record) {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `${GLOBALS.BASE_URL}/resources/totalNumberOfRequests`,
-      email
+      record
     );
     return (res = {
       status: response.data.status,

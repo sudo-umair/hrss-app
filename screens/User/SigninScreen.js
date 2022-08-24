@@ -1,14 +1,14 @@
 import { Link } from "@react-navigation/native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
-import Button from "../components/UI/Button";
-import InputField from "../components/UI/InputField";
-import PasswordEye from "../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
-import { signIn } from "../utilities/routes/user";
-import { setDataInLocalStorage } from "../utilities/helpers/local-storage";
+import Button from "../../components/UI/Button";
+import InputField from "../../components/UI/InputField";
+import PasswordEye from "../../components/UI/PasswordEye";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { signIn } from "../../utilities/routes/user";
+import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/user";
+import { setUser } from "../../store/user";
 
 export default function SigninScreen() {
   const [record, setRecord] = useState({

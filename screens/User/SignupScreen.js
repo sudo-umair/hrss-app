@@ -1,12 +1,12 @@
 import { Link } from "@react-navigation/native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Button from "../components/UI/Button";
-import InputField from "../components/UI/InputField";
-import PasswordEye from "../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
+import Button from "../../components/UI/Button";
+import InputField from "../../components/UI/InputField";
+import PasswordEye from "../../components/UI/PasswordEye";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { Platform } from "react-native";
-import { signUp } from "../utilities/routes/user";
+import { signUp } from "../../utilities/routes/user";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 
 export default function SignupScreen({ navigation }) {

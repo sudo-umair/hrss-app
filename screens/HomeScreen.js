@@ -22,15 +22,14 @@ export default function HomeSreen({ navigation, route }) {
           name="notifications-outline"
           color="blue"
           size={26}
-          style={{ backgroundColor: "#e3edfa", borderRadius: 50, padding: 5 }}
+          style={{
+            backgroundColor: "#e3edfa",
+            borderRadius: 50,
+            padding: 5,
+            marginRight: 10,
+          }}
         />
       ),
-      headerRightContainerStyle: {
-        paddingRight: 10,
-      },
-      headerLeftContainerStyle: {
-        paddingLeft: 10,
-      },
     });
   }, [navigation]);
 
