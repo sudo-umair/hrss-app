@@ -12,28 +12,31 @@ export default function FeedScreen({ navigation, route }) {
   const isLoading = useSelector((state) => state.resources.isLoading);
 
   const user = useSelector((state) => state.user);
-  const { name, email, phone } = user;
+  const { email } = user;
 
   const [filteredRequests, setFilteredRequests] = useState([]);
 
   const filterRequests = (requests) => {
     if (filterType === "all") {
-      setFilteredRequests(
-        requests.filter(
-          (request) =>
-            request.requestStatus === "Pending" && request.name !== name
-        )
+      const filteredRequestsReversed = requests.filter(
+        (request) =>
+          request.requestStatus === "Pending" && request.email !== email
       );
+      setFilteredRequests(filteredRequestsReversed);
     } else if (filterType === "myRequests") {
-      setFilteredRequests(requests.filter((item) => item.email === email));
+      const filteredRequestsReversed = requests
+        .filter((item) => item.email === email)
+        .reverse();
+      setFilteredRequests(filteredRequestsReversed);
     } else if (filterType === "approved") {
-      setFilteredRequests(
-        requests.filter(
+      const filteredRequestsReversed = requests
+        .filter(
           (item) =>
             item.requestApprovedByEmail === email &&
             item.requestStatus === "Approved"
         )
-      );
+        .reverse();
+      setFilteredRequests(filteredRequestsReversed);
     }
   };
 

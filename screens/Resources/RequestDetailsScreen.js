@@ -107,7 +107,7 @@ export default function RequestDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{request.requestStatus}</Text>
         </View>
 
-        {request.requestStatus !== "Pending" && request.email === user.email && (
+        {request.requestStatus !== "Pending" && request.email === email && (
           <>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Request Approved By</Text>
