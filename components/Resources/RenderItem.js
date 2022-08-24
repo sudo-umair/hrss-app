@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { ListRenderItem } from "react-native";
 import React from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useNavigation } from "@react-navigation/native";
 
-export default function RenderItem({ item }) {
+const RenderItem = React.memo(({ item }) => {
   const navigation = useNavigation();
 
   const goToDetailsScreen = () => {
@@ -33,7 +32,9 @@ export default function RenderItem({ item }) {
       </View>
     </Pressable>
   );
-}
+});
+
+export default RenderItem;
 
 const styles = StyleSheet.create({
   itemContainer: {

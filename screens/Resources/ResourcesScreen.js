@@ -1,5 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import React, { useCallback, useState, useEffect } from "react";
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import ResourceTabs from "../../navigators/ResourceTabs";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";
@@ -28,7 +33,7 @@ export default function ResourcesScreen({ navigation }) {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <RefreshButton onPress={getResourceRequests} />,
     });
