@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.background,
   },
   button: {
-    width: "98%",
+    width: "100%",
+    paddingHorizontal: "5%",
     marginVertical: "2%",
   },
 });

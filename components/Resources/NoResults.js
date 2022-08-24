@@ -4,7 +4,7 @@ import React from "react";
 export default function NoResults() {
   return (
     <View style={styles.noResultsContainer}>
-      <Text style={styles.noResultsText}>Sorry, no data Found</Text>
+      <Text style={styles.noResultsText}>No Data Found</Text>
     </View>
   );
 }

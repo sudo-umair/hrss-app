@@ -30,7 +30,7 @@ export default function ResourceTabs({ navigation, route }) {
       <Tab.Screen
         name="ApprovedRequests"
         options={{
-          tabBarLabel: "Approved By Me",
+          tabBarLabel: "Approved",
         }}
         component={FeedScreen}
         initialParams={{

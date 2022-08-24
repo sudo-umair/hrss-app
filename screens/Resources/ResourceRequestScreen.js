@@ -97,7 +97,7 @@ export default function ResourceRequestScreen({ navigation }) {
           <InputField value={record.email} editable={false} />
           <Label>Resource Name *</Label>
           <InputField
-            placeholder="Oxygen Cylinder"
+            placeholder="Blood Bags"
             value={record.resource}
             onChangeText={(value) => onChangeRecord("resourceName", value)}
             onSubmitEditing={() => QUANTITY.current.focus()}
@@ -146,6 +146,9 @@ export default function ResourceRequestScreen({ navigation }) {
             autoCapitalize={"words"}
             onSubmitEditing={() => PHONE.current.focus()}
             returnKeyType="next"
+            style={{
+              textAlignVertical: "top",
+            }}
           />
           <Label>Any Additional Information</Label>
           <InputField
@@ -157,6 +160,9 @@ export default function ResourceRequestScreen({ navigation }) {
             innerRef={NOTES}
             autoCapitalize={"words"}
             returnKeyType="done"
+            style={{
+              textAlignVertical: "top",
+            }}
           />
           <View style={styles.button}>
             <Button
