@@ -13,7 +13,7 @@ const RenderItem = React.memo(({ item }) => {
   return (
     <Pressable onPress={goToDetailsScreen} style={styles.itemContainer}>
       <View style={styles.row}>
-        <Text style={styles.userName}>{item.name}</Text>
+        <Text style={styles.userName}>{item.requestedByName}</Text>
         <Text
           style={[
             styles.requestStatus,
@@ -25,10 +25,10 @@ const RenderItem = React.memo(({ item }) => {
       </View>
       <View style={styles.row}>
         <Text style={styles.resourceName}>{item.resourceName}</Text>
-        <Text style={styles.quantity}>Quantity: {item.quantity}</Text>
+        <Text style={styles.quantity}>Quantity: {item.resourceQuantity}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.duration}>Duration: {item.duration}</Text>
+        <Text style={styles.duration}>Duration: {item.resourceDuration}</Text>
       </View>
     </Pressable>
   );

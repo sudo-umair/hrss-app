@@ -1,10 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import ResourceTabs from "../../navigators/ResourceTabs";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";

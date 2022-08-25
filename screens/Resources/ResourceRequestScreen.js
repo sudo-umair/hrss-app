@@ -22,15 +22,15 @@ export default function ResourceRequestScreen({ navigation }) {
   const [missingFields, setMissingFields] = useState(false);
 
   const [record, setRecord] = useState({
-    name: name,
-    email: email,
     userType: "user",
     resourceName: "",
-    quantity: "",
-    duration: "",
-    phone: phone,
-    address: "",
-    notes: "",
+    resourceQuantity: "",
+    resourceDuration: "",
+    requestedByName: name,
+    requestedByEmail: email,
+    requestedByPhone: phone,
+    requestedByAddress: "",
+    resourceNotes: "",
   });
 
   const onChangeRecord = (key, value) => {
@@ -40,10 +40,13 @@ export default function ResourceRequestScreen({ navigation }) {
   const emptyFields = () => {
     setRecord({
       resourceName: "",
-      quantity: "",
-      duration: "",
-      address: "",
-      notes: "",
+      resourceQuantity: "",
+      resourceDuration: "",
+      requestedByName: name,
+      requestedByEmail: email,
+      requestedByPhone: phone,
+      requestedByAddress: "",
+      resourceNotes: "",
     });
   };
 
@@ -72,10 +75,10 @@ export default function ResourceRequestScreen({ navigation }) {
 
     if (
       record.resourceName.trim() === "" ||
-      record.quantity.trim() === "" ||
-      record.duration.trim() === "" ||
-      record.phone.trim() === "" ||
-      record.address.trim() === ""
+      record.resourceQuantity.trim() === "" ||
+      record.resourceDuration.trim() === "" ||
+      record.requestedByAddress.trim() === "" ||
+      record.requestedByPhone.trim() === ""
     ) {
       setMissingFields(true);
     } else {
@@ -95,11 +98,11 @@ export default function ResourceRequestScreen({ navigation }) {
           </Text>
           <Text style={styles.subTitle}>Use one form for each request *</Text>
           <Label>Email</Label>
-          <InputField value={record.email} editable={false} />
+          <InputField value={record.requestedByEmail} editable={false} />
           <Label>Resource Name *</Label>
           <InputField
             placeholder="Blood Bags"
-            value={record.resource}
+            value={record.resourceName}
             onChangeText={(value) => onChangeRecord("resourceName", value)}
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
@@ -110,8 +113,8 @@ export default function ResourceRequestScreen({ navigation }) {
           <InputField
             placeholder="3"
             keyboardType="decimal-pad"
-            value={record.quantity}
-            onChangeText={(value) => onChangeRecord("quantity", value)}
+            value={record.resourceQuantity}
+            onChangeText={(value) => onChangeRecord("resourceQuantity", value)}
             onSubmitEditing={() => DURATION.current.focus()}
             innerRef={QUANTITY}
             returnKeyType="next"
@@ -119,8 +122,8 @@ export default function ResourceRequestScreen({ navigation }) {
           <Label>Duration *</Label>
           <InputField
             placeholder="1 Week"
-            value={record.duration}
-            onChangeText={(value) => onChangeRecord("duration", value)}
+            value={record.resourceDuration}
+            onChangeText={(value) => onChangeRecord("resourceDuration", value)}
             onSubmitEditing={() => PHONE.current.focus()}
             innerRef={DURATION}
             returnKeyType="next"
@@ -129,8 +132,8 @@ export default function ResourceRequestScreen({ navigation }) {
           <Label>Contact Number *</Label>
           <InputField
             placeholder="Phone or Landline Number"
-            value={record.phone}
-            onChangeText={(value) => onChangeRecord("phone", value)}
+            value={record.requestedByPhone}
+            onChangeText={(value) => onChangeRecord("requestedByPhone", value)}
             onSubmitEditing={() => ADDRESS.current.focus()}
             innerRef={PHONE}
             returnKeyType="next"
@@ -141,8 +144,10 @@ export default function ResourceRequestScreen({ navigation }) {
             placeholder="House ABC, Street 8, ...."
             multiline={true}
             numberOfLines={2}
-            value={record.address}
-            onChangeText={(value) => onChangeRecord("address", value)}
+            value={record.requestedByAddress}
+            onChangeText={(value) =>
+              onChangeRecord("requestedByAddress", value)
+            }
             innerRef={ADDRESS}
             autoCapitalize={"words"}
             onSubmitEditing={() => PHONE.current.focus()}
@@ -156,8 +161,8 @@ export default function ResourceRequestScreen({ navigation }) {
             placeholder="Any additional information"
             multiline={true}
             numberOfLines={3}
-            value={record.notes}
-            onChangeText={(value) => onChangeRecord("notes", value)}
+            value={record.resourceNotes}
+            onChangeText={(value) => onChangeRecord("resourceNotes", value)}
             innerRef={NOTES}
             autoCapitalize={"words"}
             returnKeyType="done"

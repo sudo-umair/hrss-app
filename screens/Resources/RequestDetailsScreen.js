@@ -20,7 +20,9 @@ export default function RequestDetailsScreen({ navigation, route }) {
 
   const callRequestor = () => {
     const phoneNumber =
-      request.phone === "Not Available" ? false : request.phone;
+      request.requestedByPhone === "Not Available"
+        ? false
+        : request.requestedByPhone;
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
@@ -31,9 +33,7 @@ export default function RequestDetailsScreen({ navigation, route }) {
 
   const callAcceptor = () => {
     const phoneNumber =
-      request.phone === "Not Available"
-        ? false
-        : request.requestApprovedByPhone;
+      request.phone === "Not Available" ? false : request.approvedByPhone;
 
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
@@ -44,15 +44,15 @@ export default function RequestDetailsScreen({ navigation, route }) {
   };
 
   const approveRequest = async () => {
-    if (request.email === user.email) {
+    if (request.requestedByEmail === user.email) {
       alert("You can't accept your own request");
     } else {
       const record = {
         id: request._id,
         requestStatus: "Approved",
-        requestApprovedByName: name,
-        requestApprovedByEmail: email,
-        requestApprovedByPhone: phone,
+        approvedByName: name,
+        approvedByEmail: email,
+        approvedByPhone: phone,
       };
       const response = await updateResourceRequest(record);
       alert(response.message);
@@ -70,35 +70,40 @@ export default function RequestDetailsScreen({ navigation, route }) {
         <View style={styles.row}>
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Duration</Text>
-            <Text style={styles.details}>{request.duration}</Text>
+            <Text style={styles.details}>{request.resourceDuration}</Text>
           </View>
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Quantity</Text>
-            <Text style={styles.details}>{request.quantity}</Text>
+            <Text style={styles.details}>{request.resourceQuantity}</Text>
           </View>
         </View>
+        {request.resourceNotes !== "" && (
+          <View style={styles.detailsContainer}>
+            <Text style={styles.title}>Additional Notes</Text>
+            <Text style={styles.details}>{request.resourceNotes}</Text>
+          </View>
+        )}
         <View style={styles.divider}></View>
 
-        {request.email !== user.email && (
+        {request.requestedByEmail !== email && (
           <>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Requested By:</Text>
-              <Text style={styles.details}>{request.name}</Text>
+              <Text style={styles.details}>{request.requestedByName}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Contact Number</Text>
-              <Text style={styles.details}>{request.phone}</Text>
+              <Text style={styles.details}>{request.requestedByPhone}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Email</Text>
-              <Text style={styles.details}>{request.email}</Text>
+              <Text style={styles.details}>{request.requestedByEmail}</Text>
             </View>
             <View style={styles.detailsContainer}>
-              <Text style={styles.title}>Additional Notes</Text>
-              <Text style={styles.details}>
-                {request.notes === "" ? "None" : request.notes}
-              </Text>
+              <Text style={styles.title}>Address</Text>
+              <Text style={styles.details}>{request.requestedByAddress}</Text>
             </View>
+
             <View style={styles.divider}></View>
           </>
         )}
@@ -107,43 +112,43 @@ export default function RequestDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{request.requestStatus}</Text>
         </View>
 
-        {request.requestStatus !== "Pending" && request.email === email && (
-          <>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title}>Request Approved By</Text>
-              <Text style={styles.details}>
-                {request.requestApprovedByName}
-              </Text>
-            </View>
+        {request.requestStatus !== "Pending" &&
+          request.requestedByEmail === email && (
+            <>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title}>Request Approved By</Text>
+                <Text style={styles.details}>{request.approvedByName}</Text>
+              </View>
 
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title}>Contact Number</Text>
-              <Text style={styles.details}>
-                {request.requestApprovedByPhone}
-              </Text>
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title}>Email</Text>
-              <Text style={styles.details}>
-                {request.requestApprovedByEmail}
-              </Text>
-            </View>
-          </>
-        )}
-        {request.requestStatus !== "Approved" && request.email !== email && (
-          <Button style={styles.button} textSize={16} onPress={approveRequest}>
-            Approve Request
-          </Button>
-        )}
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title}>Contact Number</Text>
+                <Text style={styles.details}>{request.approvedByPhone}</Text>
+              </View>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title}>Email</Text>
+                <Text style={styles.details}>{request.approvedByEmail}</Text>
+              </View>
+            </>
+          )}
+        {request.requestStatus !== "Approved" &&
+          request.requestedByEmail !== email && (
+            <Button
+              style={styles.button}
+              textSize={16}
+              onPress={approveRequest}
+            >
+              Approve Request
+            </Button>
+          )}
 
         {request.requestStatus === "Approved" &&
-          request.requestApprovedByEmail !== email && (
+          request.approvedByEmail !== email && (
             <Button style={styles.button} textSize={16} onPress={callAcceptor}>
               Call Acceptor
             </Button>
           )}
 
-        {request.email !== email && (
+        {request.requestedByEmail !== email && (
           <Button style={styles.button} textSize={16} onPress={callRequestor}>
             Call Requestor
           </Button>

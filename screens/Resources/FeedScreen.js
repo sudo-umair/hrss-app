@@ -3,7 +3,6 @@ import React, { useState, useLayoutEffect } from "react";
 import RenderItem from "../../components/Resources/RenderItem";
 import Loader from "../../components/UI/Loader";
 import NoResults from "../../components/Resources/NoResults";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useSelector } from "react-redux";
 
 export default function FeedScreen({ navigation, route }) {
@@ -19,21 +18,20 @@ export default function FeedScreen({ navigation, route }) {
   const filterRequests = (requests) => {
     if (filterType === "all") {
       const filteredRequestsReversed = requests.filter(
-        (request) =>
-          request.requestStatus === "Pending" && request.email !== email
+        (item) =>
+          item.requestStatus === "Pending" && item.requestedByEmail !== email
       );
       setFilteredRequests(filteredRequestsReversed);
     } else if (filterType === "myRequests") {
       const filteredRequestsReversed = requests
-        .filter((item) => item.email === email)
+        .filter((item) => item.requestedByEmail === email)
         .reverse();
       setFilteredRequests(filteredRequestsReversed);
     } else if (filterType === "approved") {
       const filteredRequestsReversed = requests
         .filter(
           (item) =>
-            item.requestApprovedByEmail === email &&
-            item.requestStatus === "Approved"
+            item.approvedByEmail === email && item.requestStatus === "Approved"
         )
         .reverse();
       setFilteredRequests(filteredRequestsReversed);

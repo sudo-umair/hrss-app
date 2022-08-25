@@ -1,6 +1,5 @@
 import { StyleSheet, View, FlatList } from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { getDonationsList } from "../../utilities/routes/dontations";
 import SearchBar from "../../components/UI/SearchBar";
 import RenderItem from "../../components/Donations/RenderItem";
@@ -74,8 +73,6 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     backgroundColor: "white",
-    marginBottom: 10,
-    // margin: "5%",
     borderRadius: 7,
   },
   searchBarText: {
@@ -84,35 +81,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {},
   listContent: {},
-  itemContainer: {
-    backgroundColor: gs.colors.primary,
-    padding: "5%",
-    marginVertical: "2%",
-    marginHorizontal: "4%",
-    borderRadius: 7,
-    justifyContent: "space-between",
-    height: 130,
-    elevation: 5,
-    borderRadius: 15,
-  },
-  itemName: {
-    fontSize: 18,
-    color: "white",
-    fontWeight: "bold",
-  },
-  itemDetailsContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  itemDetails: {
-    fontSize: 14,
-    color: "white",
-  },
-  modalContainer: {
-    backgroundColor: "white",
-    borderRadius: 7,
-  },
   loaderContainer: {
     marginTop: 20,
     alignItems: "center",

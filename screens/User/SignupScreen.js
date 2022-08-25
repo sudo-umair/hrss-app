@@ -94,7 +94,6 @@ export default function SignupScreen({ navigation }) {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="always"
       style={styles.rootContainer}
-      // contentContainerStyle={styles.container}
     >
       <View style={styles.container}>
         <Text style={styles.title}>Sign Up</Text>
@@ -171,7 +170,7 @@ export default function SignupScreen({ navigation }) {
             {cnicInfo}
           </Text>
           <InputField
-            placeholder="Phone Number (starting with 92)"
+            placeholder="Phone Number"
             value={record.phone}
             onChangeText={(text) => onChangeRecord("phone", text)}
             keyboardType="phone-pad"

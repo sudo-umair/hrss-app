@@ -22,19 +22,21 @@ export default function SearchBar({ onChangeText, searchText, setSearchText }) {
           onChangeText={onChangeText}
           value={searchText}
         />
-        <Icon
-          style={{
-            margin: "1%",
-            borderRadius: 100,
-          }}
-          onPress={() => {
-            setSearchText("");
-          }}
-          name="close"
-          lib="m"
-          color="black"
-          size={20}
-        />
+        {searchText !== "" && (
+          <Icon
+            style={{
+              margin: "1%",
+              borderRadius: 100,
+            }}
+            onPress={() => {
+              setSearchText("");
+            }}
+            name="close"
+            lib="m"
+            color="black"
+            size={20}
+          />
+        )}
       </View>
     </View>
   );
@@ -43,7 +45,8 @@ export default function SearchBar({ onChangeText, searchText, setSearchText }) {
 const styles = StyleSheet.create({
   container: {
     padding: "2%",
-    margin: "4%",
+    marginHorizontal: "4%",
+    marginBottom: "1%",
     backgroundColor: "#fcfcfc",
     borderRadius: 10,
     borderColor: "black",
