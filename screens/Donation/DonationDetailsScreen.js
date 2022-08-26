@@ -53,13 +53,17 @@ export default function DonationDetailsScreen({ navigation, route }) {
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Contact Number</Text>
-          <Text style={styles.details}>{donation.phone ?? "null"}</Text>
+          <Text style={styles.details}>
+            {donation.phone ?? "Not Available"}
+          </Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button style={styles.button} textSize={16} onPress={openDialer}>
-            Call
-          </Button>
-        </View>
+        {donation.phone && (
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} textSize={16} onPress={openDialer}>
+              Call
+            </Button>
+          </View>
+        )}
       </View>
 
       <View style={styles.infoContainer}>
