@@ -9,6 +9,7 @@ import { signIn } from "../../utilities/routes/user";
 import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user";
+import { registerIndieID } from "native-notify";
 
 export default function SigninScreen() {
   const [record, setRecord] = useState({
@@ -73,6 +74,7 @@ export default function SigninScreen() {
           password: record.password,
         });
         dispatch(setUser(user));
+        registerIndieID(record.email, 3686, "bSmfQdmZN8TAxKjrJdk7Px");
       } else {
         alert(response.message);
       }

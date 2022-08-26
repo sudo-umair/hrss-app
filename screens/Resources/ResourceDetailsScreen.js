@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: "5%",
-    width: "auto",
-    maxWidth: "60%",
+    minWidth: "60%",
+    maxWidth: "70%",
   },
   infoContainer: {
     margin: "5%",

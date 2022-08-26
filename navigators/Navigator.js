@@ -14,6 +14,7 @@ import {
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
+import registerNNPushToken from "native-notify";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
@@ -42,6 +43,7 @@ export default function Navigator() {
     checkForCredentialsInLocalStorage();
   }, []);
 
+  registerNNPushToken(3686, "bSmfQdmZN8TAxKjrJdk7Px");
   return (
     <NavigationContainer>
       <Stack.Navigator
