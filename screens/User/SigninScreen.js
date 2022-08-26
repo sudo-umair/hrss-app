@@ -74,7 +74,7 @@ export default function SigninScreen() {
           password: record.password,
         });
         dispatch(setUser(user));
-        registerIndieID(record.email, 3686, "bSmfQdmZN8TAxKjrJdk7Px");
+        await registerIndieID(record.email, 3686, "bSmfQdmZN8TAxKjrJdk7Px");
       } else {
         alert(response.message);
       }

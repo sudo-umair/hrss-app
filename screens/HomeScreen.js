@@ -1,11 +1,14 @@
 import { View, StyleSheet } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import TopDisplay from "../components/HomeScreen/TopDisplay";
 import BottomDisplay from "../components/HomeScreen/BottomDisplay";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Icon from "../components/UI/Icon";
+import { getPushDataObject } from "native-notify";
 
 export default function HomeSreen({ navigation, route }) {
+  let pushDataObject = getPushDataObject();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -36,6 +39,12 @@ export default function HomeSreen({ navigation, route }) {
   const goToNotificationsScreen = () => {
     navigation.navigate("Notifications");
   };
+
+  useEffect(() => {
+    if (pushDataObject.screenName === "Resources") {
+      navigation.navigate("Resources");
+    }
+  }, []);
 
   return (
     <View style={styles.rootContainer}>

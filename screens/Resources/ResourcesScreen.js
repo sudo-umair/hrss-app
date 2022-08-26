@@ -48,6 +48,7 @@ export default function ResourcesScreen({ navigation }) {
           onPress={goToRequestResourceScreen}
           buttonColor={gs.colors.primary}
           textSize={18}
+          textColor={"white"}
         >
           Post A New Request
         </Button>

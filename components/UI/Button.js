@@ -29,7 +29,6 @@ export default function Button({
               styles.buttonText,
               textSize && { fontSize: textSize },
               textColor && { color: textColor },
-              mode === "flat" && styles.flatText,
             ]}
           >
             {children}
@@ -53,9 +52,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "white",
     textAlign: "center",
-  },
-  flatText: {
-    color: "white",
   },
   pressed: {
     opacity: 0.75,

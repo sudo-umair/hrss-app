@@ -18,9 +18,9 @@ export default function ResourcesTabs({ navigation, route }) {
         }}
       />
       <Tab.Screen
-        name="My Requests"
+        name="MyRequests"
         options={{
-          tabBarLabel: "My Requests",
+          tabBarLabel: "MyRequests",
         }}
         component={FeedScreen}
         initialParams={{

@@ -44,6 +44,7 @@ export default function Navigator() {
   }, []);
 
   registerNNPushToken(3686, "bSmfQdmZN8TAxKjrJdk7Px");
+
   return (
     <NavigationContainer>
       <Stack.Navigator
