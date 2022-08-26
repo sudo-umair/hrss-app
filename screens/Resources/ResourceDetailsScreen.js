@@ -144,13 +144,13 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         {request.requestStatus === "Approved" &&
           request.approvedByEmail !== email && (
             <Button style={styles.button} textSize={16} onPress={callAcceptor}>
-              Call Acceptor
+              Call {request.approvedByName.split(" ")[0]}
             </Button>
           )}
 
         {request.requestedByEmail !== email && (
           <Button style={styles.button} textSize={16} onPress={callRequestor}>
-            Call Requestor
+            Call {request.requestedByName.split(" ")[0]}
           </Button>
         )}
 
@@ -211,7 +211,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: "5%",
-    width: "60%",
+    width: "auto",
+    maxWidth: "60%",
   },
   infoContainer: {
     margin: "5%",
