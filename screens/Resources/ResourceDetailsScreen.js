@@ -5,7 +5,7 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { updateResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 
-export default function RequestDetailsScreen({ navigation, route }) {
+export default function ResourceDetailsScreen({ navigation, route }) {
   const request = route.params.item;
 
   const user = useSelector((state) => state.user);

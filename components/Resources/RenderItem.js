@@ -7,7 +7,7 @@ const RenderItem = React.memo(({ item }) => {
   const navigation = useNavigation();
 
   const goToDetailsScreen = () => {
-    navigation.navigate("RequestDetails", { item });
+    navigation.navigate("ResourceDetails", { item });
   };
 
   return (

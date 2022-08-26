@@ -8,7 +8,7 @@ import Button from "../../components/UI/Button";
 import { postResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 
-export default function ResourceRequestScreen({ navigation }) {
+export default function PostRequestScreen({ navigation }) {
   const RESOURCE = useRef();
   const QUANTITY = useRef();
   const DURATION = useRef();
@@ -26,11 +26,11 @@ export default function ResourceRequestScreen({ navigation }) {
     resourceName: "",
     resourceQuantity: "",
     resourceDuration: "",
+    resourceNotes: "",
     requestedByName: name,
     requestedByEmail: email,
     requestedByPhone: phone,
     requestedByAddress: "",
-    resourceNotes: "",
   });
 
   const onChangeRecord = (key, value) => {
@@ -42,11 +42,11 @@ export default function ResourceRequestScreen({ navigation }) {
       resourceName: "",
       resourceQuantity: "",
       resourceDuration: "",
+      resourceNotes: "",
       requestedByName: name,
       requestedByEmail: email,
       requestedByPhone: phone,
       requestedByAddress: "",
-      resourceNotes: "",
     });
   };
 
@@ -142,15 +142,13 @@ export default function ResourceRequestScreen({ navigation }) {
           <Label>Address *</Label>
           <InputField
             placeholder="House ABC, Street 8, ...."
-            multiline={true}
-            numberOfLines={2}
             value={record.requestedByAddress}
             onChangeText={(value) =>
               onChangeRecord("requestedByAddress", value)
             }
+            onSubmitEditing={() => NOTES.current.focus()}
             innerRef={ADDRESS}
             autoCapitalize={"words"}
-            onSubmitEditing={() => PHONE.current.focus()}
             returnKeyType="next"
             style={{
               textAlignVertical: "top",
@@ -160,15 +158,15 @@ export default function ResourceRequestScreen({ navigation }) {
           <InputField
             placeholder="Any additional information"
             multiline={true}
-            numberOfLines={3}
+            numberOfLines={2}
             value={record.resourceNotes}
             onChangeText={(value) => onChangeRecord("resourceNotes", value)}
-            innerRef={NOTES}
             autoCapitalize={"words"}
             returnKeyType="done"
             style={{
               textAlignVertical: "top",
             }}
+            innerRef={NOTES}
           />
           <View style={styles.button}>
             <Button

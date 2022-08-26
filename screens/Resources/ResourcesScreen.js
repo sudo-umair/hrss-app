@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React, { useCallback, useLayoutEffect } from "react";
-import ResourceTabs from "../../navigators/ResourceTabs";
+import ResourcesTabs from "../../navigators/ResourcesTabs";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";
 import { getResourceRequestsList } from "../../utilities/routes/resource";
@@ -11,7 +11,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
-    navigation.navigate("RequestResource");
+    navigation.navigate("PostRequest");
   };
 
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ export default function ResourcesScreen({ navigation }) {
           Post A New Request
         </Button>
       </View>
-      <ResourceTabs />
+      <ResourcesTabs />
     </>
   );
 }

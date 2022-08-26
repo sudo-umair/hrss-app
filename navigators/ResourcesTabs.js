@@ -4,7 +4,7 @@ import FeedScreen from "../screens/Resources/FeedScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ResourceTabs({ navigation, route }) {
+export default function ResourcesTabs({ navigation, route }) {
   return (
     <Tab.Navigator>
       <Tab.Screen
