@@ -130,6 +130,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               </View>
             </>
           )}
+
         {request.requestStatus !== "Approved" &&
           request.requestedByEmail !== email && (
             <Button
@@ -153,13 +154,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             Call {request.requestedByName.split(" ")[0]}
           </Button>
         )}
-
-        {/* <Button style={styles.button} textSize={16} onPress={callRequestor}>
-          Call Requestor
-        </Button>
-        <Button style={styles.button} textSize={16} onPress={callAcceptor}>
-          Call Acceptor
-        </Button> */}
       </View>
     </ScrollView>
   );

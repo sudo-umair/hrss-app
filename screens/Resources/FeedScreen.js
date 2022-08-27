@@ -66,12 +66,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: "4%",
   },
 });
-
-// const results = response.results.filter((item) => item.email === email);
-// userRequest
-
-// const result = response.results.filter(
-//   (item) =>
-//     item.requestApprovedByEmail !== email && item.requestStatus === "Approved"
-// );
-// approvedRequest

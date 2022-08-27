@@ -10,8 +10,10 @@ import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user";
 import { registerIndieID } from "native-notify";
+import { GLOBALS } from "../../utilities/constants/config";
 
 export default function SigninScreen() {
+  const { appId, appToken } = GLOBALS;
   const [record, setRecord] = useState({
     email: "",
     password: "",
@@ -74,7 +76,7 @@ export default function SigninScreen() {
           password: record.password,
         });
         dispatch(setUser(user));
-        await registerIndieID(record.email, 3686, "bSmfQdmZN8TAxKjrJdk7Px");
+        await registerIndieID(record.email, appId, appToken);
       } else {
         alert(response.message);
       }

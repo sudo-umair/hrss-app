@@ -5,23 +5,17 @@ import AfterAuthentication from "./AfterAuthentication";
 import BeforeAuthentication from "./BeforeAuthentication";
 import { useSelector, useDispatch } from "react-redux";
 import { checkCredentials } from "../utilities/routes/user";
-import {
-  setUser,
-  setIsConnected,
-  setIsLoading,
-  setIsLoggedIn,
-} from "../store/user";
+import { setUser, setIsConnected, setIsLoading } from "../store/user";
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
-import registerNNPushToken from "native-notify";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const isLoading = useSelector((state) => state.user.isLoading);
-  const isConnected = useSelector((state) => state.user.isConnected);
+  const user = useSelector((state) => state.user);
+
+  const { isLoggedIn, isConnected, isLoading } = user;
 
   const checkForInternetConnection = async () => {
     if (await checkForConnectionOnce()) {
@@ -42,8 +36,6 @@ export default function Navigator() {
     checkForInternetConnection();
     checkForCredentialsInLocalStorage();
   }, []);
-
-  registerNNPushToken(3686, "bSmfQdmZN8TAxKjrJdk7Px");
 
   return (
     <NavigationContainer>

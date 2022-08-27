@@ -22,7 +22,13 @@ export default function AfterAuthentication() {
       <Stack.Screen name="HomeScreen" component={HomeSreen} />
       <Stack.Screen name="NoInternet" component={NoConnectionScreen} />
       <Stack.Screen name="Account" component={AccountScreen} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
+      <Stack.Screen
+        name="Notifications"
+        options={{
+          presentation: "modal",
+        }}
+        component={NotificationsScreen}
+      />
       <Stack.Group name="Donations">
         <Stack.Screen name="Donations" component={DonationsScreen} />
         <Stack.Screen
