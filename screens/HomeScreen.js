@@ -1,13 +1,19 @@
 import { View, StyleSheet } from "react-native";
-import React, { useLayoutEffect, useEffect } from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import TopDisplay from "../components/HomeScreen/TopDisplay";
 import BottomDisplay from "../components/HomeScreen/BottomDisplay";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Icon from "../components/UI/Icon";
-import { getPushDataObject } from "native-notify";
+import {
+  getPushDataObject,
+  getUnreadNotificationInboxCount,
+} from "native-notify";
 
 export default function HomeSreen({ navigation, route }) {
   let pushDataObject = getPushDataObject();
+  // let unreadNotificationInboxCount = getUnreadNotificationInboxCount();
+  // const [unreadCount, setUnreadCount] = useState(unreadNotificationInboxCount);
+  const [unreadCount, setUnreadCount] = useState(22);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -22,9 +28,11 @@ export default function HomeSreen({ navigation, route }) {
         <Icon
           onPress={goToNotificationsScreen}
           lib="i"
-          name="notifications-outline"
-          color="blue"
-          size={26}
+          mode={"badge"}
+          name="ios-notifications"
+          color={gs.colors.primary}
+          size={30}
+          count={unreadCount}
           style={{
             backgroundColor: "#e3edfa",
             borderRadius: 50,
@@ -33,6 +41,12 @@ export default function HomeSreen({ navigation, route }) {
           }}
         />
       ),
+      headerRightContainerStyle: {
+        marginRight: 10,
+      },
+      headerLeftContainerStyle: {
+        marginLeft: 10,
+      },
     });
   }, [navigation]);
 
