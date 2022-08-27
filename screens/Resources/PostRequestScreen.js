@@ -150,9 +150,6 @@ export default function PostRequestScreen({ navigation }) {
             innerRef={ADDRESS}
             autoCapitalize={"words"}
             returnKeyType="next"
-            style={{
-              textAlignVertical: "top",
-            }}
           />
           <Label>Any Additional Information</Label>
           <InputField

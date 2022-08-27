@@ -4,16 +4,35 @@ import TopDisplay from "../components/HomeScreen/TopDisplay";
 import BottomDisplay from "../components/HomeScreen/BottomDisplay";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Icon from "../components/UI/Icon";
+import { useSelector } from "react-redux";
 import {
   getPushDataObject,
-  getUnreadNotificationInboxCount,
+  getUnreadIndieNotificationInboxCount,
 } from "native-notify";
+import { GLOBALS } from "../utilities/constants/config";
 
 export default function HomeSreen({ navigation, route }) {
   let pushDataObject = getPushDataObject();
-  // let unreadNotificationInboxCount = getUnreadNotificationInboxCount();
-  // const [unreadCount, setUnreadCount] = useState(unreadNotificationInboxCount);
-  const [unreadCount, setUnreadCount] = useState(22);
+  const user = useSelector((state) => state.user);
+  const { email } = user;
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const { appId, appToken } = GLOBALS;
+
+  useEffect(() => {
+    const getUnreadNotificationCount = async () => {
+      let unreadCount = await getUnreadIndieNotificationInboxCount(
+        email,
+        appId,
+        appToken
+      );
+      setUnreadCount(unreadCount);
+      console.log(unreadCount);
+    };
+    getUnreadNotificationCount();
+
+    return () => {};
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,7 +50,7 @@ export default function HomeSreen({ navigation, route }) {
           mode={"badge"}
           name="ios-notifications"
           color={gs.colors.primary}
-          size={30}
+          size={26}
           count={unreadCount}
           style={{
             backgroundColor: "#e3edfa",
