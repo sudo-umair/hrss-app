@@ -37,7 +37,6 @@ export default function HomeSreen({ navigation, route }) {
             backgroundColor: "#e3edfa",
             borderRadius: 50,
             padding: 5,
-            marginRight: 10,
           }}
         />
       ),

@@ -38,7 +38,7 @@ export default function Icon({
     return <Ionicons name={name} color={color} size={size} />;
   } else if (mode === "badge") {
     return (
-      <Pressable onPress={onPress}>
+      <Pressable style={style} onPress={onPress}>
         {Icon}
         {count > 0 && <Text style={styles.badge}>{count}</Text>}
       </Pressable>
