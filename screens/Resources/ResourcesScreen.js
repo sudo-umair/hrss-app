@@ -1,13 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useCallback, useLayoutEffect } from "react";
 import ResourcesTabs from "../../navigators/ResourcesTabs";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import Button from "../../components/UI/Button";
 import { getResourceRequestsList } from "../../utilities/routes/resource";
-import RefreshButton from "../../components/Resources/RefreshButton";
 import { useDispatch } from "react-redux";
 import { setResources, setIsLoading } from "../../store/resources";
 import { useFocusEffect } from "@react-navigation/native";
+import Icon from "../../components/UI/Icon";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
@@ -30,7 +28,18 @@ export default function ResourcesScreen({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <RefreshButton onPress={getResourceRequests} />,
+      headerRight: () => (
+        <Icon
+          lib={"i"}
+          size={26}
+          color={"blue"}
+          name={"ios-create-outline"}
+          onPress={goToRequestResourceScreen}
+        />
+      ),
+      headerRightContainerStyle: {
+        marginRight: 10,
+      },
     });
   }),
     [navigation, getResourceRequests];
@@ -40,30 +49,7 @@ export default function ResourcesScreen({ navigation }) {
   }),
     [getResourceRequests];
 
-  return (
-    <>
-      <View style={styles.rootContainer}>
-        <Button
-          style={styles.button}
-          onPress={goToRequestResourceScreen}
-          buttonColor={gs.colors.primary}
-          textSize={18}
-          textColor={"white"}
-        >
-          Post A New Request
-        </Button>
-      </View>
-      <ResourcesTabs />
-    </>
-  );
+  return <ResourcesTabs />;
 }
 
-const styles = StyleSheet.create({
-  rootContainer: {
-    alignItems: "center",
-    backgroundColor: gs.colors.background,
-  },
-  button: {
-    width: "90%",
-  },
-});
+const styles = StyleSheet.create({});
