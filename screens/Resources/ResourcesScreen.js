@@ -42,7 +42,7 @@ export default function ResourcesScreen({ navigation }) {
       },
     });
   }),
-    [navigation, getResourceRequests];
+    [navigation];
 
   useFocusEffect(() => {
     getResourceRequests();

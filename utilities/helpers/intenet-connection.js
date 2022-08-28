@@ -7,13 +7,3 @@ export const checkForConnectionOnce = async () => {
   }
   return false;
 };
-
-export const checkForConnection = async () => {
-  NetInfo.addEventListener((state) => {
-    const { isInternetReachable } = state;
-    if (isInternetReachable) {
-      return true;
-    }
-    return false;
-  });
-};

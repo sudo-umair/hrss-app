@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import HomeScreenButton from "./HomeScreenButton";
+import BottomDisplayButton from "./BottomDisplayButton";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,7 +8,8 @@ export default function BottomDisplay() {
   const navigation = useNavigation();
 
   const goToAccountScreen = () => {
-    navigation.navigate("Account");
+    navigation.navigate("NoConnection");
+    // navigation.navigate("Account");
   };
 
   const goToResourcesScreen = () => {
@@ -22,7 +23,7 @@ export default function BottomDisplay() {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <HomeScreenButton
+        <BottomDisplayButton
           name="news"
           size={24}
           color={gs.colors.primary}
@@ -30,7 +31,7 @@ export default function BottomDisplay() {
           title="Resources"
           onPress={goToResourcesScreen}
         />
-        <HomeScreenButton
+        <BottomDisplayButton
           name="volunteer-activism"
           size={24}
           color={gs.colors.primary}
@@ -39,7 +40,7 @@ export default function BottomDisplay() {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <HomeScreenButton
+        <BottomDisplayButton
           name="heart-plus"
           size={24}
           color={gs.colors.primary}
@@ -47,7 +48,7 @@ export default function BottomDisplay() {
           lib="mc"
           onPress={goToDontationsScreen}
         />
-        <HomeScreenButton
+        <BottomDisplayButton
           lib="mc"
           name="account-circle"
           size={24}

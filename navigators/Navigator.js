@@ -21,7 +21,7 @@ export default function Navigator() {
     if (await checkForConnectionOnce()) {
       dispatch(setIsConnected(true));
     }
-    // dispatch(setIsConnected(true));
+    console.log("isConnected", isConnected);
   };
 
   const checkForCredentialsInLocalStorage = async () => {
@@ -40,6 +40,7 @@ export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        id="navigator"
         screenOptions={{
           headerShown: false,
         }}
@@ -65,6 +66,9 @@ export default function Navigator() {
               presentation: "modal",
             }}
             component={NoConnectionScreen}
+            initialParams={{
+              checkForInternetConnection,
+            }}
           />
         )}
       </Stack.Navigator>

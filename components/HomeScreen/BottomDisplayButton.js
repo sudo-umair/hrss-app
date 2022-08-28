@@ -3,7 +3,13 @@ import React from "react";
 import Icon from "../UI/Icon";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 
-export default function HomeScreenButton({ onPress, name, lib, color, title }) {
+export default function BottomDisplayButton({
+  onPress,
+  name,
+  lib,
+  color,
+  title,
+}) {
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Icon
