@@ -10,24 +10,20 @@ import {
   getUnreadIndieNotificationInboxCount,
 } from "native-notify";
 import { GLOBALS } from "../utilities/constants/config";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function HomeSreen({ navigation, route }) {
   let pushDataObject = getPushDataObject();
   const user = useSelector((state) => state.user);
   const { email } = user;
-  const [unreadCount, setUnreadCount] = useState(0);
-
+  const [unReadCount, setUnReadCount] = useState(0);
   const { appId, appToken } = GLOBALS;
 
-  useEffect(() => {
+  const getUnReadCount = useFocusEffect(() => {
     const getUnreadNotificationCount = async () => {
-      let unreadCount = await getUnreadIndieNotificationInboxCount(
-        email,
-        appId,
-        appToken
+      setUnReadCount(
+        await getUnreadIndieNotificationInboxCount(email, appId, appToken)
       );
-      setUnreadCount(unreadCount);
-      console.log(unreadCount);
     };
     getUnreadNotificationCount();
 
@@ -36,12 +32,17 @@ export default function HomeSreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: true,
       headerTitle: "Share And Care",
       headerTitleAlign: "center",
       headerTitleStyle: {
         fontSize: 24,
         fontWeight: "bold",
+      },
+      headerRightContainerStyle: {
+        marginRight: 10,
+      },
+      headerLeftContainerStyle: {
+        marginLeft: 10,
       },
       headerRight: () => (
         <Icon
@@ -51,7 +52,7 @@ export default function HomeSreen({ navigation, route }) {
           name="ios-notifications"
           color={gs.colors.primary}
           size={26}
-          count={unreadCount}
+          count={unReadCount}
           style={{
             backgroundColor: "#e3edfa",
             borderRadius: 50,
@@ -59,14 +60,11 @@ export default function HomeSreen({ navigation, route }) {
           }}
         />
       ),
-      headerRightContainerStyle: {
-        marginRight: 10,
-      },
-      headerLeftContainerStyle: {
-        marginLeft: 10,
-      },
     });
-  }, [navigation]);
+
+    return () => {};
+  }),
+    [getUnReadCount];
 
   const goToNotificationsScreen = () => {
     navigation.navigate("Notifications");

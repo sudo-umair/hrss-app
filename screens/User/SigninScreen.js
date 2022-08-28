@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     width: "40%",
   },
   link: {
-    borderBottomColor: "black",
+    borderBottomColor: "white",
     borderBottomWidth: 1,
     marginTop: 10,
     fontSize: 14,

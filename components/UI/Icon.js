@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
 import {
   Ionicons,
@@ -16,10 +16,17 @@ export default function Icon({
   lib,
   onPress,
   style,
-  mode,
   count,
+  mode,
 }) {
+  const [unReadCount, setUnReadCount] = useState(0);
   let Icon;
+
+  useLayoutEffect(() => {
+    setUnReadCount(count);
+  }),
+    [count];
+
   if (lib === "m") {
     Icon = <MaterialIcons name={name} color={color} size={size} />;
   } else if (lib === "mc") {
@@ -40,7 +47,7 @@ export default function Icon({
     return (
       <Pressable style={style} onPress={onPress}>
         {Icon}
-        {count > 0 && <Text style={styles.badge}>{count}</Text>}
+        {unReadCount > 0 && <Text style={styles.badge}>{unReadCount}</Text>}
       </Pressable>
     );
   } else {

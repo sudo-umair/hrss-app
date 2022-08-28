@@ -20,14 +20,9 @@ export default function NotificationsScreen({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const getNotificationInbox = async () => {
-    const inbox = await getIndieNotificationInbox(
-      email,
-      3686,
-      "bSmfQdmZN8TAxKjrJdk7Px"
-    );
+    const inbox = await getIndieNotificationInbox(email, appId, appToken);
     setNotifications(inbox);
     setIsLoading(false);
-    console.log(inbox);
   };
 
   const deleteNotification = async (notification_id) => {
@@ -42,7 +37,15 @@ export default function NotificationsScreen({ navigation, route }) {
   };
 
   const deleteAllNotifications = async () => {
-    alert("All notifications Cleared");
+    for (let i = 0; i < notifications.length; i++) {
+      await deleteIndieNotificationInbox(
+        email,
+        notifications[i].notification_id,
+        appId,
+        appToken
+      );
+    }
+    alert("All notifications deleted");
   };
 
   useEffect(() => {
@@ -70,8 +73,7 @@ export default function NotificationsScreen({ navigation, route }) {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>Notifications</Text>
-      <Text style={styles.subtitle}>
+      <Text style={styles.title}>
         Your notifications for resource requests and volunteer applications will
         be displayed here.
       </Text>
@@ -95,16 +97,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 10,
-    marginHorizontal: 10,
-  },
-  subtitle: {
     fontSize: 14,
-    marginTop: 5,
+    marginVertical: 5,
     marginHorizontal: 10,
+    textAlign: "center",
   },
+  subtitle: {},
   contentContainer: {
     marginTop: 10,
   },

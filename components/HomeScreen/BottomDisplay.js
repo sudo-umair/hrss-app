@@ -7,8 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 export default function BottomDisplay() {
   const navigation = useNavigation();
 
-  const goToSignoutScreen = () => {
-    navigation.navigate("Signout");
+  const goToAccountScreen = () => {
+    navigation.navigate("Account");
   };
 
   const goToResourcesScreen = () => {
@@ -25,7 +25,7 @@ export default function BottomDisplay() {
         <HomeScreenButton
           name="news"
           size={24}
-          color="blue"
+          color={gs.colors.primary}
           lib="e"
           title="Resources"
           onPress={goToResourcesScreen}
@@ -42,19 +42,18 @@ export default function BottomDisplay() {
         <HomeScreenButton
           name="heart-plus"
           size={24}
-          color="blue"
+          color={gs.colors.primary}
           title="Donatations"
           lib="mc"
           onPress={goToDontationsScreen}
         />
-
         <HomeScreenButton
-          name="logout"
+          lib="mc"
+          name="account-circle"
           size={24}
-          color="red"
-          lib="m"
-          title="Signout"
-          onPress={goToSignoutScreen}
+          color={gs.colors.primary}
+          title="Profile"
+          onPress={goToAccountScreen}
         />
       </View>
     </View>
@@ -72,6 +71,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    // borderWidth: 1,
   },
 });

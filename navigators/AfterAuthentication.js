@@ -6,7 +6,6 @@ import NotificationsScreen from "../screens/NotificationsScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
 import AccountScreen from "../screens/User/AccountScreen";
 import DeleteAccountScreen from "../screens/User/DeleteAccountScreen";
-import FeedbackScreen from "../screens/FeedbackScreen";
 import DonationsScreen from "../screens/Donation/DonationsScreen";
 import DonationDetailsScreen from "../screens/Donation/DonationDetailsScreen";
 import ResourcesScreen from "../screens/Resources/ResourcesScreen";
@@ -48,13 +47,6 @@ export default function AfterAuthentication() {
       <Stack.Screen name="ResourceDetails" component={ResourceDetailsScreen} />
       <Stack.Screen name="Signout" component={SignoutScreen} />
       <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
-      <Stack.Screen
-        name="Feedback"
-        component={FeedbackScreen}
-        options={{
-          presentation: "modal",
-        }}
-      />
     </Stack.Navigator>
   );
 }

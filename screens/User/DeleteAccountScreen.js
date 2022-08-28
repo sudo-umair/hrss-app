@@ -6,7 +6,6 @@ import { removeUser } from "../../store/user";
 import AnimatedLottieView from "lottie-react-native";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { Link } from "@react-navigation/native";
 import { deleteAccount } from "../../utilities/routes/user";
 
 export default function DeleteAccountScreen({ navigation }) {
@@ -19,7 +18,6 @@ export default function DeleteAccountScreen({ navigation }) {
     if (response.status === "200") {
       dispatch(removeUser());
       clearDataInLocalStorage();
-      navigation.navigate("LandingScreen");
     }
   };
 
@@ -53,14 +51,6 @@ export default function DeleteAccountScreen({ navigation }) {
       <Button buttonColor={"red"} onPress={onDeleteAccountHandler}>
         Delete Account
       </Button>
-      <View style={styles.feedbackContainer}>
-        <Text style={styles.text}>
-          Before you go! We would love your feedback
-        </Text>
-        <Link style={styles.link} to={{ screen: "Feedback" }}>
-          <Text>Click Here</Text>
-        </Link>
-      </View>
     </View>
   );
 }
@@ -88,20 +78,5 @@ const styles = StyleSheet.create({
     color: gs.colors.text,
     marginTop: 15,
     textAlign: "center",
-  },
-  feedbackContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  text: {
-    color: gs.colors.text,
-  },
-  link: {
-    fontSize: 16,
-    fontWeight: "bold",
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
   },
 });

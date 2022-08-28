@@ -24,10 +24,6 @@ export default function TopDisplay() {
     }
   };
 
-  const goToUserRequestScreen = () => {
-    navigation.navigate("UserRequests");
-  };
-
   useFocusEffect(() => {
     setName(user.name ? user.name : "");
     setFName(name?.split(" ")[0]);
@@ -37,8 +33,8 @@ export default function TopDisplay() {
     getTotalRequests();
   });
 
-  const goToProfile = () => {
-    navigation.navigate("Account");
+  const goToSignoutScreen = () => {
+    navigation.navigate("Signout");
   };
 
   return (
@@ -50,11 +46,11 @@ export default function TopDisplay() {
         </View>
         <View style={styles.userCompleteDetails}>
           <Icon
-            lib="mc"
-            name="account-cog-outline"
+            lib="a"
+            name="logout"
             color="white"
             size={30}
-            onPress={goToProfile}
+            onPress={goToSignoutScreen}
           />
         </View>
       </View>
