@@ -80,8 +80,8 @@ export default function SignupScreen({ navigation }) {
   const onSignUpHandler = async () => {
     if (!passwordError && !emailError) {
       const response = await signUp(record);
-      alert(response.data.message);
-      if (response.data.status === "200") {
+      alert(response.message);
+      if (response.status === "200") {
         navigation.navigate("Sign In");
       }
     } else {

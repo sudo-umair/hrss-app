@@ -19,6 +19,10 @@ export default function BottomDisplay() {
     navigation.navigate("Donations");
   };
 
+  const goToVolunteersScreen = () => {
+    navigation.navigate("Volunteers");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -36,6 +40,7 @@ export default function BottomDisplay() {
           color={gs.colors.primary}
           title="Volunteer"
           lib="m"
+          onPress={goToVolunteersScreen}
         />
       </View>
       <View style={styles.buttonContainer}>

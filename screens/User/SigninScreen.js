@@ -63,8 +63,8 @@ export default function SigninScreen() {
     if (!emailError || !passwordError) {
       console.log("Signing in...", record);
       const response = await signIn(record);
-      if (response.data.status === "200") {
-        const responseFromBackend = response.data.user;
+      if (response.status === "200") {
+        const responseFromBackend = response.user;
         const user = {
           ...responseFromBackend,
           password: record.password,
@@ -77,7 +77,7 @@ export default function SigninScreen() {
         dispatch(setUser(user));
         await registerIndieID(record.email, appId, appToken);
       } else {
-        alert(response.data.message);
+        alert(response.message);
       }
     } else {
       alert("Please fill out all fields and check for existing errors");

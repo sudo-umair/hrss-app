@@ -19,8 +19,8 @@ export default function TopDisplay() {
     const response = await getTotalNumberOfRequests({
       email: user.email,
     });
-    if (response.data.status === "200") {
-      setRequestsCount(response.data.data);
+    if (response.status === "200") {
+      setRequestsCount(response.data);
     }
   };
 
@@ -49,7 +49,7 @@ export default function TopDisplay() {
             lib="a"
             name="logout"
             color="white"
-            size={30}
+            size={20}
             onPress={goToSignoutScreen}
           />
         </View>

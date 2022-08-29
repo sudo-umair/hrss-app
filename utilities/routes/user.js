@@ -8,16 +8,16 @@ export async function checkCredentials() {
     if (data != null) {
       try {
         const response = await signIn(data);
-        if (response.data.status === "200") {
+        if (response.status === "200") {
           return (res = {
             status: true,
-            message: response.data.message,
-            user: { ...response.data.user, password: data.password },
+            message: response.message,
+            user: { ...response.user, password: data.password },
           });
         } else {
           return (res = {
             status: false,
-            message: response.data.message,
+            message: response.message,
           });
         }
       } catch (error) {
@@ -49,7 +49,7 @@ export async function signIn(record) {
       record
     );
     console.log(response.data);
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -66,7 +66,7 @@ export async function signUp(record) {
       record
     );
     console.log(response.data);
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -82,7 +82,7 @@ export async function updateAccount(record) {
       `${GLOBALS.BASE_URL}/users/updateAccount`,
       record
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -100,7 +100,7 @@ export async function deleteAccount(record) {
       record
     );
     console.log(response.data);
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {

@@ -6,7 +6,7 @@ export async function getDonationsList() {
     const response = await axios.get(
       `${GLOBALS.BASE_URL}/donations/fetchDonations`
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (response = {

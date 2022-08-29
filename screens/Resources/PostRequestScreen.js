@@ -56,8 +56,8 @@ export default function PostRequestScreen({ navigation }) {
     } else {
       try {
         const res = await postResourceRequest(record);
-        alert(res.data.message);
-        if (res.data.status === "201") {
+        alert(res.message);
+        if (res.status === "201") {
           emptyFields();
           navigation.navigate("Resources");
         }

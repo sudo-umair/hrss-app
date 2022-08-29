@@ -7,7 +7,7 @@ export async function postResourceRequest(record) {
       `${GLOBALS.BASE_URL}/resources/postRequest`,
       record
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -23,7 +23,7 @@ export async function getResourceRequestsList(record) {
       `${GLOBALS.BASE_URL}/resources/fetchRequests`,
       record
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -39,7 +39,7 @@ export async function getTotalNumberOfRequests(record) {
       `${GLOBALS.BASE_URL}/resources/totalNumberOfRequests`,
       record
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err, "ddd");
     return (res = {
@@ -55,7 +55,7 @@ export async function getResourceRequestsListByEmail(email) {
       `${GLOBALS.BASE_URL}/resources/fetchRequestsByEmail`,
       email
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -71,7 +71,7 @@ export async function updateResourceRequest(record) {
       `${GLOBALS.BASE_URL}/resources/updateRequest`,
       record
     );
-    return response;
+    return response.data;
   } catch (err) {
     console.log(err);
     return (res = {

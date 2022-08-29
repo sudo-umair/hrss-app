@@ -16,8 +16,8 @@ const RenderItem = React.memo(({ item }) => {
         <Text style={styles.itemName}>{item.name}</Text>
       </View>
       <View style={styles.itemDetailsContainer}>
-        <Text style={styles.itemDetails}>{item.type}</Text>
-        <Text style={styles.itemDetails}>{item.website}</Text>
+        <Text style={styles.itemDetails}>Type: {item.type}</Text>
+        <Text style={styles.itemDetails}>Contact: {item.phone}</Text>
       </View>
     </Pressable>
   );
@@ -31,9 +31,7 @@ const styles = StyleSheet.create({
     padding: "5%",
     marginVertical: "2%",
     marginHorizontal: "4%",
-    borderRadius: 7,
     justifyContent: "space-between",
-    height: 130,
     elevation: 5,
     borderRadius: 15,
   },
@@ -43,12 +41,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemDetailsContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    marginTop: 15,
   },
   itemDetails: {
     fontSize: 14,
     color: "white",
+    textAlign: "left",
+    marginVertical: 2,
   },
 });

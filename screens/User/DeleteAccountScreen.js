@@ -17,7 +17,7 @@ export default function DeleteAccountScreen({ navigation }) {
   const onDeleteAccountHandler = async () => {
     const response = await deleteAccount({ email, password });
     // console.log(response);
-    if (response.data.status === "200") {
+    if (response.status === "200") {
       dispatch(removeUser());
       clearDataInLocalStorage();
     } else {

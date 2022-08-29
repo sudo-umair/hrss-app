@@ -55,7 +55,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         approvedByPhone: phone,
       };
       const response = await updateResourceRequest(record);
-      alert(response.data.message);
+      alert(response.message);
       navigation.goBack();
     }
   };

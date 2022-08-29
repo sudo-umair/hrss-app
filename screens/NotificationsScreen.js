@@ -1,14 +1,11 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import {
-  getIndieNotificationInbox,
-  deleteIndieNotificationInbox,
-} from "native-notify";
+import React, { useState, useLayoutEffect } from "react";
+import { getIndieNotificationInbox } from "native-notify";
 import { useSelector } from "react-redux";
-import Icon from "../components/UI/Icon";
 import { GLOBALS } from "../utilities/constants/config";
 import RenderItem from "../components/Notifications/RenderItem";
 import NoNotifications from "../components/Notifications/NoNotifications";
+import Loader from "../components/UI/Loader";
 
 export default function NotificationsScreen({ navigation, route }) {
   const [notifications, setNotifications] = useState([]);
@@ -25,7 +22,7 @@ export default function NotificationsScreen({ navigation, route }) {
     setIsLoading(false);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getNotificationInbox();
 
     return setNotifications([]);
@@ -43,7 +40,7 @@ export default function NotificationsScreen({ navigation, route }) {
         renderItem={({ item }) => (
           <RenderItem setNotifications={setNotifications} item={item} />
         )}
-        ListEmptyComponent={isLoading ? null : NoNotifications}
+        ListEmptyComponent={isLoading ? Loader : NoNotifications}
         style={styles.content}
         contentContainerStyle={styles.contentContainer}
       />

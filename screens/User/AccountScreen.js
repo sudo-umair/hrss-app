@@ -57,7 +57,7 @@ export default function AccountScreen() {
       };
       const response = await updateAccount(updatedRecord);
       console.log(response);
-      if (response.data.status === "200") {
+      if (response.status === "200") {
         dispatch(setUser(record));
         setDataInLocalStorage({
           email: record.email,
