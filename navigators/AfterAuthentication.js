@@ -12,6 +12,8 @@ import ResourcesScreen from "../screens/Resources/ResourcesScreen";
 import PostRequestScreen from "../screens/Resources/PostRequestScreen";
 import ResourceDetailsScreen from "../screens/Resources/ResourceDetailsScreen";
 import ResourcesTabs from "./ResourcesTabs";
+import VolunteersScreen from "../screens/Volunteers/VolunteersScreen";
+import VolunteerRequestsScreen from "../screens/Volunteers/VolunteerRequestsScreen";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -20,7 +22,6 @@ export default function AfterAuthentication() {
     <Stack.Navigator screenOptions={{}}>
       <Stack.Screen name="HomeScreen" component={HomeSreen} />
       <Stack.Screen name="NoInternet" component={NoConnectionScreen} />
-      <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen
         name="Notifications"
         options={{
@@ -28,6 +29,15 @@ export default function AfterAuthentication() {
         }}
         component={NotificationsScreen}
       />
+
+      {/* user */}
+      <Stack.Group name="User">
+        <Stack.Screen name="Account" component={AccountScreen} />
+        <Stack.Screen name="Signout" component={SignoutScreen} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+      </Stack.Group>
+
+      {/* Donations */}
       <Stack.Group name="Donations">
         <Stack.Screen name="Donations" component={DonationsScreen} />
         <Stack.Screen
@@ -35,18 +45,31 @@ export default function AfterAuthentication() {
           component={DonationDetailsScreen}
         />
       </Stack.Group>
-      <Stack.Screen name="Resources" component={ResourcesScreen} />
+
+      {/* Resources */}
+      <Stack.Group name="Resources">
+        <Stack.Screen name="Resources" component={ResourcesScreen} />
+        <Stack.Screen
+          name="PostRequest"
+          options={{
+            presentation: "modal",
+          }}
+          component={PostRequestScreen}
+        />
+        <Stack.Screen name="ResourcesTabs" component={ResourcesTabs} />
+        <Stack.Screen
+          name="ResourceDetails"
+          component={ResourceDetailsScreen}
+        />
+        {/* Volunteers */}
+      </Stack.Group>
+      {/* <Stack.Group name="Volunteers"> */}
+      <Stack.Screen name="Volunteers" component={VolunteersScreen} />
       <Stack.Screen
-        name="PostRequest"
-        options={{
-          presentation: "modal",
-        }}
-        component={PostRequestScreen}
+        name="VolunteerRequests"
+        component={VolunteerRequestsScreen}
       />
-      <Stack.Screen name="ResourcesTabs" component={ResourcesTabs} />
-      <Stack.Screen name="ResourceDetails" component={ResourceDetailsScreen} />
-      <Stack.Screen name="Signout" component={SignoutScreen} />
-      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+      {/* </Stack.Group> */}
     </Stack.Navigator>
   );
 }
