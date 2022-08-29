@@ -18,11 +18,11 @@ export default function ResourcesScreen({ navigation }) {
     const response = await getResourceRequestsList({
       userType: "user",
     });
-    if (response.status === "200") {
-      dispatch(setResources(response.results));
+    if (response.data.status === "200") {
+      dispatch(setResources(response.data.results));
       dispatch(setIsLoading(false));
     } else {
-      alert(response.message);
+      alert(response.data.message);
     }
   }, []);
 

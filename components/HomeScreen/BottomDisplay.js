@@ -8,8 +8,7 @@ export default function BottomDisplay() {
   const navigation = useNavigation();
 
   const goToAccountScreen = () => {
-    navigation.navigate("NoConnection");
-    // navigation.navigate("Account");
+    navigation.navigate("Account");
   };
 
   const goToResourcesScreen = () => {

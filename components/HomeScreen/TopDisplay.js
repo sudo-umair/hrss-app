@@ -19,8 +19,8 @@ export default function TopDisplay() {
     const response = await getTotalNumberOfRequests({
       email: user.email,
     });
-    if (response.status === "200") {
-      setRequestsCount(response.data);
+    if (response.data.status === "200") {
+      setRequestsCount(response.data.data);
     }
   };
 

@@ -57,14 +57,13 @@ export default function AccountScreen() {
       };
       const response = await updateAccount(updatedRecord);
       console.log(response);
-      if (response.status === "200") {
+      if (response.data.status === "200") {
         dispatch(setUser(record));
         setDataInLocalStorage({
           email: record.email,
           password: record.password,
         });
         console.log(user);
-        // navigation.navigate("HomeScreen");
         alert("Account updated successfully");
       }
     } else {

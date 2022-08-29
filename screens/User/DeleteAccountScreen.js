@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useRef } from "react";
 import { clearDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { removeUser } from "../../store/user";
 import AnimatedLottieView from "lottie-react-native";
 import Button from "../../components/UI/Button";
@@ -10,14 +11,17 @@ import { deleteAccount } from "../../utilities/routes/user";
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const { email, password } = user;
 
   const onDeleteAccountHandler = async () => {
-    const response = await deleteAccount(user.email, user.password);
-    console.log(response);
-    alert(response.message);
-    if (response.status === "200") {
+    const response = await deleteAccount({ email, password });
+    // console.log(response);
+    if (response.data.status === "200") {
       dispatch(removeUser());
       clearDataInLocalStorage();
+    } else {
+      console.log(response.data.message);
     }
   };
 

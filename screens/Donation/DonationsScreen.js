@@ -15,10 +15,10 @@ export default function DonationsScreen({ navigation, route }) {
   const fetchDonations = useCallback(async () => {
     setIsLoading(true);
     const response = await getDonationsList();
-    if (response.status === "200") {
-      setDonationResults(response.results);
+    if (response.data.status === "200") {
+      setDonationResults(response.data.results);
     } else {
-      alert(response.message);
+      alert(response.data.message);
     }
     setIsLoading(false);
   }, []);

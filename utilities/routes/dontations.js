@@ -6,14 +6,10 @@ export async function getDonationsList() {
     const response = await axios.get(
       `${GLOBALS.BASE_URL}/donations/fetchDonations`
     );
-    return (res = {
-      status: response.data.status,
-      message: response.data.message,
-      results: response.data.results,
-    });
+    return response;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return (response = {
       status: "error",
       message: err.message,
     });

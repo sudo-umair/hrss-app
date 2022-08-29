@@ -8,18 +8,16 @@ export async function checkCredentials() {
     if (data != null) {
       try {
         const response = await signIn(data);
-        if (response.status === "200") {
-          console.log(response.message);
+        if (response.data.status === "200") {
           return (res = {
             status: true,
-            message: response.message,
-            user: { ...response.user, password: data.password },
+            message: response.data.message,
+            user: { ...response.data.user, password: data.password },
           });
         } else {
-          console.log(response.message);
           return (res = {
             status: false,
-            message: response.message,
+            message: response.data.message,
           });
         }
       } catch (error) {
@@ -50,11 +48,8 @@ export async function signIn(record) {
       `${GLOBALS.BASE_URL}/users/signin`,
       record
     );
-    return (res = {
-      status: response.data.status,
-      message: response.data.message,
-      user: response.data.user,
-    });
+    console.log(response.data);
+    return response;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -70,10 +65,8 @@ export async function signUp(record) {
       `${GLOBALS.BASE_URL}/users/signup`,
       record
     );
-    return (res = {
-      status: response.data.status,
-      message: response.data.message,
-    });
+    console.log(response.data);
+    return response;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -86,13 +79,10 @@ export async function signUp(record) {
 export async function updateAccount(record) {
   try {
     const response = await axios.put(
-      `${GLOBALS.BASE_URL}/users/update`,
+      `${GLOBALS.BASE_URL}/users/updateAccount`,
       record
     );
-    return (res = {
-      status: response.data.status,
-      message: response.data.message,
-    });
+    return response;
   } catch (err) {
     console.log(err);
     return (res = {
@@ -104,14 +94,13 @@ export async function updateAccount(record) {
 
 export async function deleteAccount(record) {
   try {
+    console.log(record);
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/users/delete`,
+      `${GLOBALS.BASE_URL}/users/deleteAccount`,
       record
     );
-    return (res = {
-      status: response.data.status,
-      message: response.data.message,
-    });
+    console.log(response.data);
+    return response;
   } catch (err) {
     console.log(err);
     return (res = {

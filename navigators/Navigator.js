@@ -18,10 +18,11 @@ export default function Navigator() {
   const { isLoggedIn, isConnected, isLoading } = user;
 
   const checkForInternetConnection = async () => {
-    if (await checkForConnectionOnce()) {
+    const status = await checkForConnectionOnce();
+    if (status) {
       dispatch(setIsConnected(true));
     }
-    console.log("isConnected", isConnected);
+    console.log("connected", status);
   };
 
   const checkForCredentialsInLocalStorage = async () => {
