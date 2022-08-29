@@ -11,13 +11,13 @@ import RenderItem from "../components/Notifications/RenderItem";
 import NoNotifications from "../components/Notifications/NoNotifications";
 
 export default function NotificationsScreen({ navigation, route }) {
+  const [notifications, setNotifications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const user = useSelector((state) => state.user);
   const { email } = user;
 
   const { appId, appToken } = GLOBALS;
-
-  const [notifications, setNotifications] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const getNotificationInbox = async () => {
     const inbox = await getIndieNotificationInbox(email, appId, appToken);
@@ -25,51 +25,11 @@ export default function NotificationsScreen({ navigation, route }) {
     setIsLoading(false);
   };
 
-  const deleteNotification = async (notification_id) => {
-    const notifications = await deleteIndieNotificationInbox(
-      email,
-      notification_id,
-      appId,
-      appToken
-    );
-    alert("Notification deleted");
-    setNotifications(notifications);
-  };
-
-  const deleteAllNotifications = async () => {
-    for (let i = 0; i < notifications.length; i++) {
-      await deleteIndieNotificationInbox(
-        email,
-        notifications[i].notification_id,
-        appId,
-        appToken
-      );
-    }
-    alert("All notifications deleted");
-  };
-
   useEffect(() => {
     getNotificationInbox();
 
     return setNotifications([]);
   }, []);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Icon
-          onPress={deleteAllNotifications}
-          lib="m"
-          name="clear-all"
-          color={"black"}
-          size={30}
-        />
-      ),
-      headerRightContainerStyle: {
-        marginRight: 10,
-      },
-    });
-  }, [navigation]);
 
   return (
     <View style={styles.rootContainer}>
