@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function Label({ children }) {
-  return <Text style={style.label}>{children}</Text>;
+export default function Label({ children, style }) {
+  return <Text style={[styles.label, style]}>{children}</Text>;
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     color: "#ffffff",
