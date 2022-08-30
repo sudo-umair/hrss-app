@@ -61,15 +61,16 @@ export default function AfterAuthentication() {
           name="ResourceDetails"
           component={ResourceDetailsScreen}
         />
-        {/* Volunteers */}
       </Stack.Group>
-      {/* <Stack.Group name="Volunteers"> */}
-      <Stack.Screen name="Volunteers" component={VolunteersScreen} />
-      <Stack.Screen
-        name="VolunteerRequests"
-        component={VolunteerRequestsScreen}
-      />
-      {/* </Stack.Group> */}
+
+      {/* Volunteers */}
+      <Stack.Group name="Volunteers">
+        <Stack.Screen name="Volunteers" component={VolunteersScreen} />
+        <Stack.Screen
+          name="VolunteerRequests"
+          component={VolunteerRequestsScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

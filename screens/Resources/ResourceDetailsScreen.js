@@ -43,6 +43,34 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     }
   };
 
+  const sendEmailToRequester = () => {
+    const email =
+      request.requestedByEmail === "Not Available"
+        ? false
+        : request.requestedByEmail;
+
+    if (email) {
+      const url = `mailto:${email}`;
+      Linking.openURL(url);
+    } else {
+      alert("Email is not available");
+    }
+  };
+
+  const sendEmailToAcceptor = () => {
+    const email =
+      request.approvedByEmail === "Not Available"
+        ? false
+        : request.approvedByEmail;
+
+    if (email) {
+      const url = `mailto:${email}`;
+      Linking.openURL(url);
+    } else {
+      alert("Email is not available");
+    }
+  };
+
   const approveRequest = async () => {
     if (request.requestedByEmail === user.email) {
       alert("You can't accept your own request");
@@ -97,7 +125,12 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Email</Text>
-              <Text style={styles.details}>{request.requestedByEmail}</Text>
+              <Text
+                onPress={sendEmailToRequester}
+                style={[styles.details, styles.email]}
+              >
+                {request.requestedByEmail}
+              </Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Address</Text>
@@ -126,7 +159,12 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               </View>
               <View style={styles.detailsContainer}>
                 <Text style={styles.title}>Email</Text>
-                <Text style={styles.details}>{request.approvedByEmail}</Text>
+                <Text
+                  onPress={sendEmailToAcceptor}
+                  style={[styles.details, styles.email]}
+                >
+                  {request.approvedByEmail}
+                </Text>
               </View>
             </>
           )}
@@ -202,6 +240,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginHorizontal: "2%",
     textAlign: "center",
+  },
+  email: {
+    textDecorationLine: "underline",
   },
   button: {
     marginTop: "5%",

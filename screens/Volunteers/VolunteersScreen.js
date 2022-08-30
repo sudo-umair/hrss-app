@@ -1,52 +1,60 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, {
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import React, { useState, useCallback, useLayoutEffect } from "react";
 import HospitalRenderItem from "../../components/Volunteers/HospitalRenderItem";
 import Loader from "../../components/UI/Loader";
 import NoResults from "../../components/Resources/NoResults";
 import { getVolunteersRequest } from "../../utilities/routes/volunteers";
-import { useFocusEffect } from "@react-navigation/native";
+import SearchBar from "../../components/UI/SearchBar";
 
 export default function VolunteersScreen({ navigation }) {
   const [volunteers, setVolunteers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchVolunteers = useCallback(async () => {
+    setIsLoading(true);
     const response = await getVolunteersRequest();
-
-    // const filtered = response?.results.filter(
-    //   (item) =>
-    //     item.volunteerRequests.length > 0 &&
-    //     item.volunteerRequests.requestStatus === "Enabled"
-    // );
-    // setVolunteers(filtered);
-
-    setVolunteers(response?.results);
+    if (response.status === "200") {
+      const filtered = response?.results.filter(
+        (item) => item.requestStatus === "Enabled"
+      );
+      setVolunteers(filtered);
+    } else {
+      alert(response.message);
+    }
     setIsLoading(false);
   }, []);
 
-  // useLayoutEffect(() => {
-  //   fetchVolunteers();
-  // }, []);
+  const onSearch = (text) => {
+    const results = volunteers.filter((item) => {
+      return item.volunteerRequestTitle
+        .toLowerCase()
+        .includes(text.toLowerCase());
+    });
+    setSearchResults(results);
+    setSearchText(text);
+  };
 
-  useFocusEffect(() => {
+  useLayoutEffect(() => {
     fetchVolunteers();
+    return () => {
+      setVolunteers([]);
+    };
   }),
-    [];
+    [fetchVolunteers];
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>
-        Following are the hospitals that have requested for volunteers
-      </Text>
+      <SearchBar
+        onChangeText={onSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
 
       <FlatList
-        // data={searchText === "" ? volunteers : filteredVolunteers}
-        data={volunteers}
+        data={searchText === "" ? volunteers : searchResults}
+        // data={volunteers}
         renderItem={({ item }) => <HospitalRenderItem item={item} />}
         keyExtractor={(item) => item._id}
         keyboardDismissMode="on-drag"
@@ -56,7 +64,7 @@ export default function VolunteersScreen({ navigation }) {
         updateCellsBatchingPeriod={100}
         windowSize={10}
         contentContainerStyle={styles.listContent}
-        style={styles.listContainer}
+        // style={styles.listContainer}
       />
     </View>
   );

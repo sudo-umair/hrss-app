@@ -8,20 +8,15 @@ function HospitalRenderItem({ item }) {
 
   const goToVolunteerRequest = () => {
     navigation.navigate("VolunteerRequests", {
-      requests: item,
+      item,
     });
   };
 
   return (
     <Pressable onPress={goToVolunteerRequest} style={styles.container}>
-      <Text style={styles.title}>{item.hospitalName}</Text>
-      <View style={styles.bodyRow}>
-        <Text style={styles.text}>{item.hospitalEmail}</Text>
-        <Text style={styles.text}>{item.hospitalPhone}</Text>
-      </View>
-      <Text style={styles.counter}>
-        Total Requests: {item.volunteerRequests.length}
-      </Text>
+      <Text style={styles.title}>{item.volunteerRequestTitle}</Text>
+      <Text style={styles.text}>Requested By: {item.hospitalName}</Text>
+      <Text style={styles.text}>Contact Number: {item.hospitalPhone}</Text>
     </Pressable>
   );
 }
@@ -35,11 +30,6 @@ const styles = StyleSheet.create({
     marginVertical: "2%",
     marginHorizontal: "4%",
     borderRadius: 15,
-  },
-
-  bodyRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   title: {
     fontSize: 18,
