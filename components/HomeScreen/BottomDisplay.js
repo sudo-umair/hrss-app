@@ -20,7 +20,7 @@ export default function BottomDisplay() {
   };
 
   const goToVolunteersScreen = () => {
-    navigation.navigate("Volunteers");
+    navigation.navigate("VolunteerRequests");
   };
 
   return (

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GLOBALS } from "../constants/config";
 
-export async function getVolunteersRequest() {
+export async function getVolunteerRequests() {
   try {
     const response = await axios.get(
       `${GLOBALS.BASE_URL}/volunteers/fetchAllRequests`
@@ -38,6 +38,7 @@ export async function applyForVolunteerRequest(record) {
       `${GLOBALS.BASE_URL}/volunteers/applyForVolunteerRequest`,
       record
     );
+    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err);

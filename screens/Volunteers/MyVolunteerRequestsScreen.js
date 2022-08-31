@@ -1,30 +1,33 @@
 import { StyleSheet, View, FlatList } from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
-import HospitalRenderItem from "../../components/Volunteers/HospitalRenderItem";
+import VolunteerRequestRenderItem from "../../components/Volunteers/VolunteerRequestRenderItem";
 import Loader from "../../components/UI/Loader";
-import NoResults from "../../components/Resources/NoResults";
-import { getVolunteersRequest } from "../../utilities/routes/volunteers";
+import NoResults from "../../components/Donations/NoResults";
+import { getMyVolunteerRequests } from "../../utilities/routes/volunteers";
 import SearchBar from "../../components/UI/SearchBar";
+import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function VolunteersScreen({ navigation }) {
+export default function MyVolunteerRequestsScreen({ navigation }) {
   const [volunteers, setVolunteers] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchVolunteers = useCallback(async () => {
-    setIsLoading(true);
-    const response = await getVolunteersRequest();
+  const user = useSelector((state) => state.user);
+
+  const fetchMyVolunteerRequests = useCallback(async () => {
+    const response = await getMyVolunteerRequests({
+      applicantEmail: user.email,
+    });
     if (response.status === "200") {
-      const filtered = response?.results.filter(
-        (item) => item.requestStatus === "Enabled"
-      );
-      setVolunteers(filtered);
+      setVolunteers(response.results.reverse());
     } else {
       alert(response.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [navigation]);
 
   const onSearch = (text) => {
     const results = volunteers.filter((item) => {
@@ -37,12 +40,18 @@ export default function VolunteersScreen({ navigation }) {
   };
 
   useLayoutEffect(() => {
-    fetchVolunteers();
+    fetchMyVolunteerRequests();
+
     return () => {
       setVolunteers([]);
     };
-  }),
-    [fetchVolunteers];
+  }, [navigation]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: "My Volunteer Requests",
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.rootContainer}>
@@ -51,20 +60,25 @@ export default function VolunteersScreen({ navigation }) {
         searchText={searchText}
         setSearchText={setSearchText}
       />
-
       <FlatList
         data={searchText === "" ? volunteers : searchResults}
-        // data={volunteers}
-        renderItem={({ item }) => <HospitalRenderItem item={item} />}
-        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <VolunteerRequestRenderItem
+            item={item}
+            screen={{ screen: "MyVolunteerRequests" }}
+          />
+        )}
+        keyExtractor={(item) => item._id.toString()}
         keyboardDismissMode="on-drag"
-        ListEmptyComponent={isLoading ? Loader : NoResults}
+        ListEmptyComponent={
+          isLoading ? Loader : NoResults.bind(this, { searchText })
+        }
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
         windowSize={10}
         contentContainerStyle={styles.listContent}
-        // style={styles.listContainer}
+        style={styles.listContainer}
       />
     </View>
   );

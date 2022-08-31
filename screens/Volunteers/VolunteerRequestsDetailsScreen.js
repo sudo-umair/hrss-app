@@ -1,17 +1,47 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";
 import { Linking } from "react-native";
+import { applyForVolunteerRequest } from "../../utilities/routes/volunteers";
+import { useSelector } from "react-redux";
 
-export default function VolunteerRequestsScreen({ navigation, route }) {
-  const { item } = route.params;
+export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
+  const [applicantStatus, setApplicantStatus] = useState("");
+  const user = useSelector((state) => state.user);
+  const { name, email, phone, cnic } = user;
+  const { item, screen } = route.params;
 
-  const volunteerHandler = () => {
+  //for my requests
+  const checkApplicantStatus = () => {
+    item.applicants.forEach((applicant) => {
+      if (applicant.applicantEmail === email) {
+        setApplicantStatus(applicant.applicantRequestStatus);
+      }
+    });
+  };
+
+  const acceptVolunteerRequest = async () => {
     if (item.requestStatus === "Disabled") {
       alert("Hospial is not accepting volunteers anymore");
+    } else if (
+      item.applicants.find((applicant) => applicant.applicantEmail === email)
+    ) {
+      alert("You have already applied for this request");
     } else {
-      alert("Volunteer Request");
+      const record = {
+        volunteerRequestId: item._id,
+        applicantName: name,
+        applicantEmail: email,
+        applicantPhone: phone,
+        applicantCnic: cnic,
+      };
+      const response = await applyForVolunteerRequest(record);
+
+      if (response.status === "200") {
+        navigation.navigate("VolunteerRequests");
+      }
+      alert(response.message);
     }
   };
 
@@ -37,12 +67,18 @@ export default function VolunteerRequestsScreen({ navigation, route }) {
     }
   };
 
+  {
+    screen === "MyVolunteerRequests" &&
+      useLayoutEffect(() => {
+        checkApplicantStatus();
+      }, [navigation]);
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: item?.hospitalName,
     });
-  }),
-    [navigation];
+  }, [navigation]);
 
   return (
     <View style={styles.rootContainer}>
@@ -60,9 +96,20 @@ export default function VolunteerRequestsScreen({ navigation, route }) {
           <Text style={styles.title}>Volunteers Required</Text>
           <Text style={styles.details}>{item.volunteersRequired}</Text>
         </View>
-        <Button onPress={volunteerHandler} style={styles.button}>
-          {item.requestStatus === "Enabled" ? "Volunteer" : "Disabled"}
-        </Button>
+
+        {screen === "MyVolunteerRequests" && (
+          <View style={styles.detailsContainer}>
+            <Text style={styles.title}>Request Status</Text>
+            <Text style={styles.details}>{applicantStatus}</Text>
+          </View>
+        )}
+
+        {screen === "VolunteerRequests" && (
+          <Button onPress={acceptVolunteerRequest} style={styles.button}>
+            {item.requestStatus === "Enabled" && "Apply for Volunteer"}
+          </Button>
+        )}
+
         <View style={styles.divider}></View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Hospital Name</Text>

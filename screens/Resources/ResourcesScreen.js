@@ -4,7 +4,6 @@ import ResourcesTabs from "../../navigators/ResourcesTabs";
 import { getResourceRequestsList } from "../../utilities/routes/resource";
 import { useDispatch } from "react-redux";
 import { setResources, setIsLoading } from "../../store/resources";
-import { useFocusEffect } from "@react-navigation/native";
 import Icon from "../../components/UI/Icon";
 
 export default function ResourcesScreen({ navigation }) {
@@ -41,13 +40,12 @@ export default function ResourcesScreen({ navigation }) {
         marginRight: 10,
       },
     });
-  }),
-    [navigation];
+  }, []);
 
-  useFocusEffect(() => {
+  useLayoutEffect(() => {
     getResourceRequests();
   }),
-    [getResourceRequests];
+    [navigation];
 
   return <ResourcesTabs />;
 }

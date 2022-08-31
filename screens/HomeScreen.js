@@ -71,8 +71,11 @@ export default function HomeSreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    if (pushDataObject.screenName === "Resources") {
-      navigation.navigate("Resources");
+    if (
+      pushDataObject.screenName !== undefined &&
+      pushDataObject.screenName === ""
+    ) {
+      navigation.navigate(`${pushDataObject.screenName}`);
     }
   }, []);
 
