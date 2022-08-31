@@ -13,8 +13,7 @@ import PostRequestScreen from "../screens/Resources/PostRequestScreen";
 import ResourceDetailsScreen from "../screens/Resources/ResourceDetailsScreen";
 import ResourcesTabs from "./ResourcesTabs";
 import VolunteerRequestsDetailsScreen from "../screens/Volunteers/VolunteerRequestsDetailsScreen";
-import VolunteersRequestsScreen from "../screens/Volunteers/VolunteersRequestsScreen";
-import MyVolunteerRequestsScreen from "../screens/Volunteers/MyVolunteerRequestsScreen";
+import VolunteersScreen from "../screens/Volunteers/VolunteersScreen";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();
@@ -66,20 +65,7 @@ export default function AfterAuthentication() {
 
       {/* Volunteers */}
       <Stack.Group name="Volunteers">
-        <Stack.Screen
-          name="VolunteerRequests"
-          component={VolunteersRequestsScreen}
-          initialParams={{
-            screen: "VolunteerRequests",
-          }}
-        />
-        <Stack.Screen
-          name="MyVolunteerRequests"
-          component={MyVolunteerRequestsScreen}
-          initialParams={{
-            screen: "MyVolunteerRequests",
-          }}
-        />
+        <Stack.Screen name="Volunteers" component={VolunteersScreen} />
         <Stack.Screen
           name="VolunteerRequestDetails"
           component={VolunteerRequestsDetailsScreen}

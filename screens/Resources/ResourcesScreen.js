@@ -5,6 +5,7 @@ import { getResourceRequestsList } from "../../utilities/routes/resource";
 import { useDispatch } from "react-redux";
 import { setResources, setIsLoading } from "../../store/resources";
 import Icon from "../../components/UI/Icon";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
@@ -14,6 +15,7 @@ export default function ResourcesScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const getResourceRequests = useCallback(async () => {
+    dispatch(setIsLoading(true));
     const response = await getResourceRequestsList({
       userType: "user",
     });
@@ -42,10 +44,16 @@ export default function ResourcesScreen({ navigation }) {
     });
   }, []);
 
-  useLayoutEffect(() => {
+  useFocusEffect(() => {
     getResourceRequests();
-  }),
-    [navigation];
+  });
+
+  useLayoutEffect(() => {
+    return () => {
+      dispatch(setResources([]));
+      dispatch(setIsLoading(true));
+    };
+  }, []);
 
   return <ResourcesTabs />;
 }

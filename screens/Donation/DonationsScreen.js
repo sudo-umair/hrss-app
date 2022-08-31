@@ -15,7 +15,6 @@ export default function DonationsScreen({ navigation, route }) {
   const fetchDonations = useCallback(async () => {
     setIsLoading(true);
     const response = await getDonationsList();
-    console.log(response.results);
     if (response.status === "200") {
       setDonationResults(response.results);
     } else {

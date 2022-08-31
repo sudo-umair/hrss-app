@@ -39,7 +39,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       const response = await applyForVolunteerRequest(record);
 
       if (response.status === "200") {
-        navigation.navigate("VolunteerRequests");
+        navigation.navigate("Volunteers");
       }
       alert(response.message);
     }
