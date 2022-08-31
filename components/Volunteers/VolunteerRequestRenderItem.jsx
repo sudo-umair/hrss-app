@@ -36,8 +36,17 @@ function VolunteerRequestRenderItem({ item, screen }) {
   return (
     <Pressable onPress={goToVolunteerRequest} style={styles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.title}>{item.volunteerRequestTitle}</Text>
-        {/* {screen === "MyVolunteerRequests" && (
+        <Text
+          style={[
+            styles.title,
+            screen === "MyVolunteerRequests" && {
+              width: "80%",
+            },
+          ]}
+        >
+          {item.volunteerRequestTitle}
+        </Text>
+        {screen === "MyVolunteerRequests" && (
           <Text
             style={[
               styles.requestStatus,
@@ -48,7 +57,7 @@ function VolunteerRequestRenderItem({ item, screen }) {
           >
             {applicantStatus}
           </Text>
-        )} */}
+        )}
       </View>
       <Text style={styles.text}>Requested By: {item.hospitalName}</Text>
       <Text style={styles.text}>Contact: {item.hospitalPhone}</Text>
@@ -77,6 +86,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   counter: {
+    width: "20%",
     fontSize: 12,
     color: "white",
     textAlign: "left",

@@ -20,7 +20,7 @@ export default function ResourcesTabs({ navigation, route }) {
       <Tab.Screen
         name="MyRequests"
         options={{
-          tabBarLabel: "MyRequests",
+          tabBarLabel: "My Requests",
         }}
         component={FeedScreen}
         initialParams={{
