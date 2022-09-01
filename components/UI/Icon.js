@@ -22,13 +22,16 @@ export default function Icon({
   const [unReadCount, setUnReadCount] = useState(0);
   let Icon;
 
-  useLayoutEffect(() => {
-    setUnReadCount(count);
+  {
+    mode === "badge" &&
+      useLayoutEffect(() => {
+        setUnReadCount(count);
 
-    return () => {
-      setUnReadCount(null);
-    };
-  }, [count]);
+        return () => {
+          setUnReadCount(null);
+        };
+      }, [count]);
+  }
 
   if (lib === "m") {
     Icon = <MaterialIcons name={name} color={color} size={size} />;

@@ -19,7 +19,7 @@ export default function HomeSreen({ navigation, route }) {
   const [unReadCount, setUnReadCount] = useState(0);
   const { appId, appToken } = GLOBALS;
 
-  const getUnReadCount = useFocusEffect(() => {
+  useFocusEffect(() => {
     const getUnreadNotificationCount = async () => {
       setUnReadCount(
         await getUnreadIndieNotificationInboxCount(email, appId, appToken)
@@ -61,12 +61,7 @@ export default function HomeSreen({ navigation, route }) {
         />
       ),
     });
-
-    return () => {
-      setUnReadCount(0);
-    };
-  }),
-    [getUnReadCount];
+  }, [unReadCount]);
 
   const goToNotificationsScreen = () => {
     navigation.navigate("Notifications");
