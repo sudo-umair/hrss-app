@@ -19,20 +19,8 @@ export const volunteersSlice = createSlice({
       state.volunteers = [];
     },
 
-    setMyRequests: (state, action) => {
-      state.myRequests = action.payload;
-    },
-
-    removeMyRequests: (state) => {
-      state.myRequests = [];
-    },
-
     setVolunteersLoading: (state, action) => {
       state.volunteersLoading = action.payload;
-    },
-
-    setMyRequestsLoading: (state, action) => {
-      state.myRequestsLoading = action.payload;
     },
   },
 });
@@ -40,10 +28,8 @@ export const volunteersSlice = createSlice({
 export const {
   setVolunteers,
   removeVolunteers,
-  setMyRequests,
-  removeMyRequests,
+
   setVolunteersLoading,
-  setMyRequestsLoading,
 } = volunteersSlice.actions;
 
 export default volunteersSlice.reducer;

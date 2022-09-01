@@ -20,7 +20,7 @@ function VolunteerRequestRenderItem({ item, screen }) {
   };
 
   {
-    screen === "MyVolunteerRequests" &&
+    screen === "MyRequests" &&
       useLayoutEffect(() => {
         checkApplicantStatus();
       }, [navigation]);
@@ -39,14 +39,14 @@ function VolunteerRequestRenderItem({ item, screen }) {
         <Text
           style={[
             styles.title,
-            screen === "MyVolunteerRequests" && {
+            screen === "MyRequests" && {
               width: "80%",
             },
           ]}
         >
           {item.volunteerRequestTitle}
         </Text>
-        {screen === "MyVolunteerRequests" && (
+        {screen === "MyRequests" && (
           <Text
             style={[
               styles.requestStatus,

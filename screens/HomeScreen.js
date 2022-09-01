@@ -62,7 +62,9 @@ export default function HomeSreen({ navigation, route }) {
       ),
     });
 
-    return () => {};
+    return () => {
+      setUnReadCount(0);
+    };
   }),
     [getUnReadCount];
 

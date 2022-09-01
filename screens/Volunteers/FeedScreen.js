@@ -6,17 +6,40 @@ import NoResults from "../../components/Resources/NoResults";
 import SearchBar from "../../components/UI/SearchBar";
 import { useSelector } from "react-redux";
 
-export default function VolunteersRequestsScreen({ navigation, route }) {
+export default function FeedScreen({ navigation, route }) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [filteredRequests, setFilteredRequests] = useState([]);
+  const { screen } = route.params;
 
   const user = useSelector((state) => state.user);
   const { volunteers, volunteersLoading } = useSelector(
     (state) => state.volunteers
   );
 
+  const filterRequests = useCallback(() => {
+    if (screen === "MyRequests") {
+      const filtered = volunteers.filter((request) =>
+        request.applicants.filter(
+          (applicant) => applicant.applicantEmail === user.email
+        )
+      );
+
+      setFilteredRequests(filtered.reverse());
+    } else if (screen === "VolunteerRequests") {
+      const filtered = volunteers.filter(
+        (item) =>
+          item.requestStatus === "Enabled" &&
+          !item.applicants.find(
+            (applicant) => applicant.applicantEmail === user.email
+          )
+      );
+      setFilteredRequests(filtered.reverse());
+    }
+  });
+
   const onSearch = (text) => {
-    const results = volunteers.filter((item) => {
+    const results = filteredRequests.filter((item) => {
       return item.volunteerRequestTitle
         .toLowerCase()
         .includes(text.toLowerCase());
@@ -24,6 +47,14 @@ export default function VolunteersRequestsScreen({ navigation, route }) {
     setSearchResults(results);
     setSearchText(text);
   };
+
+  useLayoutEffect(() => {
+    filterRequests(volunteers);
+
+    return () => {
+      setFilteredRequests([]);
+    };
+  }, [volunteers, screen]);
 
   return (
     <View style={styles.rootContainer}>
@@ -33,9 +64,9 @@ export default function VolunteersRequestsScreen({ navigation, route }) {
         setSearchText={setSearchText}
       />
       <FlatList
-        data={searchText === "" ? volunteers : searchResults}
+        data={searchText === "" ? filteredRequests : searchResults}
         renderItem={({ item }) => (
-          <VolunteerRequestRenderItem item={item} screen="VolunteerRequests" />
+          <VolunteerRequestRenderItem item={item} screen={screen} />
         )}
         keyExtractor={(item) => item._id.toString()}
         keyboardDismissMode="on-drag"
@@ -59,6 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: "4%",
   },
+
   listContainer: {},
   listContent: {},
 });

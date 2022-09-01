@@ -68,7 +68,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   {
-    screen === "MyVolunteerRequests" &&
+    screen === "MyRequests" &&
       useLayoutEffect(() => {
         checkApplicantStatus();
       }, [navigation]);
@@ -97,7 +97,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{item.volunteersRequired}</Text>
         </View>
 
-        {screen === "MyVolunteerRequests" && (
+        {screen === "MyRequests" && (
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Request Status</Text>
             <Text style={styles.details}>{applicantStatus}</Text>

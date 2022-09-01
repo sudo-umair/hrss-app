@@ -1,7 +1,6 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import VolunteersRequestsScreen from "../screens/Volunteers/VolunteersRequestsScreen";
-import MyVolunteerRequestsScreen from "../screens/Volunteers/MyVolunteerRequestsScreen";
+import FeedScreen from "../screens/Volunteers/FeedScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -13,9 +12,9 @@ export default function VolunteerTabs({ navigation, route }) {
         options={{
           tabBarLabel: "Feed",
         }}
-        component={VolunteersRequestsScreen}
+        component={FeedScreen}
         initialParams={{
-          filterType: "all",
+          screen: "VolunteerRequests",
         }}
       />
       <Tab.Screen
@@ -23,9 +22,9 @@ export default function VolunteerTabs({ navigation, route }) {
         options={{
           tabBarLabel: "My Requests",
         }}
-        component={MyVolunteerRequestsScreen}
+        component={FeedScreen}
         initialParams={{
-          filterType: "myRequests",
+          screen: "MyRequests",
         }}
       />
     </Tab.Navigator>

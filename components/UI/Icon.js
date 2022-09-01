@@ -24,8 +24,11 @@ export default function Icon({
 
   useLayoutEffect(() => {
     setUnReadCount(count);
-  }),
-    [count];
+
+    return () => {
+      setUnReadCount(null);
+    };
+  }, [count]);
 
   if (lib === "m") {
     Icon = <MaterialIcons name={name} color={color} size={size} />;
