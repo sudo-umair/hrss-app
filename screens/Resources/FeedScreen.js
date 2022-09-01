@@ -1,8 +1,10 @@
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import React, { useState, useLayoutEffect } from "react";
 import RenderItem from "../../components/Resources/RenderItem";
 import Loader from "../../components/UI/Loader";
 import NoResults from "../../components/Resources/NoResults";
+import SearchBar from "../../components/UI/SearchBar";
+
 import { useSelector } from "react-redux";
 
 export default function FeedScreen({ navigation, route }) {
@@ -14,6 +16,8 @@ export default function FeedScreen({ navigation, route }) {
   const { email } = user;
 
   const [filteredRequests, setFilteredRequests] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   const filterRequests = (requests) => {
     if (filterType === "all") {
@@ -38,31 +42,52 @@ export default function FeedScreen({ navigation, route }) {
     }
   };
 
+  const onSearch = (text) => {
+    const results = filteredRequests.filter((item) => {
+      return item.resourceName.toLowerCase().includes(text.toLowerCase());
+    });
+    setSearchResults(results);
+    setSearchText(text);
+  };
+
   useLayoutEffect(() => {
     filterRequests(resourceRequests);
   }, [resourceRequests, filterType]);
 
   return (
-    <FlatList
-      data={filteredRequests}
-      renderItem={({ item }) => <RenderItem item={item} />}
-      keyExtractor={(item) => item._id}
-      ListEmptyComponent={isLoading ? Loader : NoResults}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      updateCellsBatchingPeriod={100}
-      contentContainerStyle={styles.listContent}
-      style={styles.listContainer}
-    />
+    <View style={styles.rootContainer}>
+      <SearchBar
+        onChangeText={onSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
+      <FlatList
+        data={searchText === "" ? filteredRequests : searchResults}
+        renderItem={({ item }) => <RenderItem item={item} />}
+        keyExtractor={(item) => item._id}
+        ListEmptyComponent={isLoading ? Loader : NoResults}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        updateCellsBatchingPeriod={100}
+        contentContainerStyle={styles.listContent}
+        style={styles.listContainer}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingTop: "4%",
+  },
+
   listContainer: {
     width: "100%",
   },
   listContent: {
-    paddingVertical: "3%",
+    paddingBottom: "4%",
     paddingHorizontal: "4%",
   },
 });
