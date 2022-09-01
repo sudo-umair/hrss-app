@@ -6,6 +6,7 @@ import { removeUser } from "../../store/user";
 import AnimatedLottieView from "lottie-react-native";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { showMessage } from "react-native-flash-message";
 
 export default function SignoutScreen() {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ export default function SignoutScreen() {
   const onSignOutHandler = () => {
     clearDataInLocalStorage();
     dispatch(removeUser());
+    showMessage({
+      message: "You have been signed out",
+      type: "success",
+      icon: "success",
+    });
   };
 
   const animation = useRef(null);

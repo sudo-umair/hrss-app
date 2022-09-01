@@ -8,6 +8,7 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { Platform } from "react-native";
 import { signUp } from "../../utilities/routes/user";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import { showMessage } from "react-native-flash-message";
 
 export default function SignupScreen({ navigation }) {
   const [record, setRecord] = useState({
@@ -80,12 +81,23 @@ export default function SignupScreen({ navigation }) {
   const onSignUpHandler = async () => {
     if (!passwordError && !emailError) {
       const response = await signUp(record);
-      alert(response.message);
-      if (response.status === "200") {
-        navigation.navigate("Sign In");
+      showMessage({
+        message: response.message,
+        description: response.message,
+        type: response.status === "201" ? "success" : "danger",
+        icon: response.status === "201" ? "success" : "danger",
+      });
+      if (response.status === "201") {
+        navigation.navigate("Signin");
       }
     } else {
-      alert("Please fill out all fields and check for existing errors");
+      showMessage({
+        message: "Signup Failed",
+        description:
+          "Please fill out all fields with valid information and check for existing errors",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 

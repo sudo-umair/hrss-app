@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user";
 import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useNavigation } from "@react-navigation/native";
+import { showMessage } from "react-native-flash-message";
 
 export default function AccountScreen() {
   const user = useSelector((state) => state.user);
@@ -64,10 +65,21 @@ export default function AccountScreen() {
           password: record.password,
         });
         console.log(user);
-        alert("Account updated successfully");
+        showMessage({
+          message: "Account Update Successfull",
+          description: "Your account has been updated successfully.",
+          type: "success",
+          icon: "success",
+        });
       }
     } else {
-      alert("Please fill out all fields and check for existing errors");
+      showMessage({
+        message: "Account Update Failed",
+        description:
+          "Please fill out all fields with valid information and check for existing errors",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 

@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Linking } from "react-native";
 import React, { useLayoutEffect } from "react";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { showMessage } from "react-native-flash-message";
 
 export default function DonationDetailsScreen({ navigation, route }) {
   const donation = route.params.donation;
@@ -20,7 +21,11 @@ export default function DonationDetailsScreen({ navigation, route }) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
     } else {
-      alert("Phone Number is not available");
+      showMessage({
+        message: "Phone number not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 
@@ -29,7 +34,11 @@ export default function DonationDetailsScreen({ navigation, route }) {
     if (url) {
       Linking.openURL(url);
     } else {
-      alert("Website is not available");
+      showMessage({
+        message: "Website not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 

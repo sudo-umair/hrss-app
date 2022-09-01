@@ -5,6 +5,7 @@ import Icon from "../UI/Icon";
 import { deleteIndieNotificationInbox } from "native-notify";
 import { GLOBALS } from "../../utilities/constants/config";
 import { useSelector } from "react-redux";
+import { showMessage } from "react-native-flash-message";
 
 const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
   const user = useSelector((state) => state.user);
@@ -20,6 +21,11 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
       appToken
     );
     setNotifications(notifications);
+    showMessage({
+      message: "Notification deleted",
+      type: "success",
+      icon: "success",
+    });
   };
 
   return (

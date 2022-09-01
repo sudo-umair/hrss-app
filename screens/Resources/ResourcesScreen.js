@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setResources, setIsLoading } from "../../store/resources";
 import Icon from "../../components/UI/Icon";
 import { useFocusEffect } from "@react-navigation/native";
+import { showMessage } from "react-native-flash-message";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
@@ -23,7 +24,11 @@ export default function ResourcesScreen({ navigation }) {
       dispatch(setResources(response.results));
       dispatch(setIsLoading(false));
     } else {
-      alert(response.message);
+      showMessage({
+        message: "Something went wrong",
+        type: "warning",
+        icon: "warning",
+      });
     }
   }, []);
 

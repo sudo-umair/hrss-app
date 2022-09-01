@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import Button from "../../components/UI/Button";
 import { postResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
+import { showMessage } from "react-native-flash-message";
 
 export default function PostRequestScreen({ navigation }) {
   const RESOURCE = useRef();
@@ -52,11 +53,23 @@ export default function PostRequestScreen({ navigation }) {
 
   const onPostRequest = async () => {
     if (missingFields) {
-      alert("Please fill in all fields");
+      showMessage({
+        message: "Please fill in all fields",
+        type: "warning",
+        icon: "warning",
+      });
     } else {
       try {
-        const res = await postResourceRequest(record);
-        alert(res.message);
+        const response = await postResourceRequest(record);
+        showMessage({
+          message:
+            response.status === 201
+              ? "Request posted successfully"
+              : "Request failed to post",
+          icon: response.status === 201 ? "success" : "danger",
+          type: response.status === 201 ? "success" : "danger",
+        });
+
         if (res.status === "201") {
           emptyFields();
           navigation.navigate("Resources");

@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/user";
 import { registerIndieID } from "native-notify";
 import { GLOBALS } from "../../utilities/constants/config";
+import { showMessage } from "react-native-flash-message";
 
 export default function SigninScreen() {
   const { appId, appToken } = GLOBALS;
@@ -60,7 +61,7 @@ export default function SigninScreen() {
   };
 
   const onSignInHandler = async () => {
-    if (!emailError || !passwordError) {
+    if (!emailError && !passwordError) {
       console.log("Signing in...", record);
       const response = await signIn(record);
       if (response.status === "200") {
@@ -76,11 +77,20 @@ export default function SigninScreen() {
         });
         dispatch(setUser(user));
         await registerIndieID(record.email, appId, appToken);
-      } else {
-        alert(response.message);
       }
+      showMessage({
+        message: response.status === "200" ? "Logged In" : "Login Failed",
+        description: response.status === "200" ? null : response.message,
+        type: response.status === "200" ? "success" : "danger",
+        icon: response.status === "200" ? "success" : "danger",
+      });
     } else {
-      alert("Please fill out all fields and check for existing errors");
+      showMessage({
+        message: "Login Failed",
+        description: "Please fill out all fields and check for existing errors",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 

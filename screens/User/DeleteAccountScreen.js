@@ -8,6 +8,7 @@ import AnimatedLottieView from "lottie-react-native";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { deleteAccount } from "../../utilities/routes/user";
+import { showMessage } from "react-native-flash-message";
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -16,13 +17,16 @@ export default function DeleteAccountScreen({ navigation }) {
 
   const onDeleteAccountHandler = async () => {
     const response = await deleteAccount({ email, password });
-    // console.log(response);
     if (response.status === "200") {
       dispatch(removeUser());
       clearDataInLocalStorage();
-    } else {
-      console.log(response.data.message);
     }
+    showMessage({
+      message: response.status === "200" ? "Account deleted" : "Error",
+      description: response.message,
+      type: response.status === "200" ? "success" : "danger",
+      icon: response.status === "200" ? "success" : "danger",
+    });
   };
 
   const animation = useRef(null);

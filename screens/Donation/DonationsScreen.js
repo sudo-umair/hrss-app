@@ -5,6 +5,7 @@ import SearchBar from "../../components/UI/SearchBar";
 import RenderItem from "../../components/Donations/RenderItem";
 import Loader from "../../components/UI/Loader";
 import NoResults from "../../components/Donations/NoResults";
+import { showMessage } from "react-native-flash-message";
 
 export default function DonationsScreen({ navigation, route }) {
   const [donationResults, setDonationResults] = useState([]);
@@ -18,7 +19,11 @@ export default function DonationsScreen({ navigation, route }) {
     if (response.status === "200") {
       setDonationResults(response.results);
     } else {
-      alert(response.message);
+      showMessage({
+        message: "Something went wrong",
+        type: "warning",
+        icon: "warning",
+      });
     }
     setIsLoading(false);
   }, []);

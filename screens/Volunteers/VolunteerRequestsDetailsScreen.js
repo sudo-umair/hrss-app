@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button";
 import { Linking } from "react-native";
 import { applyForVolunteerRequest } from "../../utilities/routes/volunteers";
 import { useSelector } from "react-redux";
+import { showMessage } from "react-native-flash-message";
 
 export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   const [applicantStatus, setApplicantStatus] = useState("");
@@ -23,11 +24,19 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
 
   const acceptVolunteerRequest = async () => {
     if (item.requestStatus === "Disabled") {
-      alert("Hospial is not accepting volunteers anymore");
+      showMessage({
+        message: "Hospial is not accepting volunteers anymore",
+        type: "warning",
+        icon: "warning",
+      });
     } else if (
       item.applicants.find((applicant) => applicant.applicantEmail === email)
     ) {
-      alert("You have already applied for this request");
+      showMessage({
+        message: "You have already applied for this request",
+        type: "warning",
+        icon: "warning",
+      });
     } else {
       const record = {
         volunteerRequestId: item._id,
@@ -41,7 +50,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       if (response.status === "200") {
         navigation.navigate("Volunteers");
       }
-      alert(response.message);
+      showMessage({
+        message: response.message,
+        type: response.status === "200" ? "success" : "danger",
+        icon: response.status === "200" ? "success" : "danger",
+      });
     }
   };
 
@@ -52,7 +65,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
     } else {
-      alert("Phone Number is not available");
+      showMessage({
+        message: "Phone number is not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 
@@ -63,7 +80,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       const url = `mailto:${email}`;
       Linking.openURL(url);
     } else {
-      alert("Email is not available");
+      showMessage({
+        message: "Email is not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 

@@ -4,6 +4,7 @@ import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { updateResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
+import { showMessage } from "react-native-flash-message";
 
 export default function ResourceDetailsScreen({ navigation, route }) {
   const request = route.params.item;
@@ -18,62 +19,45 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   }),
     [navigation, request];
 
-  const callRequestor = () => {
-    const phoneNumber =
-      request.requestedByPhone === "Not Available"
-        ? false
-        : request.requestedByPhone;
-    if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
+  const call = (phone) => {
+    const phoneBool =
+      phone === "Not Available" ? false : request.approvedByPhone;
+
+    if (phoneBool) {
+      const url = `tel:${phone}`;
       Linking.openURL(url);
     } else {
-      alert("Phone Number is not available");
+      showMessage({
+        message: "Phone number not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 
-  const callAcceptor = () => {
-    const phoneNumber =
-      request.phone === "Not Available" ? false : request.approvedByPhone;
+  const sendEmail = (email) => {
+    const emailBool =
+      email === "Not Available" ? false : request.requestedByEmail;
 
-    if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      Linking.openURL(url);
-    } else {
-      alert("Phone Number is not available");
-    }
-  };
-
-  const sendEmailToRequester = () => {
-    const email =
-      request.requestedByEmail === "Not Available"
-        ? false
-        : request.requestedByEmail;
-
-    if (email) {
+    if (emailBool) {
       const url = `mailto:${email}`;
       Linking.openURL(url);
     } else {
-      alert("Email is not available");
-    }
-  };
-
-  const sendEmailToAcceptor = () => {
-    const email =
-      request.approvedByEmail === "Not Available"
-        ? false
-        : request.approvedByEmail;
-
-    if (email) {
-      const url = `mailto:${email}`;
-      Linking.openURL(url);
-    } else {
-      alert("Email is not available");
+      showMessage({
+        message: "Email not available",
+        type: "warning",
+        icon: "warning",
+      });
     }
   };
 
   const approveRequest = async () => {
     if (request.requestedByEmail === user.email) {
-      alert("You can't accept your own request");
+      showMessage({
+        message: "You cannot approve your own request",
+        type: "warning",
+        icon: "warning",
+      });
     } else {
       const record = {
         id: request._id,
@@ -83,7 +67,12 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         approvedByPhone: phone,
       };
       const response = await updateResourceRequest(record);
-      alert(response.message);
+      showMessage({
+        message: response.message,
+        type: response.status === 200 ? "success" : "danger",
+        icon: response.status === 200 ? "success" : "danger",
+      });
+
       navigation.goBack();
     }
   };
@@ -126,7 +115,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>Email</Text>
               <Text
-                onPress={sendEmailToRequester}
+                onPress={sendEmail.bind(this, request.requestedByEmail)}
                 style={[styles.details, styles.email]}
               >
                 {request.requestedByEmail}
@@ -160,7 +149,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               <View style={styles.detailsContainer}>
                 <Text style={styles.title}>Email</Text>
                 <Text
-                  onPress={sendEmailToAcceptor}
+                  onPress={sendEmail.bind(this, request.approvedByEmail)}
                   style={[styles.details, styles.email]}
                 >
                   {request.approvedByEmail}
@@ -182,13 +171,21 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 
         {request.requestStatus === "Approved" &&
           request.approvedByEmail !== email && (
-            <Button style={styles.button} textSize={16} onPress={callAcceptor}>
+            <Button
+              style={styles.button}
+              textSize={16}
+              onPress={call.bind(this, request.approvedByPhone)}
+            >
               Call {request.approvedByName.split(" ")[0]}
             </Button>
           )}
 
         {request.requestedByEmail !== email && (
-          <Button style={styles.button} textSize={16} onPress={callRequestor}>
+          <Button
+            style={styles.button}
+            textSize={16}
+            onPress={call.bind(this, request.requestedByPhone)}
+          >
             Call {request.requestedByName.split(" ")[0]}
           </Button>
         )}
