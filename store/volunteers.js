@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 initialState = {
   volunteers: [],
-  myRequests: [],
-  volunteersLoading: false,
-  myRequestsLoading: false,
+  isLoading: false,
 };
 
 export const volunteersSlice = createSlice({
@@ -19,17 +17,13 @@ export const volunteersSlice = createSlice({
       state.volunteers = [];
     },
 
-    setVolunteersLoading: (state, action) => {
-      state.volunteersLoading = action.payload;
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const {
-  setVolunteers,
-  removeVolunteers,
-
-  setVolunteersLoading,
-} = volunteersSlice.actions;
+export const { setVolunteers, removeVolunteers, setIsLoading } =
+  volunteersSlice.actions;
 
 export default volunteersSlice.reducer;

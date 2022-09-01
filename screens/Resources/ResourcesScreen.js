@@ -3,7 +3,11 @@ import React, { useCallback, useLayoutEffect } from "react";
 import ResourcesTabs from "../../navigators/ResourcesTabs";
 import { getResourceRequestsList } from "../../utilities/routes/resource";
 import { useDispatch } from "react-redux";
-import { setResources, setIsLoading } from "../../store/resources";
+import {
+  setResources,
+  setIsLoading,
+  removeResources,
+} from "../../store/resources";
 import Icon from "../../components/UI/Icon";
 import { useFocusEffect } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
@@ -55,7 +59,7 @@ export default function ResourcesScreen({ navigation }) {
 
   useLayoutEffect(() => {
     return () => {
-      dispatch(setResources([]));
+      dispatch(removeResources());
       dispatch(setIsLoading(true));
     };
   }, []);

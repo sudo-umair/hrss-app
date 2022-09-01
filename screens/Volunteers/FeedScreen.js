@@ -13,9 +13,7 @@ export default function FeedScreen({ navigation, route }) {
   const { screen } = route.params;
 
   const user = useSelector((state) => state.user);
-  const { volunteers, volunteersLoading } = useSelector(
-    (state) => state.volunteers
-  );
+  const { volunteers, isLoading } = useSelector((state) => state.volunteers);
 
   const filterRequests = useCallback(() => {
     if (screen === "MyRequests") {
@@ -71,7 +69,7 @@ export default function FeedScreen({ navigation, route }) {
         keyExtractor={(item) => item._id.toString()}
         keyboardDismissMode="on-drag"
         ListEmptyComponent={
-          volunteersLoading ? Loader : NoResults.bind(this, { searchText })
+          isLoading ? Loader : NoResults.bind(this, { searchText })
         }
         initialNumToRender={10}
         maxToRenderPerBatch={10}

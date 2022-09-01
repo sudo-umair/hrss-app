@@ -52,6 +52,10 @@ export default function FeedScreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     filterRequests(resourceRequests);
+
+    return () => {
+      setFilteredRequests([]);
+    };
   }, [resourceRequests, filterType]);
 
   return (
