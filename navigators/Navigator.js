@@ -9,6 +9,7 @@ import { setUser, setIsConnected, setIsLoading } from "../store/user";
 import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
+import { showMessage } from "react-native-flash-message";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
@@ -22,14 +23,24 @@ export default function Navigator() {
     if (status) {
       dispatch(setIsConnected(true));
     }
+
     console.log("connected", status);
   };
 
   const checkForCredentialsInLocalStorage = async () => {
-    const res = await checkCredentials();
-    if (res.status) {
-      dispatch(setUser(res?.user));
+    const response = await checkCredentials();
+    if (response.status) {
+      dispatch(setUser(response?.user));
     }
+    showMessage({
+      message:
+        response.status === true
+          ? "Logged In"
+          : "Login Failed Please try again",
+      description: response.status === true ? null : response.message,
+      type: response.status === true ? "success" : "danger",
+      icon: response.status === true ? "success" : "danger",
+    });
     dispatch(setIsLoading(false));
   };
 
