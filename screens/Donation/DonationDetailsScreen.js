@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Linking } from "react-native";
+import { StyleSheet, Text, View, Linking, ScrollView } from "react-native";
 import React, { useLayoutEffect } from "react";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
@@ -43,7 +43,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
   };
 
   return (
-    <View style={styles.rootContainer}>
+    <ScrollView style={styles.rootContainer}>
       <View style={styles.container}>
         <Text style={styles.name}>{donation.name}</Text>
         <View style={styles.detailsContainer}>
@@ -80,7 +80,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
           These details are provided by Google Maps.
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
