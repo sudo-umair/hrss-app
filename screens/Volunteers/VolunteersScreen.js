@@ -19,7 +19,6 @@ export default function VolunteersScreen({ navigation }) {
     const response = await getVolunteerRequests();
     if (response.status === "200") {
       dispatch(setVolunteers(response.results));
-      dispatch(setIsLoading(false));
     } else {
       showMessage({
         message: "Something went wrong",
@@ -27,6 +26,7 @@ export default function VolunteersScreen({ navigation }) {
         icon: "warning",
       });
     }
+    dispatch(setIsLoading(false));
   }, []);
 
   useFocusEffect(() => {

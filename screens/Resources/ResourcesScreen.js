@@ -26,7 +26,6 @@ export default function ResourcesScreen({ navigation }) {
     });
     if (response.status === "200") {
       dispatch(setResources(response.results));
-      dispatch(setIsLoading(false));
     } else {
       showMessage({
         message: "Something went wrong",
@@ -34,6 +33,7 @@ export default function ResourcesScreen({ navigation }) {
         icon: "warning",
       });
     }
+    dispatch(setIsLoading(false));
   }, []);
 
   useLayoutEffect(() => {
