@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";
@@ -102,7 +102,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   }, [navigation]);
 
   return (
-    <View style={styles.rootContainer}>
+    <ScrollView style={styles.rootContainer}>
       <View style={styles.container}>
         <Text style={styles.requestTitle}>{item.volunteerRequestTitle}</Text>
         <View style={styles.detailsContainer}>
@@ -154,7 +154,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           Call Hospital
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
