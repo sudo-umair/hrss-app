@@ -35,16 +35,13 @@ export default function Navigator() {
     if (response.status) {
       dispatch(setUser(response?.user));
       await registerIndieID(response.user.email, appId, appToken);
+      showMessage({
+        message: `Welcome back, ${response.user.name}`,
+        type: "success",
+        icon: "success",
+      });
     }
-    showMessage({
-      message:
-        response.status === true
-          ? "Logged In"
-          : "Login Failed Please try again",
-      description: response.status === true ? null : response.message,
-      type: response.status === true ? "success" : "danger",
-      icon: response.status === true ? "success" : "danger",
-    });
+
     dispatch(setIsLoading(false));
   };
 
