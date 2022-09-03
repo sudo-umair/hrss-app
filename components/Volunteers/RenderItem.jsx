@@ -4,7 +4,7 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
-function VolunteerRequestRenderItem({ item, screen }) {
+function RenderItem({ item, screen }) {
   const [applicantStatus, setApplicantStatus] = useState("");
   const navigation = useNavigation();
 
@@ -65,7 +65,7 @@ function VolunteerRequestRenderItem({ item, screen }) {
   );
 }
 
-export default React.memo(VolunteerRequestRenderItem);
+export default React.memo(RenderItem);
 
 const styles = StyleSheet.create({
   container: {

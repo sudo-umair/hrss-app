@@ -1,6 +1,6 @@
 import { StyleSheet, View, FlatList } from "react-native";
 import React, { useState, useCallback, useLayoutEffect } from "react";
-import VolunteerRequestRenderItem from "../../components/Volunteers/VolunteerRequestRenderItem";
+import RenderItem from "../../components/Volunteers/RenderItem";
 import Loader from "../../components/UI/Loader";
 import NoResults from "../../components/Resources/NoResults";
 import SearchBar from "../../components/UI/SearchBar";
@@ -63,9 +63,7 @@ export default function FeedScreen({ navigation, route }) {
       />
       <FlatList
         data={searchText === "" ? filteredRequests : searchResults}
-        renderItem={({ item }) => (
-          <VolunteerRequestRenderItem item={item} screen={screen} />
-        )}
+        renderItem={({ item }) => <RenderItem item={item} screen={screen} />}
         keyExtractor={(item) => item._id.toString()}
         keyboardDismissMode="on-drag"
         ListEmptyComponent={
