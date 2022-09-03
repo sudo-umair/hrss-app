@@ -67,7 +67,7 @@ export default function PostRequestScreen({ navigation }) {
           type: response.status === "201" ? "success" : "danger",
         });
 
-        if (res.status === "201") {
+        if (response.status === "201") {
           emptyFields();
           navigation.navigate("Resources");
         }

@@ -34,7 +34,7 @@ export default function Navigator() {
     const response = await checkCredentials();
     if (response.status) {
       dispatch(setUser(response?.user));
-      await registerIndieID(response.user.email, appId, appToken);
+      // await registerIndieID(response.user.email, appId, appToken);
       showMessage({
         message: `Welcome back, ${response.user.name}`,
         type: "success",
