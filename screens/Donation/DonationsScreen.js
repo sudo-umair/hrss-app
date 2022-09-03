@@ -33,7 +33,7 @@ export default function DonationsScreen({ navigation, route }) {
     return () => {
       setDonationResults([]);
     };
-  }, [navigation]);
+  }, []);
 
   const onSearch = (text) => {
     const results = donationResults.filter((item) => {
