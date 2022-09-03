@@ -47,7 +47,7 @@ export default function Navigator() {
   useLayoutEffect(() => {
     checkForInternetConnection();
     checkForCredentialsInLocalStorage();
-  }, [checkForInternetConnection]);
+  }, []);
 
   return (
     <NavigationContainer>

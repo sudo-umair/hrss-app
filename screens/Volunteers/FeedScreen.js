@@ -18,11 +18,11 @@ export default function FeedScreen({ navigation, route }) {
   const filterRequests = useCallback(() => {
     if (screen === "MyRequests") {
       const filtered = volunteers.filter((request) =>
-        request.applicants.filter(
+        request.applicants.find(
           (applicant) => applicant.applicantEmail === user.email
         )
       );
-
+      // console.log("filtered", filtered);
       setFilteredRequests(filtered.reverse());
     } else if (screen === "VolunteerRequests") {
       const filtered = volunteers.filter(
