@@ -79,7 +79,7 @@ export default function SignupScreen({ navigation }) {
   };
 
   const onSignUpHandler = async () => {
-    if (!passwordError && !emailError) {
+    if (!passwordError && !emailError && !cnicError) {
       const response = await signUp(record);
       showMessage({
         message: response.message,

@@ -7,6 +7,7 @@ import Navigator from "./navigators/Navigator";
 import registerNNPushToken from "native-notify";
 import { GLOBALS } from "./utilities/constants/config";
 import FlashMessage from "react-native-flash-message";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const { appId, appToken } = GLOBALS;
@@ -14,16 +15,17 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <StatusBar style="auto" />
       <SafeAreaView style={{ flex: 1 }}>
         <Navigator />
-        <FlashMessage
-          hideOnPress={true}
-          duration={2500}
-          animated={true}
-          position="top"
-          style={{ zIndex: 100, paddingTop: 35 }}
-        />
       </SafeAreaView>
+      <FlashMessage
+        hideOnPress={true}
+        duration={2500}
+        animated={true}
+        position="top"
+        style={{ zIndex: 100, paddingTop: 35 }}
+      />
     </Provider>
   );
 }
