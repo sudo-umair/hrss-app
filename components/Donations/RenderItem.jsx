@@ -12,9 +12,7 @@ const RenderItem = React.memo(({ item }) => {
 
   return (
     <Pressable onPress={goToDonationDetails} style={styles.itemContainer}>
-      <View style={styles.itemNameContainer}>
-        <Text style={styles.itemName}>{item.name}</Text>
-      </View>
+      <Text style={styles.itemName}>{item.name}</Text>
       <View style={styles.itemDetailsContainer}>
         <Text style={styles.itemDetails}>Type: {item.type}</Text>
         <Text style={styles.itemDetails}>Contact: {item.phone}</Text>
@@ -36,17 +34,16 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   itemName: {
-    fontSize: 18,
+    fontSize: 16,
     color: "white",
     fontWeight: "bold",
   },
   itemDetailsContainer: {
-    marginTop: 15,
+    marginTop: 5,
   },
   itemDetails: {
-    fontSize: 14,
+    fontSize: 12,
     color: "white",
     textAlign: "left",
-    marginVertical: 2,
   },
 });

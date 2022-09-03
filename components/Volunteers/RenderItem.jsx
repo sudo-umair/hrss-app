@@ -35,7 +35,7 @@ function RenderItem({ item, screen }) {
 
   return (
     <Pressable onPress={goToVolunteerRequest} style={styles.container}>
-      <View style={styles.headerRow}>
+      <View style={styles.row}>
         <Text
           style={[
             styles.title,
@@ -70,14 +70,15 @@ export default React.memo(RenderItem);
 const styles = StyleSheet.create({
   container: {
     backgroundColor: gs.colors.primary,
-    padding: "5%",
+    padding: "4%",
     marginVertical: "2%",
     marginHorizontal: "4%",
     borderRadius: 15,
   },
-  headerRow: {
+  row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 3,
   },
   title: {
     fontSize: 16,
@@ -91,12 +92,14 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "left",
     marginTop: "3%",
+    textAlign: "center",
+    alignSelf: "flex-start",
   },
   text: {
     fontSize: 12,
-    marginTop: "1%",
     color: "white",
     textAlign: "left",
+    marginTop: 3,
   },
   requestStatus: {
     maxHeight: 25,

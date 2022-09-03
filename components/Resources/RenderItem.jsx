@@ -13,7 +13,7 @@ const RenderItem = React.memo(({ item }) => {
   return (
     <Pressable onPress={goToDetailsScreen} style={styles.itemContainer}>
       <View style={styles.row}>
-        <Text style={styles.userName}>{item.requestedByName}</Text>
+        <Text style={styles.title}>{item.resourceName}</Text>
         <Text
           style={[
             styles.requestStatus,
@@ -24,11 +24,11 @@ const RenderItem = React.memo(({ item }) => {
         </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.resourceName}>{item.resourceName}</Text>
-        <Text style={styles.quantity}>Quantity: {item.resourceQuantity}</Text>
+        <Text style={styles.details}>Quantity: {item.resourceQuantity}</Text>
+        <Text style={styles.details}>Duration: {item.resourceDuration}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.duration}>Duration: {item.resourceDuration}</Text>
+        <Text style={styles.details}>Requested by: {item.requestedByName}</Text>
       </View>
     </Pressable>
   );
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     marginVertical: "2%",
     borderRadius: 7,
     justifyContent: "space-between",
-    height: 130,
     elevation: 5,
     borderRadius: 15,
   },
@@ -51,10 +50,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 3,
   },
-  userName: {
-    fontSize: 18,
+  title: {
+    fontSize: 16,
     fontWeight: "bold",
+    marginBottom: 5,
     color: "white",
   },
   requestStatus: {
@@ -63,6 +64,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 25,
+    textAlign: "center",
+    alignSelf: "flex-start",
   },
   pending: {
     backgroundColor: "yellow",
@@ -71,17 +74,8 @@ const styles = StyleSheet.create({
   approved: {
     backgroundColor: "green",
   },
-  resourceName: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
-  },
-  quantity: {
-    fontSize: 14,
-    color: "white",
-  },
-  duration: {
-    fontSize: 14,
+  details: {
+    fontSize: 12,
     color: "white",
   },
 });
