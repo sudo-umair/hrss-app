@@ -10,11 +10,15 @@ import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection"
 import LoadingScreen from "../screens/LoadingScreen";
 import NoConnectionScreen from "../screens/NoConnectionScreen";
 import { showMessage } from "react-native-flash-message";
+import { registerIndieID } from "native-notify";
+import { GLOBALS } from "../utilities/constants/config";
 
 export default function Navigator() {
   const Stack = createStackNavigator();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
+  const { appId, appToken } = GLOBALS;
 
   const { isLoggedIn, isConnected, isLoading } = user;
 
@@ -23,7 +27,6 @@ export default function Navigator() {
     if (status) {
       dispatch(setIsConnected(true));
     }
-
     console.log("connected", status);
   };
 
@@ -31,6 +34,7 @@ export default function Navigator() {
     const response = await checkCredentials();
     if (response.status) {
       dispatch(setUser(response?.user));
+      await registerIndieID(response.user.email, appId, appToken);
     }
     showMessage({
       message:
