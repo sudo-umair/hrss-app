@@ -8,7 +8,6 @@ import {
   removeVolunteers,
   setIsLoading,
 } from "../../store/volunteers";
-import { useFocusEffect } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
 
 export default function VolunteersScreen({ navigation }) {
@@ -29,16 +28,14 @@ export default function VolunteersScreen({ navigation }) {
     dispatch(setIsLoading(false));
   }, []);
 
-  useFocusEffect(() => {
-    fetchVolunteerRequests();
-  });
-
   useLayoutEffect(() => {
+    fetchVolunteerRequests();
+
     return () => {
       dispatch(removeVolunteers());
       dispatch(setIsLoading(true));
     };
-  }, []);
+  });
 
   return <VolunteerTabs />;
 }

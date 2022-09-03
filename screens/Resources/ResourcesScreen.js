@@ -9,7 +9,6 @@ import {
   removeResources,
 } from "../../store/resources";
 import Icon from "../../components/UI/Icon";
-import { useFocusEffect } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
 
 export default function ResourcesScreen({ navigation }) {
@@ -53,16 +52,14 @@ export default function ResourcesScreen({ navigation }) {
     });
   }, []);
 
-  useFocusEffect(() => {
-    getResourceRequests();
-  });
-
   useLayoutEffect(() => {
+    getResourceRequests();
+
     return () => {
       dispatch(removeResources());
       dispatch(setIsLoading(true));
     };
-  }, []);
+  });
 
   return <ResourcesTabs />;
 }
