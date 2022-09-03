@@ -13,7 +13,6 @@ export default function NoNotifications() {
         ref={animation}
         style={{
           width: 300,
-          height: 300,
         }}
         source={require("../../assets/animations/no-notifications.json")}
       />
@@ -23,9 +22,12 @@ export default function NoNotifications() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    margin: "5%",
+    alignSelf: "center",
+    marginTop: "10%",
+    marginHorizontal: "5%",
     padding: "5%",
   },
 });

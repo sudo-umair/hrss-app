@@ -24,8 +24,11 @@ export default function NotificationsScreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     getNotificationInbox();
+    console.log("notifications", notifications);
 
-    return setNotifications([]);
+    return () => {
+      setNotifications([]);
+    };
   }, []);
 
   return (

@@ -29,6 +29,8 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
     });
   };
 
+  console.log("item", item);
+
   return (
     <View style={styles.notificationContainer}>
       <View style={styles.headerRow}>
@@ -44,7 +46,9 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
         />
       </View>
       <Text style={styles.notificationMessage}>{item.message}</Text>
-      <Text style={styles.notificationDate}>{add5Hours(item.date)}</Text>
+      <Text style={styles.notificationDate}>
+        {add5Hours(item.date_sent ?? item.date)}
+      </Text>
     </View>
   );
 });
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
   notificationTitle: {
     fontSize: 16,
     fontWeight: "bold",
+    width: "90%",
   },
   notificationMessage: {
     marginRight: "5%",
