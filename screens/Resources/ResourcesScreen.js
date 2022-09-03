@@ -10,6 +10,7 @@ import {
 } from "../../store/resources";
 import Icon from "../../components/UI/Icon";
 import { showMessage } from "react-native-flash-message";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
@@ -59,6 +60,10 @@ export default function ResourcesScreen({ navigation }) {
       dispatch(removeResources());
       dispatch(setIsLoading(true));
     };
+  });
+
+  useFocusEffect(() => {
+    getResourceRequests();
   });
 
   return <ResourcesTabs />;

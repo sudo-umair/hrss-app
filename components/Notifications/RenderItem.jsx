@@ -6,6 +6,7 @@ import { deleteIndieNotificationInbox } from "native-notify";
 import { GLOBALS } from "../../utilities/constants/config";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
+import { add5Hours } from "../../utilities/helpers/date-time";
 
 const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
   const user = useSelector((state) => state.user);
@@ -43,7 +44,7 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
         />
       </View>
       <Text style={styles.notificationMessage}>{item.message}</Text>
-      <Text style={styles.notificationDate}>{item.date}</Text>
+      <Text style={styles.notificationDate}>{add5Hours(item.date)}</Text>
     </View>
   );
 });
