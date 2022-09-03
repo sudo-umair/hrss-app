@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   name: {
-    fontSize: 20,
+    fontSize: 18,
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
@@ -228,13 +228,13 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 14,
+    fontSize: 12,
     marginHorizontal: "2%",
     textAlign: "center",
   },
   details: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     marginHorizontal: "2%",
     textAlign: "center",
   },

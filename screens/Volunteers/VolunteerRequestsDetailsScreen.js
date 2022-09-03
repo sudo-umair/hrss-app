@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   requestTitle: {
-    fontSize: 20,
+    fontSize: 18,
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
@@ -191,12 +191,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 14,
+    fontSize: 12,
     textAlign: "center",
   },
   details: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     textAlign: "center",
   },
   email: {

@@ -31,7 +31,6 @@ export default function VolunteersScreen({ navigation }) {
 
   useFocusEffect(() => {
     fetchVolunteerRequests();
-    console.log("22");
 
     return () => {
       dispatch(removeVolunteers());
