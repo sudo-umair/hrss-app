@@ -53,17 +53,13 @@ export default function ResourcesScreen({ navigation }) {
     });
   }, []);
 
-  useLayoutEffect(() => {
+  useFocusEffect(() => {
     getResourceRequests();
 
     return () => {
       dispatch(removeResources());
       dispatch(setIsLoading(true));
     };
-  });
-
-  useFocusEffect(() => {
-    getResourceRequests();
   });
 
   return <ResourcesTabs />;
