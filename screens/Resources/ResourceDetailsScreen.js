@@ -69,8 +69,8 @@ export default function ResourceDetailsScreen({ navigation, route }) {
       const response = await updateResourceRequest(record);
       showMessage({
         message: response.message,
-        type: response.status === 200 ? "success" : "danger",
-        icon: response.status === 200 ? "success" : "danger",
+        type: response.status === "200" ? "success" : "danger",
+        icon: response.status === "200" ? "success" : "danger",
       });
 
       navigation.goBack();
