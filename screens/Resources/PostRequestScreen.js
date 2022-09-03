@@ -62,10 +62,7 @@ export default function PostRequestScreen({ navigation }) {
       try {
         const response = await postResourceRequest(record);
         showMessage({
-          message:
-            response.status === "201"
-              ? "Request posted successfully"
-              : "Request failed to post",
+          message: response.message,
           icon: response.status === "201" ? "success" : "danger",
           type: response.status === "201" ? "success" : "danger",
         });
