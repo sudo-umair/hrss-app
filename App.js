@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <SafeAreaView style={{ flex: 1 }}>
         <Navigator />
       </SafeAreaView>
