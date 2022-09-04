@@ -16,7 +16,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
 
   const openDialer = () => {
     const phoneNumber =
-      donation.phone === "Not Available" ? false : donation.phone;
+      donation.phone.trim() === "Not Available" ? false : donation.phone;
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
@@ -30,7 +30,8 @@ export default function DonationDetailsScreen({ navigation, route }) {
   };
 
   const openWebsite = () => {
-    const url = donation.website === "Not Available" ? false : donation.website;
+    const url =
+      donation.website.trim() === "Not Available" ? false : donation.website;
     if (url) {
       Linking.openURL(url);
     } else {

@@ -59,7 +59,8 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const callHospital = () => {
-    const phoneNumber = item.hospitalPhone === NaN ? false : item.hospitalPhone;
+    const phoneNumber =
+      item.hospitalPhone.trim() === NaN ? false : item.hospitalPhone;
 
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
@@ -74,7 +75,8 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const sendEmail = () => {
-    const email = item.hospitalEmail === NaN ? false : item.hospitalEmail;
+    const email =
+      item.hospitalEmail.trim() === NaN ? false : item.hospitalEmail;
 
     if (email) {
       const url = `mailto:${email}`;

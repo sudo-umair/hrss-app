@@ -21,7 +21,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 
   const call = (phone) => {
     const phoneBool =
-      phone === "Not Available" ? false : request.approvedByPhone;
+      phone.trim() === "Not Available" ? false : request.approvedByPhone;
 
     if (phoneBool) {
       const url = `tel:${phone}`;
@@ -37,7 +37,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 
   const sendEmail = (email) => {
     const emailBool =
-      email === "Not Available" ? false : request.requestedByEmail;
+      email.trim() === "Not Available" ? false : request.requestedByEmail;
 
     if (emailBool) {
       const url = `mailto:${email}`;
