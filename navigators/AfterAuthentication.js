@@ -56,7 +56,6 @@ export default function AfterAuthentication() {
           }}
           component={PostRequestScreen}
         />
-        <Stack.Screen name="ResourcesTabs" component={ResourcesTabs} />
         <Stack.Screen
           name="ResourceDetails"
           component={ResourceDetailsScreen}
