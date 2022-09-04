@@ -128,7 +128,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         )}
 
         {screen === "VolunteerRequests" && (
-          <Button onPress={acceptVolunteerRequest} style={styles.button}>
+          <Button
+            onPress={acceptVolunteerRequest}
+            textSize={14}
+            style={styles.button}
+          >
             {item.requestStatus === "Enabled" && "Apply for Volunteer"}
           </Button>
         )}
@@ -152,8 +156,8 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           <Text style={styles.title}>Hospital Address</Text>
           <Text style={styles.details}>{item.hospitalLocation}</Text>
         </View>
-        <Button onPress={callHospital} style={styles.button}>
-          Call Hospital
+        <Button onPress={callHospital} textSize={14} style={styles.button}>
+          Call {item.hospitalName.split(" ")[0]}...
         </Button>
       </View>
     </ScrollView>
@@ -205,7 +209,9 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   button: {
-    marginVertical: "2%",
+    marginTop: "5%",
+    minWidth: "40%",
+    maxWidth: "70%",
   },
   divider: {
     borderColor: "white",

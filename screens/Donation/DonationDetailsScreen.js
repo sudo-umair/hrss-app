@@ -68,11 +68,9 @@ export default function DonationDetailsScreen({ navigation, route }) {
           </Text>
         </View>
         {donation.phone && (
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} textSize={16} onPress={openDialer}>
-              Call
-            </Button>
-          </View>
+          <Button style={styles.button} textSize={14} onPress={openDialer}>
+            Call {donation.name.split(" ")[0]}...
+          </Button>
         )}
       </View>
 
@@ -131,12 +129,10 @@ const styles = StyleSheet.create({
   website: {
     textDecorationLine: "underline",
   },
-  buttonContainer: {
-    marginTop: "5%",
-    width: "60%",
-  },
   button: {
     marginTop: "5%",
+    minWidth: "40%",
+    maxWidth: "70%",
   },
   infoContainer: {
     margin: "5%",

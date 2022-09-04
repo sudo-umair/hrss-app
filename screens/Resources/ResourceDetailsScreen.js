@@ -162,7 +162,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           request.requestedByEmail !== email && (
             <Button
               style={styles.button}
-              textSize={16}
+              textSize={14}
               onPress={approveRequest}
             >
               Approve Request
@@ -173,20 +173,20 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           request.approvedByEmail !== email && (
             <Button
               style={styles.button}
-              textSize={16}
+              textSize={14}
               onPress={call.bind(this, request.approvedByPhone)}
             >
-              Call {request.approvedByName.split(" ")[0]}
+              Call {request.approvedByName.split(" ")[0]}...
             </Button>
           )}
 
         {request.requestedByEmail !== email && (
           <Button
             style={styles.button}
-            textSize={16}
+            textSize={14}
             onPress={call.bind(this, request.requestedByPhone)}
           >
-            Call {request.requestedByName.split(" ")[0]}
+            Call {request.requestedByName.split(" ")[0]}...
           </Button>
         )}
       </View>
@@ -243,16 +243,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: "5%",
-    minWidth: "60%",
+    minWidth: "40%",
     maxWidth: "70%",
-  },
-  infoContainer: {
-    margin: "5%",
-    padding: "2%",
-  },
-  infoText: {
-    fontSize: 14,
-    textAlign: "center",
   },
   row: {
     flexDirection: "row",
