@@ -70,6 +70,7 @@ export default function FeedScreen({ navigation, route }) {
         renderItem={({ item }) => <RenderItem item={item} />}
         keyExtractor={(item) => item._id}
         ListEmptyComponent={isLoading ? Loader : NoResults}
+        keyboardDismissMode="on-drag"
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
