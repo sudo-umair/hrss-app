@@ -69,7 +69,7 @@ export default function PostRequestScreen({ navigation }) {
 
         if (response.status === "201") {
           emptyFields();
-          navigation.navigate("Resources");
+          navigation.goBack();
         }
       } catch (error) {
         console.log(error);
