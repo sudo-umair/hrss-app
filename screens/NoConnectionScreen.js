@@ -5,7 +5,14 @@ import LottieView from "lottie-react-native";
 import Button from "../components/UI/Button";
 
 export default function NoConnectionScreen({ navigation, route }) {
-  const { checkForInternetConnection } = route.params;
+  const { checkForInternetConnection, checkForCredentialsInLocalStorage } =
+    route.params;
+
+  const onPressHandler = () => {
+    checkForInternetConnection();
+    checkForCredentialsInLocalStorage();
+  };
+
   const animation = useRef(null);
   return (
     <View style={styles.rootContainer}>
@@ -25,7 +32,7 @@ export default function NoConnectionScreen({ navigation, route }) {
           Please check your Wifi or Cellular Connection
         </Text>
       </View>
-      <Button onPress={checkForInternetConnection}>Retry</Button>
+      <Button onPress={onPressHandler}>Retry</Button>
     </View>
   );
 }

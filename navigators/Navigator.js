@@ -81,6 +81,7 @@ export default function Navigator() {
             component={NoConnectionScreen}
             initialParams={{
               checkForInternetConnection,
+              checkForCredentialsInLocalStorage,
             }}
           />
         )}
