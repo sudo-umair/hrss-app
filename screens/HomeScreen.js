@@ -12,7 +12,7 @@ import {
 import { GLOBALS } from "../utilities/constants/config";
 import { useFocusEffect } from "@react-navigation/native";
 
-export default function HomeSreen({ navigation, route }) {
+export default function HomeScreen({ navigation, route }) {
   let pushDataObject = getPushDataObject();
   const user = useSelector((state) => state.user);
   const { email } = user;
