@@ -23,9 +23,10 @@ export default function LandingScreen({ navigation }) {
         <View style={styles.container}>
           <Text style={styles.title}>Share And Care</Text>
           <Text style={styles.subtitle}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae,
-            maxime illum. Laborum quam eius animi voluptatibus eligendi officia
-            nihil, iure quos labore!
+            Share and Care is a platform that connects hospitals and people
+            among themselves so they can help each other during any pandemic by
+            sharing resources like beds, ventilators, medicines, etc. and also
+            by donating to various charities and NGOs.
           </Text>
           <View style={styles.buttonContainer}>
             <Button
@@ -57,9 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
-  backgroundImage: {
-    // opacity: 0.7,
-  },
+  backgroundImage: {},
   container: {
     flex: 1,
     marginTop: "15%",
@@ -73,16 +72,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subtitle: {
-    marginTop: "5%",
+    marginVertical: "2%",
     textAlign: "center",
   },
   buttonContainer: {
     width: "80%",
     justifyContent: "space-between",
-    marginTop: "5%",
   },
   button: {
     width: "100%",
-    marginBottom: 10,
+    marginVertical: "3%",
   },
 });
