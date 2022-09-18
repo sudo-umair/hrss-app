@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:808667799505:android:f9ba9c7102513ea8e3caf0",
+        "mobilesdk_app_id": "1:808667799505:android:ddda7fa76d323199e3caf0",
         "android_client_info": {
-          "package_name": "com.oo_mayr.hrss"
+          "package_name": "com.oo_mayr.shareandcare"
         }
       },
       "oauth_client": [
