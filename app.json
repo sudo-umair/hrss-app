@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "hrss",
-    "slug": "hrss",
+    "name": "Share And Care",
+    "slug": "share-and-care",
     "version": "1.0.0",
+    "owner": "oo_mayr",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -23,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.oo_mayr.hrss",
+      "package": "com.oo_mayr.shareandcare",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
