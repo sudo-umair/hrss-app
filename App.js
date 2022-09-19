@@ -17,15 +17,15 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <Navigator />
-        <FlashMessage
-          hideOnPress={true}
-          duration={2500}
-          animated={true}
-          position="top"
-          style={{ zIndex: 100, paddingTop: 35 }}
-        />
       </Provider>
       <StatusBar style="auto" />
+      <FlashMessage
+        hideOnPress={true}
+        duration={2500}
+        animated={true}
+        position="top"
+        style={{ zIndex: 100, paddingTop: "7%" }}
+      />
     </SafeAreaView>
   );
 }
