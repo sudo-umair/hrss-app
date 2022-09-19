@@ -14,8 +14,8 @@ export default function App() {
   registerNNPushToken(appId, appToken);
 
   return (
-    <Provider store={store}>
-      <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Provider store={store}>
         <Navigator />
         <FlashMessage
           hideOnPress={true}
@@ -24,8 +24,8 @@ export default function App() {
           position="top"
           style={{ zIndex: 100, paddingTop: 35 }}
         />
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </Provider>
+      </Provider>
+      <StatusBar style="auto" />
+    </SafeAreaView>
   );
 }
