@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF00"
+        "backgroundColor": "#FFFFFF"
       },
       "package": "com.oo_mayr.shareandcare",
       "googleServicesFile": "./google-services.json"
@@ -35,7 +35,7 @@
         "expo-notifications",
         {
           "icon": "./assets/icon.png",
-          "color": "#ffffff00"
+          "color": "#ffffff"
         }
       ]
     ],
