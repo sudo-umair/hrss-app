@@ -8,6 +8,7 @@ import { GLOBALS } from "./utilities/constants/config";
 import FlashMessage from "react-native-flash-message";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const { appId, appToken } = GLOBALS;

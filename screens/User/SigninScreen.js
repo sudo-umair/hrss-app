@@ -95,8 +95,7 @@ export default function SigninScreen() {
   };
 
   return (
-    <View style={styles.rootContainer}>
-      {/* <KeyboardAvoidingView style={styles.rootContainer}> */}
+    <KeyboardAvoidingView style={styles.rootContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>Sign In</Text>
         <View style={styles.inputContainer}>
@@ -143,8 +142,7 @@ export default function SigninScreen() {
           Not a user? Sign Up
         </Link>
       </View>
-      {/* </KeyboardAvoidingView> */}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -159,7 +157,6 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: 20,
     margin: "5%",
-    marginVertical: "10%",
     padding: "5%",
     borderRadius: 10,
   },

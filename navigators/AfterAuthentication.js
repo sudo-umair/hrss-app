@@ -14,6 +14,7 @@ import ResourceDetailsScreen from "../screens/Resources/ResourceDetailsScreen";
 import ResourcesTabs from "./ResourcesTabs";
 import VolunteerRequestsDetailsScreen from "../screens/Volunteers/VolunteerRequestsDetailsScreen";
 import VolunteersScreen from "../screens/Volunteers/VolunteersScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AfterAuthentication() {
   const Stack = createStackNavigator();

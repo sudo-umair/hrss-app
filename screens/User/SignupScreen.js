@@ -102,108 +102,106 @@ export default function SignupScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.rootContainer}>
-      <KeyboardAwareScrollView
-        keyboardShouldPersistTaps="always"
-        style={styles.rootContainer}
-      >
-        <View style={styles.container}>
-          <Text style={styles.title}>Sign Up</Text>
-          <View style={styles.inputContainer}>
-            <View style={styles.nameContainer}>
-              <InputField
-                style={styles.inputName}
-                placeholder="First Name"
-                value={record.fName}
-                onChangeText={(text) => onChangeRecord("fName", text)}
-                autoCapitalize="words"
-                autoFocus={true}
-                onSubmitEditing={() => L_Name.current.focus()}
-              />
-              <InputField
-                style={styles.inputName}
-                placeholder="Last Name"
-                value={record.lName}
-                onChangeText={(text) => onChangeRecord("lName", text)}
-                autoCapitalize="words"
-                innerRef={L_Name}
-                onSubmitEditing={() => Email.current.focus()}
-              />
-            </View>
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="always"
+      style={styles.rootContainer}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Sign Up</Text>
+        <View style={styles.inputContainer}>
+          <View style={styles.nameContainer}>
             <InputField
-              placeholder="Email"
-              value={record.email}
-              onChangeText={(text) => onChangeRecord("email", text)}
-              keyboardType="email-address"
-              innerRef={Email}
-              onSubmitEditing={() => Password.current.focus()}
+              style={styles.inputName}
+              placeholder="First Name"
+              value={record.fName}
+              onChangeText={(text) => onChangeRecord("fName", text)}
+              autoCapitalize="words"
+              autoFocus={true}
+              onSubmitEditing={() => L_Name.current.focus()}
             />
-            <Text style={[styles.info, emailError && styles.infoActivated]}>
-              {emailInfo}
-            </Text>
-            <View style={styles.passwordContainer}>
-              <InputField
-                style={styles.passwordInput}
-                placeholder="Password"
-                value={record.password}
-                onChangeText={(text) => onChangeRecord("password", text)}
-                secureTextEntry={!showPassword}
-                innerRef={Password}
-                onSubmitEditing={() => ConfirmPassword.current.focus()}
-              />
-              <PasswordEye
-                onPress={showPasswordHandler}
-                iconSwitch={showPassword}
-                colorSwitch={passwordError}
-              />
-            </View>
             <InputField
-              placeholder="Confirm Password"
-              value={record.confirmPassword}
-              onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+              style={styles.inputName}
+              placeholder="Last Name"
+              value={record.lName}
+              onChangeText={(text) => onChangeRecord("lName", text)}
+              autoCapitalize="words"
+              innerRef={L_Name}
+              onSubmitEditing={() => Email.current.focus()}
+            />
+          </View>
+          <InputField
+            placeholder="Email"
+            value={record.email}
+            onChangeText={(text) => onChangeRecord("email", text)}
+            keyboardType="email-address"
+            innerRef={Email}
+            onSubmitEditing={() => Password.current.focus()}
+          />
+          <Text style={[styles.info, emailError && styles.infoActivated]}>
+            {emailInfo}
+          </Text>
+          <View style={styles.passwordContainer}>
+            <InputField
+              style={styles.passwordInput}
+              placeholder="Password"
+              value={record.password}
+              onChangeText={(text) => onChangeRecord("password", text)}
               secureTextEntry={!showPassword}
-              innerRef={ConfirmPassword}
-              onSubmitEditing={() => Cnic.current.focus()}
+              innerRef={Password}
+              onSubmitEditing={() => ConfirmPassword.current.focus()}
             />
-
-            <Text style={[styles.info, passwordError && styles.infoActivated]}>
-              {passwordInfo}
-            </Text>
-
-            <InputField
-              placeholder="CNIC (without dashes)"
-              value={record.cnic}
-              onChangeText={(text) => onChangeRecord("cnic", text)}
-              keyboardType="phone-pad"
-              innerRef={Cnic}
-              onSubmitEditing={() => Phone.current.focus()}
-            />
-            <Text style={[styles.info, cnicError && styles.infoActivated]}>
-              {cnicInfo}
-            </Text>
-            <InputField
-              placeholder="Phone Number"
-              value={record.phone}
-              onChangeText={(text) => onChangeRecord("phone", text)}
-              keyboardType="phone-pad"
-              innerRef={Phone}
-              onSubmitEditing={onSignUpHandler}
+            <PasswordEye
+              onPress={showPasswordHandler}
+              iconSwitch={showPassword}
+              colorSwitch={passwordError}
             />
           </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              buttonColor={gs.colors.buttonColor2}
-              onPress={onSignUpHandler}
-            >
-              Sign Up
-            </Button>
-          </View>
-          <Link style={styles.link} to={{ screen: "Signin" }}>
-            Already a user? Sign In
-          </Link>
+          <InputField
+            placeholder="Confirm Password"
+            value={record.confirmPassword}
+            onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+            secureTextEntry={!showPassword}
+            innerRef={ConfirmPassword}
+            onSubmitEditing={() => Cnic.current.focus()}
+          />
+
+          <Text style={[styles.info, passwordError && styles.infoActivated]}>
+            {passwordInfo}
+          </Text>
+
+          <InputField
+            placeholder="CNIC (without dashes)"
+            value={record.cnic}
+            onChangeText={(text) => onChangeRecord("cnic", text)}
+            keyboardType="phone-pad"
+            innerRef={Cnic}
+            onSubmitEditing={() => Phone.current.focus()}
+          />
+          <Text style={[styles.info, cnicError && styles.infoActivated]}>
+            {cnicInfo}
+          </Text>
+          <InputField
+            placeholder="Phone Number"
+            value={record.phone}
+            onChangeText={(text) => onChangeRecord("phone", text)}
+            keyboardType="phone-pad"
+            innerRef={Phone}
+            onSubmitEditing={onSignUpHandler}
+          />
         </View>
-      </KeyboardAwareScrollView>
-    </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonColor={gs.colors.buttonColor2}
+            onPress={onSignUpHandler}
+          >
+            Sign Up
+          </Button>
+        </View>
+        <Link style={styles.link} to={{ screen: "Signin" }}>
+          Already a user? Sign In
+        </Link>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -218,7 +216,6 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     margin: "5%",
     padding: "5%",
-    marginVertical: "10%",
     borderRadius: 10,
   },
   title: {

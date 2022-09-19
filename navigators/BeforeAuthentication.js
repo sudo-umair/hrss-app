@@ -12,11 +12,7 @@ export default function BeforeAuthentication() {
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="LandingScreen"
-        component={LandingScreen}
-        options={{}}
-      />
+      <Stack.Screen name="LandingScreen" component={LandingScreen} />
       <Stack.Screen name="Authentication" component={Authentication} />
     </Stack.Navigator>
   );
