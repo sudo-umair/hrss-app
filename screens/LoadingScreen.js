@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { ImageBackground } from "react-native";
 import React from "react";
+import LottieView from "lottie-react-native";
 import SplashScreenImage from "../assets/splash.png";
+import AppLoadingAnimation from "../assets/animations/app-loading.json";
+import { useRef } from "react";
 
 export default function LoadingScreen() {
+  const animation = useRef(null);
   return (
     <ImageBackground
       source={SplashScreenImage}
@@ -11,8 +15,17 @@ export default function LoadingScreen() {
       style={styles.rootContainer}
     >
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
         <Text style={styles.text}>App Is Loading, Please Wait.</Text>
+        <LottieView
+          loop={true}
+          autoPlay={true}
+          ref={animation}
+          style={{
+            width: 150,
+            marginTop: "-10%",
+          }}
+          source={AppLoadingAnimation}
+        />
       </View>
     </ImageBackground>
   );
@@ -24,12 +37,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   container: {
-    marginTop: "70%",
+    marginTop: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: "center",
     margin: 10,
   },
