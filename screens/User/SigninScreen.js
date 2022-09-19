@@ -95,7 +95,8 @@ export default function SigninScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.rootContainer}>
+    <View style={styles.rootContainer}>
+      {/* <KeyboardAvoidingView style={styles.rootContainer}> */}
       <View style={styles.container}>
         <Text style={styles.title}>Sign In</Text>
         <View style={styles.inputContainer}>
@@ -142,7 +143,8 @@ export default function SigninScreen() {
           Not a user? Sign Up
         </Link>
       </View>
-    </KeyboardAvoidingView>
+      {/* </KeyboardAvoidingView> */}
+    </View>
   );
 }
 
