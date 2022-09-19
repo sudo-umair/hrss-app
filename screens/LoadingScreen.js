@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    marginTop: "50%",
+    marginTop: "70%",
   },
   text: {
     fontSize: 20,

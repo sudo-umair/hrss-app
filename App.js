@@ -18,7 +18,7 @@ export default function App() {
       <Provider store={store}>
         <Navigator />
       </Provider>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
       <FlashMessage
         hideOnPress={true}
         duration={2500}
