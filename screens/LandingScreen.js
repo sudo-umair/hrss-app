@@ -19,6 +19,7 @@ export default function LandingScreen({ navigation }) {
         source={require("../assets/images/LandingPage.png")}
         style={styles.backgroundImageContainer}
         imageStyle={styles.backgroundImage}
+        resizeMode="cover"
       >
         <View style={styles.container}>
           <Text style={styles.title}>Share And Care</Text>

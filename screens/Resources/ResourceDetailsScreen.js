@@ -197,6 +197,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    backgroundColor: gs.colors.background,
   },
   container: {
     backgroundColor: gs.colors.primary,

@@ -5,7 +5,11 @@ import SplashScreenImage from "../assets/splash.png";
 
 export default function LoadingScreen() {
   return (
-    <ImageBackground source={SplashScreenImage} style={styles.rootContainer}>
+    <ImageBackground
+      source={SplashScreenImage}
+      resizeMode="cover"
+      style={styles.rootContainer}
+    >
       <View style={styles.container}>
         <ActivityIndicator size="large" color="#0000ff" />
         <Text style={styles.text}>App Is Loading, Please Wait.</Text>
