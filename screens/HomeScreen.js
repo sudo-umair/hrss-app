@@ -32,7 +32,7 @@ export default function HomeScreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Share And Care",
+      headerTitle: "Share & Care",
       headerTitleAlign: "center",
       headerTitleStyle: {
         fontSize: 24,

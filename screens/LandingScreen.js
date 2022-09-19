@@ -22,7 +22,7 @@ export default function LandingScreen({ navigation }) {
         resizeMode="cover"
       >
         <View style={styles.container}>
-          <Text style={styles.title}>Share And Care</Text>
+          <Text style={styles.title}>Share {"&"} Care</Text>
           <Text style={styles.subtitle}>
             Share and Care is a platform that connects hospitals and people
             among themselves so they can help each other during any pandemic by
