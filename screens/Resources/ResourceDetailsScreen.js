@@ -191,7 +191,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Button
               style={[styles.button, styles.buttonDelete]}
               textSize={14}
-              buttonColor="red"
+              buttonColor={gs.colors.delete}
               onPress={deleteRequest}
             >
               Delete Request

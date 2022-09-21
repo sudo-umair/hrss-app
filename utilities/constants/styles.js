@@ -6,6 +6,7 @@ export const GlobalStyles = {
     buttonColor2: "#f87000",
     background: "#ffffff",
     primary: "#356aba",
+    delete: "#cf142b",
   },
   gradientColors: {
     color1: "#0d3488",
