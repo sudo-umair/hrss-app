@@ -2,7 +2,10 @@ import { StyleSheet, Text, View, Linking, ScrollView } from "react-native";
 import React, { useLayoutEffect } from "react";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { updateResourceRequest } from "../../utilities/routes/resource";
+import {
+  approveResourceRequest,
+  deleteResourceRequest,
+} from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
 
@@ -66,7 +69,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         approvedByEmail: email,
         approvedByPhone: phone,
       };
-      const response = await updateResourceRequest(record);
+      const response = await approveResourceRequest(record);
       showMessage({
         message: response.message,
         type: response.status === "200" ? "success" : "danger",
@@ -75,6 +78,20 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 
       navigation.goBack();
     }
+  };
+
+  const deleteRequest = async () => {
+    const record = {
+      id: request._id,
+    };
+    const response = await deleteResourceRequest(record);
+    showMessage({
+      message: response.message,
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
+    });
+
+    navigation.goBack();
   };
 
   return (
@@ -169,6 +186,18 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </Button>
           )}
 
+        {request.requestStatus !== "Approved" &&
+          request.requestedByEmail === email && (
+            <Button
+              style={[styles.button, styles.buttonDelete]}
+              textSize={14}
+              buttonColor="red"
+              onPress={deleteRequest}
+            >
+              Delete Request
+            </Button>
+          )}
+
         {request.requestStatus === "Approved" &&
           request.approvedByEmail !== email && (
             <Button
@@ -247,6 +276,7 @@ const styles = StyleSheet.create({
     minWidth: "40%",
     maxWidth: "70%",
   },
+
   row: {
     flexDirection: "row",
     justifyContent: "space-between",

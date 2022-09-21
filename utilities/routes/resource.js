@@ -65,10 +65,26 @@ export async function getResourceRequestsListByEmail(email) {
   }
 }
 
-export async function updateResourceRequest(record) {
+export async function approveResourceRequest(record) {
   try {
     const response = await axios.put(
-      `${GLOBALS.BASE_URL}/resources/updateRequest`,
+      `${GLOBALS.BASE_URL}/resources/approveRequest`,
+      record
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
+  }
+}
+
+export async function deleteResourceRequest(record) {
+  try {
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/resources/deleteRequest`,
       record
     );
     return response.data;
