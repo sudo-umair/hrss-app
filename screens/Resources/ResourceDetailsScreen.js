@@ -189,7 +189,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         {request.requestStatus !== "Approved" &&
           request.requestedByEmail === email && (
             <Button
-              style={[styles.button, styles.buttonDelete]}
+              style={styles.button}
               textSize={14}
               buttonColor={gs.colors.delete}
               onPress={deleteRequest}

@@ -32,3 +32,20 @@ export async function applyForVolunteerRequest(record) {
     });
   }
 }
+
+export async function cancelVolunteerRequest(record) {
+  try {
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/volunteers/cancelVolunteerRequest`,
+      record
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
+  }
+}

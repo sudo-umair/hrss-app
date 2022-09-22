@@ -96,3 +96,19 @@ export async function deleteResourceRequest(record) {
     });
   }
 }
+
+export async function ignoreResourceRequest(record) {
+  try {
+    const response = await axios.put(
+      `${GLOBALS.BASE_URL}/resources/ignoreRequest`,
+      record
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return (res = {
+      status: "error",
+      message: err.message,
+    });
+  }
+}

@@ -21,10 +21,14 @@ export default function FeedScreen({ navigation, route }) {
 
   const filterRequests = (requests) => {
     if (filterType === "all") {
-      const filteredRequestsReversed = requests.filter(
-        (item) =>
-          item.requestStatus === "Pending" && item.requestedByEmail !== email
-      );
+      const filteredRequestsReversed = requests
+        .filter(
+          (item) =>
+            item.requestStatus === "Pending" &&
+            item.requestedByEmail !== email &&
+            item.ignoredBy.includes(email) === false
+        )
+        .reverse();
       setFilteredRequests(filteredRequestsReversed);
     } else if (filterType === "myRequests") {
       const filteredRequestsReversed = requests
