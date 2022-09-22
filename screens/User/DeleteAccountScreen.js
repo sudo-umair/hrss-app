@@ -9,6 +9,7 @@ import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { deleteAccount } from "../../utilities/routes/user";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function DeleteAccountScreen({ navigation }) {
   const { email, password } = user;
 
   const onDeleteAccountHandler = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const response = await deleteAccount({ email, password });
     if (response.status === "200") {
       dispatch(removeUser());
@@ -56,7 +58,11 @@ export default function DeleteAccountScreen({ navigation }) {
           and all of your data would be lost
         </Text>
       </View>
-      <Button buttonColor={"red"} onPress={onDeleteAccountHandler}>
+      <Button
+        style={{ minWidth: "40%" }}
+        buttonColor={"red"}
+        onPress={onDeleteAccountHandler}
+      >
         Delete Account
       </Button>
     </View>

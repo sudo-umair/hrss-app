@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import Icon from "./Icon";
 import React from "react";
+import * as Haptics from "expo-haptics";
 
 export default function SearchBar({ onChangeText, searchText, setSearchText }) {
   return (
@@ -30,6 +31,7 @@ export default function SearchBar({ onChangeText, searchText, setSearchText }) {
             }}
             onPress={() => {
               setSearchText("");
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             }}
             name="close"
             lib="m"

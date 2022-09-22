@@ -6,6 +6,7 @@ import { Linking } from "react-native";
 import { applyForVolunteerRequest } from "../../utilities/routes/volunteers";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   const [applicantStatus, setApplicantStatus] = useState("");
@@ -23,6 +24,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const acceptVolunteerRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (item.requestStatus === "Disabled") {
       showMessage({
         message: "Hospial is not accepting volunteers anymore",
@@ -59,6 +61,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const callHospital = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const phoneNumber =
       item.hospitalPhone.trim() === NaN ? false : item.hospitalPhone;
 
@@ -75,6 +78,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const sendEmail = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const email =
       item.hospitalEmail.trim() === NaN ? false : item.hospitalEmail;
 
@@ -133,7 +137,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
             textSize={14}
             style={styles.button}
           >
-            {item.requestStatus === "Enabled" && "Apply for Volunteer"}
+            {item.requestStatus === "Enabled" && "Volunteer"}
           </Button>
         )}
 
@@ -157,7 +161,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{item.hospitalLocation}</Text>
         </View>
         <Button onPress={callHospital} textSize={14} style={styles.button}>
-          Call {item.hospitalName.split(" ")[0]}...
+          Call {item.hospitalName}
         </Button>
       </View>
     </ScrollView>
@@ -210,9 +214,8 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   button: {
-    marginTop: "5%",
-    minWidth: "40%",
-    maxWidth: "70%",
+    minWidth: "60%",
+    marginTop: "2%",
   },
   divider: {
     borderColor: "white",

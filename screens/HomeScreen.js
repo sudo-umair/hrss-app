@@ -1,19 +1,16 @@
 import { View, StyleSheet } from "react-native";
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import TopDisplay from "../components/HomeScreen/TopDisplay";
 import BottomDisplay from "../components/HomeScreen/BottomDisplay";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import Icon from "../components/UI/Icon";
 import { useSelector } from "react-redux";
-import {
-  getPushDataObject,
-  getUnreadIndieNotificationInboxCount,
-} from "native-notify";
+import { getUnreadIndieNotificationInboxCount } from "native-notify";
 import { GLOBALS } from "../utilities/constants/config";
 import { useFocusEffect } from "@react-navigation/native";
+import * as Haptics from "expo-haptics";
 
 export default function HomeScreen({ navigation, route }) {
-  let pushDataObject = getPushDataObject();
   const user = useSelector((state) => state.user);
   const { email } = user;
   const [unReadCount, setUnReadCount] = useState(0);
@@ -64,17 +61,9 @@ export default function HomeScreen({ navigation, route }) {
   }, [unReadCount]);
 
   const goToNotificationsScreen = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("Notifications");
   };
-
-  useEffect(() => {
-    if (
-      pushDataObject.screenName !== undefined &&
-      pushDataObject.screenName === ""
-    ) {
-      navigation.navigate(`${pushDataObject.screenName}`);
-    }
-  }, []);
 
   return (
     <View style={styles.rootContainer}>

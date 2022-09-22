@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { GlobalStyles as gs } from "../utilities/constants/styles";
 import React, { useRef } from "react";
 import LottieView from "lottie-react-native";
+import * as Haptics from "expo-haptics";
 import Button from "../components/UI/Button";
 
 export default function NoConnectionScreen({ navigation, route }) {
@@ -9,6 +10,7 @@ export default function NoConnectionScreen({ navigation, route }) {
     route.params;
 
   const onPressHandler = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     checkForInternetConnection();
     checkForCredentialsInLocalStorage();
   };
@@ -32,7 +34,14 @@ export default function NoConnectionScreen({ navigation, route }) {
           Please check your Wifi or Cellular Connection
         </Text>
       </View>
-      <Button onPress={onPressHandler}>Retry</Button>
+      <Button
+        style={{
+          width: "40%",
+        }}
+        onPress={onPressHandler}
+      >
+        Retry
+      </Button>
     </View>
   );
 }

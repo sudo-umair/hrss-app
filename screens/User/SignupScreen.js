@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 import { signUp } from "../../utilities/routes/user";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function SignupScreen({ navigation }) {
   const [record, setRecord] = useState({
@@ -75,10 +76,12 @@ export default function SignupScreen({ navigation }) {
   }, [record.password, record.confirmPassword, record.email, record.cnic]);
 
   const showPasswordHandler = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setShowPassword(!showPassword);
   };
 
   const onSignUpHandler = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (!passwordError && !emailError && !cnicError) {
       const response = await signUp(record);
       showMessage({
@@ -189,14 +192,13 @@ export default function SignupScreen({ navigation }) {
             onSubmitEditing={onSignUpHandler}
           />
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            buttonColor={gs.colors.buttonColor2}
-            onPress={onSignUpHandler}
-          >
-            Sign Up
-          </Button>
-        </View>
+        <Button
+          buttonColor={gs.colors.buttonColor2}
+          onPress={onSignUpHandler}
+          style={styles.button}
+        >
+          Sign Up
+        </Button>
         <Link style={styles.link} to={{ screen: "Signin" }}>
           Already a user? Sign In
         </Link>
@@ -258,8 +260,8 @@ const styles = StyleSheet.create({
     marginTop: -2,
     marginVertical: 5,
   },
-  buttonContainer: {
-    width: "40%",
+  button: {
+    minWidth: "50%",
   },
   link: {
     borderBottomColor: "white",

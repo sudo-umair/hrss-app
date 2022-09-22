@@ -22,7 +22,7 @@ export default function App() {
       <StatusBar style="dark" />
       <FlashMessage
         hideOnPress={true}
-        duration={2500}
+        duration={2000}
         animated={true}
         position="top"
         style={{ zIndex: 100, paddingTop: "10%" }}

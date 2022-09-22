@@ -5,9 +5,11 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import {
   approveResourceRequest,
   deleteResourceRequest,
+  ignoreResourceRequest,
 } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function ResourceDetailsScreen({ navigation, route }) {
   const request = route.params.item;
@@ -23,9 +25,10 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     [navigation, request];
 
   const call = (phone) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
     const phoneBool =
       phone.trim() === "Not Available" ? false : request.approvedByPhone;
-
     if (phoneBool) {
       const url = `tel:${phone}`;
       Linking.openURL(url);
@@ -39,6 +42,8 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const sendEmail = (email) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
     const emailBool =
       email.trim() === "Not Available" ? false : request.requestedByEmail;
 
@@ -55,6 +60,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const approveRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (request.requestedByEmail === user.email) {
       showMessage({
         message: "You cannot approve your own request",
@@ -75,12 +81,12 @@ export default function ResourceDetailsScreen({ navigation, route }) {
         type: response.status === "200" ? "success" : "danger",
         icon: response.status === "200" ? "success" : "danger",
       });
-
       navigation.goBack();
     }
   };
 
   const deleteRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: request._id,
     };
@@ -90,7 +96,21 @@ export default function ResourceDetailsScreen({ navigation, route }) {
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
+    navigation.goBack();
+  };
 
+  const ignoreRequest = async (id) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const record = {
+      id,
+      email,
+    };
+    const response = await ignoreResourceRequest(record);
+    showMessage({
+      message: response.message,
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
+    });
     navigation.goBack();
   };
 
@@ -143,6 +163,15 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               <Text style={styles.details}>{request.requestedByAddress}</Text>
             </View>
 
+            {request.requestedByEmail !== email && (
+              <Button
+                style={styles.button}
+                textSize={14}
+                onPress={call.bind(this, request.requestedByPhone)}
+              >
+                Call {request.requestedByName}
+              </Button>
+            )}
             <View style={styles.divider}></View>
           </>
         )}
@@ -172,6 +201,15 @@ export default function ResourceDetailsScreen({ navigation, route }) {
                   {request.approvedByEmail}
                 </Text>
               </View>
+              {request.requestedByEmail !== email && (
+                <Button
+                  style={styles.button}
+                  textSize={14}
+                  onPress={call.bind(this, request.requestedByPhone)}
+                >
+                  Call {request.requestedByName}
+                </Button>
+              )}
             </>
           )}
 
@@ -198,6 +236,18 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </Button>
           )}
 
+        {request.requestStatus === "Pending" &&
+          request.requestedByEmail !== email && (
+            <Button
+              style={styles.button}
+              textSize={14}
+              buttonColor={gs.colors.delete}
+              onPress={ignoreRequest.bind(this, request._id)}
+            >
+              Hide Request
+            </Button>
+          )}
+
         {request.requestStatus === "Approved" &&
           request.approvedByEmail !== email && (
             <Button
@@ -205,19 +255,9 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               textSize={14}
               onPress={call.bind(this, request.approvedByPhone)}
             >
-              Call {request.approvedByName.split(" ")[0]}...
+              Call {request.approvedByName}
             </Button>
           )}
-
-        {request.requestedByEmail !== email && (
-          <Button
-            style={styles.button}
-            textSize={14}
-            onPress={call.bind(this, request.requestedByPhone)}
-          >
-            Call {request.requestedByName.split(" ")[0]}...
-          </Button>
-        )}
       </View>
     </ScrollView>
   );
@@ -272,11 +312,9 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   button: {
-    marginTop: "5%",
-    minWidth: "40%",
-    maxWidth: "70%",
+    marginTop: "2%",
+    minWidth: "60%",
   },
-
   row: {
     flexDirection: "row",
     justifyContent: "space-between",

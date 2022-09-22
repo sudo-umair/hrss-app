@@ -11,9 +11,11 @@ import {
 import Icon from "../../components/UI/Icon";
 import { showMessage } from "react-native-flash-message";
 import { useFocusEffect } from "@react-navigation/native";
+import * as Haptics from "expo-haptics";
 
 export default function ResourcesScreen({ navigation }) {
   const goToRequestResourceScreen = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("PostRequest");
   };
 

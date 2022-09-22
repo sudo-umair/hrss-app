@@ -14,6 +14,7 @@ import { setUser } from "../../store/user";
 import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
 import { useNavigation } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function AccountScreen() {
   const user = useSelector((state) => state.user);
@@ -47,10 +48,12 @@ export default function AccountScreen() {
     [record.password];
 
   const showPasswordHandler = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setShowPassword(!showPassword);
   };
 
   const onUpdateAccountHandler = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (!passwordError) {
       const updatedRecord = {
         ...record,
@@ -84,6 +87,7 @@ export default function AccountScreen() {
   };
 
   const goToDeleteAccountScreen = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("DeleteAccount");
   };
 
@@ -98,7 +102,8 @@ export default function AccountScreen() {
         <Button
           onPress={goToDeleteAccountScreen}
           style={{
-            marginTop: 10,
+            marginTop: "2%",
+            minWidth: "50%",
           }}
           buttonColor={"#ff2c2c"}
         >
@@ -154,6 +159,7 @@ export default function AccountScreen() {
           style={{
             marginTop: 10,
             alignSelf: "center",
+            minWidth: "50%",
           }}
           buttonColor={gs.colors.buttonColor1}
           onPress={onUpdateAccountHandler}

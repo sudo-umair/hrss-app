@@ -22,7 +22,6 @@ export default function FeedScreen({ navigation, route }) {
           (applicant) => applicant.applicantEmail === user.email
         )
       );
-      // console.log("filtered", filtered);
       setFilteredRequests(filtered.reverse());
     } else if (screen === "VolunteerRequests") {
       const filtered = volunteers.filter(

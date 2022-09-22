@@ -7,11 +7,13 @@ import AnimatedLottieView from "lottie-react-native";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function SignoutScreen() {
   const dispatch = useDispatch();
 
   const onSignOutHandler = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     clearDataInLocalStorage();
     dispatch(removeUser());
     showMessage({
@@ -39,7 +41,9 @@ export default function SignoutScreen() {
         <Text style={styles.text}>Signing out??</Text>
         <Text style={styles.subTitle}>Are you sure you want to sign out?</Text>
       </View>
-      <Button onPress={onSignOutHandler}>Signout</Button>
+      <Button style={{ minWidth: "40%" }} onPress={onSignOutHandler}>
+        Signout
+      </Button>
     </View>
   );
 }

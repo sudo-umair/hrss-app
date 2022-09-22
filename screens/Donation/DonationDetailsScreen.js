@@ -3,6 +3,7 @@ import React, { useLayoutEffect } from "react";
 import Button from "../../components/UI/Button";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function DonationDetailsScreen({ navigation, route }) {
   const donation = route.params.donation;
@@ -27,6 +28,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
         icon: "warning",
       });
     }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   const openWebsite = () => {
@@ -41,6 +43,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
         icon: "warning",
       });
     }
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   return (
@@ -131,9 +134,8 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   button: {
-    marginTop: "5%",
-    minWidth: "40%",
-    maxWidth: "70%",
+    marginTop: "2%",
+    minWidth: "70%",
   },
   infoContainer: {
     margin: "5%",

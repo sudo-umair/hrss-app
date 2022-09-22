@@ -8,6 +8,7 @@ import Button from "../../components/UI/Button";
 import { postResourceRequest } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function PostRequestScreen({ navigation }) {
   const RESOURCE = useRef();
@@ -52,6 +53,7 @@ export default function PostRequestScreen({ navigation }) {
   };
 
   const onPostRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (missingFields) {
       showMessage({
         message: "Please fill in all fields",

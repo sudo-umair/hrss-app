@@ -12,6 +12,7 @@ import { setUser } from "../../store/user";
 import { registerIndieID } from "native-notify";
 import { GLOBALS } from "../../utilities/constants/config";
 import { showMessage } from "react-native-flash-message";
+import * as Haptics from "expo-haptics";
 
 export default function SigninScreen() {
   const { appId, appToken } = GLOBALS;
@@ -57,10 +58,12 @@ export default function SigninScreen() {
   }, [record.email, record.password]);
 
   const showPasswordHandler = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setShowPassword(!showPassword);
   };
 
   const onSignInHandler = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (!emailError && !passwordError) {
       console.log("Signing in...", record);
       const response = await signIn(record);
@@ -130,14 +133,13 @@ export default function SigninScreen() {
             {passwordInfo}
           </Text>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            buttonColor={gs.colors.buttonColor1}
-            onPress={onSignInHandler}
-          >
-            Sign In
-          </Button>
-        </View>
+        <Button
+          buttonColor={gs.colors.buttonColor1}
+          onPress={onSignInHandler}
+          style={styles.button}
+        >
+          Sign In
+        </Button>
         <Link style={styles.link} to={{ screen: "Signup" }}>
           Not a user? Sign Up
         </Link>
@@ -200,5 +202,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 14,
     color: gs.colors.titleColor,
+  },
+  button: {
+    minWidth: "50%",
   },
 });

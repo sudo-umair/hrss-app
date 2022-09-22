@@ -6,6 +6,7 @@ import Icon from "../UI/Icon";
 import { useSelector } from "react-redux";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { getTotalNumberOfRequests } from "../../utilities/routes/resource";
+import * as Haptics from "expo-haptics";
 
 export default function TopDisplay() {
   const user = useSelector((state) => state.user);
@@ -34,6 +35,7 @@ export default function TopDisplay() {
   });
 
   const goToSignoutScreen = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("Signout");
   };
 

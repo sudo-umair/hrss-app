@@ -2,41 +2,16 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import { useNavigation } from "@react-navigation/native";
-import { ignoreResourceRequest } from "../../utilities/routes/resource";
-import { useSelector } from "react-redux";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
 
 const RenderItem = React.memo(({ item }) => {
   const navigation = useNavigation();
-
-  const user = useSelector((state) => state.user);
-  const { email } = user;
 
   const goToDetailsScreen = () => {
     navigation.navigate("ResourceDetails", { item });
   };
 
-  const ignoreRequest = async (id) => {
-    const record = {
-      id,
-      email,
-    };
-    const response = await ignoreResourceRequest(record);
-    showMessage({
-      message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
-    });
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-  };
-
   return (
-    <Pressable
-      onLongPress={() => ignoreRequest(item._id)}
-      onPress={goToDetailsScreen}
-      style={styles.itemContainer}
-    >
+    <Pressable onPress={goToDetailsScreen} style={styles.itemContainer}>
       <View style={styles.row}>
         <Text style={styles.title}>{item.resourceName}</Text>
         <Text
