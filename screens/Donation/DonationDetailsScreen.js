@@ -16,6 +16,8 @@ export default function DonationDetailsScreen({ navigation, route }) {
     [navigation, donation];
 
   const openDialer = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
     const phoneNumber =
       donation.phone.trim() === "Not Available" ? false : donation.phone;
     if (phoneNumber) {
@@ -28,10 +30,10 @@ export default function DonationDetailsScreen({ navigation, route }) {
         icon: "warning",
       });
     }
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   const openWebsite = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const url =
       donation.website.trim() === "Not Available" ? false : donation.website;
     if (url) {
@@ -43,7 +45,6 @@ export default function DonationDetailsScreen({ navigation, route }) {
         icon: "warning",
       });
     }
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   return (
@@ -72,7 +73,7 @@ export default function DonationDetailsScreen({ navigation, route }) {
         </View>
         {donation.phone && (
           <Button style={styles.button} textSize={14} onPress={openDialer}>
-            Call {donation.name.split(" ")[0]}...
+            Call {donation.name}
           </Button>
         )}
       </View>

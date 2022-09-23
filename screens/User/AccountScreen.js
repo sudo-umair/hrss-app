@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
-    marginTop: 5,
+    marginVertical: "2%",
     fontSize: 20,
     textAlign: "center",
     color: "white",
