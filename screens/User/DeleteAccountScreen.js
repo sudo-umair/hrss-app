@@ -60,7 +60,7 @@ export default function DeleteAccountScreen({ navigation }) {
       </View>
       <Button
         style={{ minWidth: "40%" }}
-        buttonColor={"red"}
+        buttonColor={gs.colors.buttonColor3}
         onPress={onDeleteAccountHandler}
       >
         Delete Account

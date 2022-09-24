@@ -105,7 +105,7 @@ export default function AccountScreen() {
             marginTop: "2%",
             minWidth: "50%",
           }}
-          buttonColor={"#ff2c2c"}
+          buttonColor={gs.colors.buttonColor3}
         >
           Delete Account
         </Button>
