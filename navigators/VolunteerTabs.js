@@ -6,7 +6,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function VolunteerTabs({ navigation, route }) {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator backBehavior="none" keyboardDismissMode="on-drag">
       <Tab.Screen
         name="Feed"
         options={{
