@@ -229,7 +229,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Button
               style={styles.button}
               textSize={14}
-              buttonColor={gs.colors.delete}
+              buttonColor={gs.colors.buttonColor3}
               onPress={deleteRequest}
             >
               Delete Request
@@ -241,7 +241,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Button
               style={styles.button}
               textSize={14}
-              buttonColor={gs.colors.delete}
+              buttonColor={gs.colors.buttonColor3}
               onPress={ignoreRequest.bind(this, request._id)}
             >
               Hide Request
