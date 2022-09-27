@@ -49,22 +49,6 @@ export async function getTotalNumberOfRequests(record) {
   }
 }
 
-export async function getResourceRequestsListByEmail(email) {
-  try {
-    const response = await axios.get(
-      `${GLOBALS.BASE_URL}/resources/fetchRequestsByEmail`,
-      email
-    );
-    return response.data;
-  } catch (err) {
-    console.log(err);
-    return (res = {
-      status: "error",
-      message: err.message,
-    });
-  }
-}
-
 export async function approveResourceRequest(record) {
   try {
     const response = await axios.put(
@@ -97,10 +81,10 @@ export async function deleteResourceRequest(record) {
   }
 }
 
-export async function ignoreResourceRequest(record) {
+export async function hideResourceRequest(record) {
   try {
     const response = await axios.put(
-      `${GLOBALS.BASE_URL}/resources/ignoreRequest`,
+      `${GLOBALS.BASE_URL}/resources/hideRequest`,
       record
     );
     return response.data;

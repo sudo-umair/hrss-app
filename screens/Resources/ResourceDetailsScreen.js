@@ -5,7 +5,7 @@ import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import {
   approveResourceRequest,
   deleteResourceRequest,
-  ignoreResourceRequest,
+  hideResourceRequest,
 } from "../../utilities/routes/resource";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
@@ -99,13 +99,13 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     navigation.goBack();
   };
 
-  const ignoreRequest = async (id) => {
+  const hideRequest = async (id) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id,
       email,
     };
-    const response = await ignoreResourceRequest(record);
+    const response = await hideResourceRequest(record);
     showMessage({
       message: response.message,
       type: response.status === "200" ? "success" : "warning",
@@ -242,7 +242,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               style={styles.button}
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
-              onPress={ignoreRequest.bind(this, request._id)}
+              onPress={hideRequest.bind(this, request._id)}
             >
               Hide Request
             </Button>

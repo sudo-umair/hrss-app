@@ -1,9 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { GlobalStyles as gs } from "../../utilities/constants/styles";
 import Button from "../../components/UI/Button";
 import { Linking } from "react-native";
-import { applyForVolunteerRequest } from "../../utilities/routes/volunteers";
+import {
+  applyForVolunteerRequest,
+  withdrawVolunteerRequest,
+  hideVolunteerRequest,
+} from "../../utilities/routes/volunteers";
 import { useSelector } from "react-redux";
 import { showMessage } from "react-native-flash-message";
 import * as Haptics from "expo-haptics";
@@ -94,8 +98,60 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     }
   };
 
+  const withdrawRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const record = {
+      id: item._id,
+      applicantEmail: email,
+    };
+    const response = await withdrawVolunteerRequest(record);
+    if (response.status === "200") {
+      Alert.alert(
+        "Hide Request",
+        "Do you want to hide this request too?",
+        [
+          {
+            text: "No",
+            style: "No",
+            onPress: () => {
+              navigation.goBack();
+            },
+          },
+          {
+            text: "Yes",
+            onPress: hideRequest,
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+
+    showMessage({
+      message: response.message,
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
+    });
+  };
+
+  const hideRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const record = {
+      id: item._id,
+      applicantEmail: email,
+    };
+    const response = await hideVolunteerRequest(record);
+    if (response.status === "200") {
+      navigation.goBack();
+    }
+    showMessage({
+      message: response.message,
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
+    });
+  };
+
   {
-    screen === "MyRequests" &&
+    screen === "myRequests" &&
       useLayoutEffect(() => {
         checkApplicantStatus();
       }, [navigation]);
@@ -124,20 +180,32 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{item.volunteersRequired}</Text>
         </View>
 
-        {screen === "MyRequests" && (
+        {screen === "myRequests" && (
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Request Status</Text>
             <Text style={styles.details}>{applicantStatus}</Text>
           </View>
         )}
 
-        {screen === "VolunteerRequests" && (
+        {screen === "all" && (
           <Button
             onPress={acceptVolunteerRequest}
             textSize={14}
             style={styles.button}
           >
-            {item.requestStatus === "Enabled" && "Volunteer"}
+            {item.requestStatus === "Enabled" && "Apply"}
+          </Button>
+        )}
+
+        {screen === "myRequests" && item.requestStatus === "Enabled" && (
+          <Button onPress={withdrawRequest} textSize={14} style={styles.button}>
+            Withdraw Request
+          </Button>
+        )}
+
+        {screen === "all" && (
+          <Button onPress={hideRequest} textSize={14} style={styles.button}>
+            {item.requestStatus === "Enabled" && "Hide Request"}
           </Button>
         )}
 

@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     color: "white",
   },
   requestStatus: {
-    fontSize: 12,
+    fontSize: 10,
     color: "white",
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    paddingVertical: 3,
+    paddingHorizontal: 6,
     borderRadius: 25,
     textAlign: "center",
     alignSelf: "flex-start",

@@ -20,7 +20,7 @@ function RenderItem({ item, screen }) {
   };
 
   {
-    screen === "MyRequests" &&
+    screen === "myRequests" &&
       useLayoutEffect(() => {
         checkApplicantStatus();
       }, [navigation]);
@@ -39,20 +39,20 @@ function RenderItem({ item, screen }) {
         <Text
           style={[
             styles.title,
-            screen === "MyRequests" && {
+            screen === "myRequests" && {
               width: "80%",
             },
           ]}
         >
           {item.volunteerRequestTitle}
         </Text>
-        {screen === "MyRequests" && (
+        {screen === "myRequests" && (
           <Text
             style={[
               styles.requestStatus,
               applicantStatus === "Denied" && styles.denied,
-              applicantStatus === "Approved" && styles.approved,
               applicantStatus === "Applied" && styles.applied,
+              applicantStatus === "Approved" && styles.approved,
             ]}
           >
             {applicantStatus}
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
   requestStatus: {
     maxHeight: 25,
     maxWidth: 60,
-    fontSize: 12,
+    fontSize: 10,
     color: "white",
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    paddingVertical: 3,
+    paddingHorizontal: 6,
     borderRadius: 25,
     marginLeft: "auto",
     textAlign: "center",

@@ -16,20 +16,21 @@ export default function FeedScreen({ navigation, route }) {
   const { volunteers, isLoading } = useSelector((state) => state.volunteers);
 
   const filterRequests = useCallback(() => {
-    if (screen === "MyRequests") {
-      const filtered = volunteers.filter((request) =>
-        request.applicants.find(
-          (applicant) => applicant.applicantEmail === user.email
-        )
-      );
-      setFilteredRequests(filtered.reverse());
-    } else if (screen === "VolunteerRequests") {
+    if (screen === "all") {
       const filtered = volunteers.filter(
         (item) =>
           item.requestStatus === "Enabled" &&
           !item.applicants.find(
             (applicant) => applicant.applicantEmail === user.email
-          )
+          ) &&
+          item.ignoredBy.includes(user.email) === false
+      );
+      setFilteredRequests(filtered.reverse());
+    } else if (screen === "myRequests") {
+      const filtered = volunteers.filter((request) =>
+        request.applicants.find(
+          (applicant) => applicant.applicantEmail === user.email
+        )
       );
       setFilteredRequests(filtered.reverse());
     }

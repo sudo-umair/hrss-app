@@ -14,7 +14,7 @@ export default function VolunteerTabs({ navigation, route }) {
         }}
         component={FeedScreen}
         initialParams={{
-          screen: "VolunteerRequests",
+          screen: "all",
         }}
       />
       <Tab.Screen
@@ -24,7 +24,7 @@ export default function VolunteerTabs({ navigation, route }) {
         }}
         component={FeedScreen}
         initialParams={{
-          screen: "MyRequests",
+          screen: "myRequests",
         }}
       />
     </Tab.Navigator>
