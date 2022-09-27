@@ -105,6 +105,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       applicantEmail: email,
     };
     const response = await withdrawVolunteerRequest(record);
+    showMessage({
+      message: response.message,
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
+    });
     if (response.status === "200") {
       Alert.alert(
         "Hide Request",
@@ -125,12 +130,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         { cancelable: false }
       );
     }
-
-    showMessage({
-      message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
-    });
   };
 
   const hideRequest = async () => {
@@ -198,13 +197,23 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         )}
 
         {screen === "myRequests" && item.requestStatus === "Enabled" && (
-          <Button onPress={withdrawRequest} textSize={14} style={styles.button}>
+          <Button
+            onPress={withdrawRequest}
+            textSize={14}
+            buttonColor={gs.colors.buttonColor3}
+            style={styles.button}
+          >
             Withdraw Request
           </Button>
         )}
 
         {screen === "all" && (
-          <Button onPress={hideRequest} textSize={14} style={styles.button}>
+          <Button
+            onPress={hideRequest}
+            textSize={14}
+            buttonColor={gs.colors.buttonColor3}
+            style={styles.button}
+          >
             {item.requestStatus === "Enabled" && "Hide Request"}
           </Button>
         )}
