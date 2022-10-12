@@ -159,17 +159,12 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     });
   };
 
-  {
-    screen === "myRequests" &&
-      useLayoutEffect(() => {
-        checkApplicantStatus();
-      }, [navigation]);
-  }
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: item?.hospitalName,
     });
+
+    screen === "myRequests" && checkApplicantStatus();
   }, [navigation]);
 
   return (
@@ -195,7 +190,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
             <Text style={styles.details}>{applicantStatus}</Text>
           </View>
         )}
-
         {screen === "all" && (
           <Button
             onPress={acceptVolunteerRequest}
