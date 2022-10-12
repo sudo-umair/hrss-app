@@ -30,16 +30,12 @@ export default function Navigator() {
     const response = await checkCredentials();
     if (response.status) {
       dispatch(setUser(response?.user));
+      showMessage({
+        message: `Welcome back, ${response?.user?.name}`,
+        type: response.status === true ? "success" : "warning",
+        icon: response.status === true ? "success" : "warning",
+      });
     }
-    showMessage({
-      message:
-        response.status === true
-          ? `Welcome back, ${response.user.name}`
-          : "Please sign in to continue",
-      description: response.status === true ? "" : response.message,
-      type: response.status === true ? "success" : "warning",
-      icon: response.status === true ? "success" : "warning",
-    });
 
     dispatch(setIsLoading(false));
   };
