@@ -93,7 +93,7 @@ export default function AccountScreen() {
       });
     } else {
       showMessage({
-        message: "Acount Update Failed",
+        message: "Account Update Failed",
         description:
           "Please fill out all fields with valid information and check for existing errors",
         type: "warning",
