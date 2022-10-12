@@ -59,8 +59,8 @@ export default function SignupScreen({ navigation }) {
     }
 
     if (
-      record.email.trim().includes("@") === true &&
-      record.email.trim().endsWith(".com") === true
+      record.email.includes("@") === true &&
+      record.email.endsWith(".com") === true
     ) {
       setEmailError(false);
       setEmailInfo("");
@@ -77,7 +77,10 @@ export default function SignupScreen({ navigation }) {
       setCnicInfo("");
     }
 
-    if (record.phone.length !== 11) {
+    if (record.phone.startsWith("03") === false) {
+      setPhoneError(true);
+      setPhoneInfo("Phone number must start with 03");
+    } else if (record.phone.length !== 11) {
       setPhoneError(true);
       setPhoneInfo("Please provide a valid phone number");
     } else {
