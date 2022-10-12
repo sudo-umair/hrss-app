@@ -78,14 +78,16 @@ export default function ResourceDetailsScreen({ navigation, route }) {
       const response = await approveResourceRequest(record);
       showMessage({
         message:
-          response.status === "201"
+          response.status === "200"
             ? "Request approved"
             : "Request approval failed",
-        description: response.status === "201" ? "" : response.message,
+        description: response.status === "200" ? "" : response.message,
         type: response.status === "200" ? "success" : "warning",
         icon: response.status === "200" ? "success" : "warning",
       });
-      navigation.goBack();
+      if (response.status === "200") {
+        navigation.goBack();
+      }
     }
   };
 
@@ -97,14 +99,16 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     const response = await deleteResourceRequest(record);
     showMessage({
       message:
-        response.status === "201"
+        response.status === "200"
           ? "Request deleted"
           : "Request deletion failed",
-      description: response.status === "201" ? "" : response.message,
+      description: response.status === "200" ? "" : response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
-    navigation.goBack();
+    if (response.status === "200") {
+      navigation.goBack();
+    }
   };
 
   const hideRequest = async (id) => {
@@ -116,12 +120,14 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     const response = await hideResourceRequest(record);
     showMessage({
       message:
-        response.status === "201" ? "Request hidden" : "Request hiding failed",
-      description: response.status === "201" ? "" : response.message,
+        response.status === "200" ? "Request hidden" : "Request hiding failed",
+      description: response.status === "200" ? "" : response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
-    navigation.goBack();
+    if (response.status === "200") {
+      navigation.goBack();
+    }
   };
 
   return (

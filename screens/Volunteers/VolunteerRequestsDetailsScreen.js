@@ -54,7 +54,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       const response = await applyForVolunteerRequest(record);
 
       if (response.status === "200") {
-        navigation.navigate("Volunteers");
+        navigation.goBack();
       }
       showMessage({
         message:
