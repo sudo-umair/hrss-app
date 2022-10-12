@@ -30,7 +30,8 @@ export default function ResourcesScreen({ navigation }) {
       dispatch(setResources(response.results));
     } else {
       showMessage({
-        message: "Something went wrong",
+        message: response.message,
+        description: "Couldn't reach servers at the moment",
         type: "warning",
         icon: "warning",
       });

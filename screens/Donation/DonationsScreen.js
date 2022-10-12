@@ -4,7 +4,7 @@ import { getDonationsList } from "../../utilities/routes/dontations";
 import SearchBar from "../../components/UI/SearchBar";
 import RenderItem from "../../components/Donations/RenderItem";
 import Loader from "../../components/UI/Loader";
-import NoResults from "../../components/Donations/NoResults";
+import NoResults from "../../components/Resources/NoResults";
 import { showMessage } from "react-native-flash-message";
 
 export default function DonationsScreen({ navigation, route }) {
@@ -20,7 +20,8 @@ export default function DonationsScreen({ navigation, route }) {
       setDonationResults(response.results);
     } else {
       showMessage({
-        message: "Something went wrong",
+        message: response.message,
+        description: "Couldn't reach servers at the moment",
         type: "warning",
         icon: "warning",
       });
@@ -55,9 +56,7 @@ export default function DonationsScreen({ navigation, route }) {
         renderItem={({ item }) => <RenderItem item={item} />}
         keyExtractor={(item) => item._id}
         keyboardDismissMode="on-drag"
-        ListEmptyComponent={
-          isLoading ? Loader : NoResults.bind(this, { searchText })
-        }
+        ListEmptyComponent={isLoading ? Loader : NoResults}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}

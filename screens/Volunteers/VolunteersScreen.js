@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import React, { useCallback, useLayoutEffect } from "react";
+import React, { useCallback } from "react";
 import VolunteerTabs from "../../navigators/VolunteerTabs";
 import { getVolunteerRequests } from "../../utilities/routes/volunteers";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,8 @@ export default function VolunteersScreen({ navigation }) {
       dispatch(setVolunteers(response.results));
     } else {
       showMessage({
-        message: "Something went wrong",
+        message: response.message,
+        description: "Couldn't reach servers at the moment",
         type: "warning",
         icon: "warning",
       });

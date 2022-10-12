@@ -39,6 +39,9 @@ export default function SignupScreen({ navigation }) {
   const [cnicError, setCnicError] = useState(false);
   const [cnicInfo, setCnicInfo] = useState("");
 
+  const [phoneError, setPhoneError] = useState(false);
+  const [phoneInfo, setPhoneInfo] = useState("");
+
   const onChangeRecord = (key, value) => {
     setRecord({ ...record, [key]: value });
   };
@@ -73,7 +76,21 @@ export default function SignupScreen({ navigation }) {
       setCnicError(false);
       setCnicInfo("");
     }
-  }, [record.password, record.confirmPassword, record.email, record.cnic]);
+
+    if (record.phone.length !== 11) {
+      setPhoneError(true);
+      setPhoneInfo("Please provide a valid phone number");
+    } else {
+      setPhoneError(false);
+      setPhoneInfo("");
+    }
+  }, [
+    record.password,
+    record.confirmPassword,
+    record.email,
+    record.cnic,
+    record.phone,
+  ]);
 
   const showPasswordHandler = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -184,13 +201,16 @@ export default function SignupScreen({ navigation }) {
             {cnicInfo}
           </Text>
           <InputField
-            placeholder="Phone Number"
+            placeholder="Phone Number (starting with 03)"
             value={record.phone}
             onChangeText={(text) => onChangeRecord("phone", text)}
             keyboardType="phone-pad"
             innerRef={Phone}
             onSubmitEditing={onSignUpHandler}
           />
+          <Text style={[styles.info, phoneError && styles.infoActivated]}>
+            {phoneInfo}
+          </Text>
         </View>
         <Button
           buttonColor={gs.colors.buttonColor2}

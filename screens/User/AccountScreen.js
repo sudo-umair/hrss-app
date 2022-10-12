@@ -30,11 +30,14 @@ export default function AccountScreen() {
   const Password = useRef();
   const Phone = useRef();
 
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordInfo, setPasswordInfo] = useState("");
+  const oldPassword = user?.password;
   const [showPassword, setShowPassword] = useState(false);
 
-  const oldPassword = user?.password;
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordInfo, setPasswordInfo] = useState("");
+
+  const [phoneError, setPhoneError] = useState(false);
+  const [phoneInfo, setPhoneInfo] = useState("");
 
   useLayoutEffect(() => {
     if (record.password.length < 6) {
@@ -44,8 +47,16 @@ export default function AccountScreen() {
       setPasswordError(false);
       setPasswordInfo("");
     }
+
+    if (record.phone.length !== 11) {
+      setPhoneError(true);
+      setPhoneInfo("Please provide a valid phone number");
+    } else {
+      setPhoneError(false);
+      setPhoneInfo("");
+    }
   }),
-    [record.password];
+    [record.password, record.phone];
 
   const showPasswordHandler = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -54,7 +65,7 @@ export default function AccountScreen() {
 
   const onUpdateAccountHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    if (!passwordError) {
+    if (!passwordError && !phoneError) {
       const updatedRecord = {
         ...record,
         oldPassword,
@@ -67,17 +78,19 @@ export default function AccountScreen() {
           email: record.email,
           password: record.password,
         });
-        console.log(user);
-        showMessage({
-          message: "Account Update Successfull",
-          description: "Your account has been updated successfully.",
-          type: "success",
-          icon: "success",
-        });
       }
+      showMessage({
+        message: response.message,
+        description:
+          response.status === "200"
+            ? ""
+            : "Couldn't reach servers at the moment",
+        type: "warning",
+        icon: "warning",
+      });
     } else {
       showMessage({
-        message: "Account Update Failed",
+        message: "Acount Update Failed",
         description:
           "Please fill out all fields with valid information and check for existing errors",
         type: "warning",
@@ -150,11 +163,15 @@ export default function AccountScreen() {
         <Label>Phone Number</Label>
         <InputField
           value={record.phone}
+          placeholder="Phone Number (starting with 03)"
           onChangeText={(text) => onChangeRecord("phone", text)}
           keyboardType="phone-pad"
           innerRef={Phone}
           onSubmitEditing={onUpdateAccountHandler}
         />
+        <Text style={[styles.info, phoneError && styles.infoActivated]}>
+          {phoneInfo}
+        </Text>
         <Button
           style={{
             marginTop: 10,

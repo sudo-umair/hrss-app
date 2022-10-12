@@ -24,10 +24,11 @@ export default function DeleteAccountScreen({ navigation }) {
       clearDataInLocalStorage();
     }
     showMessage({
-      message: response.status === "200" ? "Account deleted" : "Error",
-      description: response.message,
-      type: response.status === "200" ? "success" : "danger",
-      icon: response.status === "200" ? "success" : "danger",
+      message: response.message,
+      description:
+        response.status === "200" ? "" : "Couldn't reach servers at the moment",
+      type: response.status === "200" ? "success" : "warning",
+      icon: response.status === "200" ? "success" : "warning",
     });
   };
 
