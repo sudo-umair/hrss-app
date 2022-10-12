@@ -88,8 +88,8 @@ export default function AccountScreen() {
           response.status === "200"
             ? ""
             : "Couldn't reach servers at the moment",
-        type: "warning",
-        icon: "warning",
+        type: response.status === "200" ? "success" : "warning",
+        icon: response.status === "200" ? "success" : "warning",
       });
     } else {
       showMessage({
