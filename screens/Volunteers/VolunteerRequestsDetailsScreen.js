@@ -57,9 +57,13 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         navigation.navigate("Volunteers");
       }
       showMessage({
-        message: response.message,
-        type: response.status === "200" ? "success" : "danger",
-        icon: response.status === "200" ? "success" : "danger",
+        message:
+          response.status === "200"
+            ? "Applied Successfully"
+            : "Application Failed",
+        description: response.status === "200" ? "" : response.message,
+        type: response.status === "200" ? "success" : "warning",
+        icon: response.status === "200" ? "success" : "warning",
       });
     }
   };
@@ -106,7 +110,11 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     };
     const response = await withdrawVolunteerRequest(record);
     showMessage({
-      message: response.message,
+      message:
+        response.status === "200"
+          ? "Withdrawn Successfully"
+          : "Withdrawal Failed",
+      description: response.status === "200" ? "" : response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
@@ -143,7 +151,9 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       navigation.goBack();
     }
     showMessage({
-      message: response.message,
+      message:
+        response.status === "200" ? "Hidden Successfully" : "Hiding Failed",
+      description: response.status === "200" ? "" : response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });

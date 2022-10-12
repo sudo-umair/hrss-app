@@ -56,7 +56,7 @@ export default function PostRequestScreen({ navigation }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (missingFields) {
       showMessage({
-        message: "Please fill in all fields",
+        message: "Please fill in all the required fields",
         type: "warning",
         icon: "warning",
       });
@@ -65,10 +65,13 @@ export default function PostRequestScreen({ navigation }) {
         const response = await postResourceRequest(record);
         showMessage({
           message: response.message,
-          icon: response.status === "201" ? "success" : "danger",
-          type: response.status === "201" ? "success" : "danger",
+          description:
+            response.status === "201"
+              ? ""
+              : "Couldn't reach servers at the moment",
+          type: response.status === "201" ? "success" : "warning",
+          icon: response.status === "201" ? "success" : "warning",
         });
-
         if (response.status === "201") {
           emptyFields();
           navigation.goBack();

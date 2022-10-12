@@ -105,10 +105,14 @@ export default function SignupScreen({ navigation }) {
     if (!passwordError && !emailError && !cnicError) {
       const response = await signUp(record);
       showMessage({
-        message: response.message,
-        description: response.message,
-        type: response.status === "201" ? "success" : "danger",
-        icon: response.status === "201" ? "success" : "danger",
+        message:
+          response.status === "201" ? "Signup Successful" : "Signup Failed",
+        description:
+          response.status === "201"
+            ? "Please sign in to continue"
+            : response.message,
+        type: response.status === "201" ? "success" : "warning",
+        icon: response.status === "201" ? "success" : "warning",
       });
       if (response.status === "201") {
         navigation.navigate("Signin");

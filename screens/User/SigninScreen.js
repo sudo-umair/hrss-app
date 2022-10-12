@@ -83,9 +83,9 @@ export default function SigninScreen() {
       }
       showMessage({
         message: response.status === "200" ? "Logged In" : "Login Failed",
-        description: response.status === "200" ? null : response.message,
-        type: response.status === "200" ? "success" : "danger",
-        icon: response.status === "200" ? "success" : "danger",
+        description: response.status === "200" ? "" : response.message,
+        type: response.status === "200" ? "success" : "warning",
+        icon: response.status === "200" ? "success" : "warning",
       });
     } else {
       showMessage({
