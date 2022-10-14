@@ -54,8 +54,8 @@ export default function ResetPasswordScreen({ navigation, route }) {
         password: record.password,
         userType: "user",
       });
-      if (response.status === 200) {
-        navigation.navigate("Login");
+      if (response.status === "200") {
+        navigation.navigate("Signin");
       }
       showMessage({
         message: response.message,
