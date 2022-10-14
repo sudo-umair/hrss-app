@@ -81,16 +81,10 @@ export default function ForgotPasswordScreen({ navigation, route }) {
   }, [record.email, record.password]);
 
   useFocusEffect(
-    React.useCallback(() => {
-      setRecord({
-        email: "",
-        otp: "",
-      });
-      setEnableOtpInput(false);
-      setEnableVerifyButton(false);
-      setEmailError(false);
-      setEmailInfo("");
-    }, [])
+    setRecord({
+      email: "",
+      otp: "",
+    })
   );
 
   return (
