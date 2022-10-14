@@ -31,7 +31,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (item.requestStatus === "Disabled") {
       showMessage({
-        message: "Hospial is not accepting volunteers anymore",
+        message: "Hospital is not accepting volunteers anymore",
         type: "warning",
         icon: "warning",
       });
@@ -57,11 +57,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         navigation.goBack();
       }
       showMessage({
-        message:
-          response.status === "200"
-            ? "Applied Successfully"
-            : "Application Failed",
-        description: response.status === "200" ? "" : response.message,
+        message: response.message,
         type: response.status === "200" ? "success" : "warning",
         icon: response.status === "200" ? "success" : "warning",
       });
@@ -110,11 +106,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     };
     const response = await withdrawVolunteerRequest(record);
     showMessage({
-      message:
-        response.status === "200"
-          ? "Withdrawn Successfully"
-          : "Withdrawal Failed",
-      description: response.status === "200" ? "" : response.message,
+      message: response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
@@ -151,9 +143,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       navigation.goBack();
     }
     showMessage({
-      message:
-        response.status === "200" ? "Hidden Successfully" : "Hiding Failed",
-      description: response.status === "200" ? "" : response.message,
+      message: response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });

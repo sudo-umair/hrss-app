@@ -105,12 +105,7 @@ export default function SignupScreen({ navigation }) {
     if (!passwordError && !emailError && !cnicError) {
       const response = await signUp(record);
       showMessage({
-        message:
-          response.status === "201" ? "Signup Successful" : "Signup Failed",
-        description:
-          response.status === "201"
-            ? "Please sign in to continue"
-            : response.message,
+        message: response.message,
         type: response.status === "201" ? "success" : "warning",
         icon: response.status === "201" ? "success" : "warning",
       });
@@ -119,8 +114,7 @@ export default function SignupScreen({ navigation }) {
       }
     } else {
       showMessage({
-        message: "Signup Failed",
-        description:
+        message:
           "Please fill out all fields with valid information and check for existing errors",
         type: "warning",
         icon: "warning",

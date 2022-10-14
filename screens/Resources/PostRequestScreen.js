@@ -65,10 +65,6 @@ export default function PostRequestScreen({ navigation }) {
         const response = await postResourceRequest(record);
         showMessage({
           message: response.message,
-          description:
-            response.status === "201"
-              ? ""
-              : "Couldn't reach servers at the moment",
           type: response.status === "201" ? "success" : "warning",
           icon: response.status === "201" ? "success" : "warning",
         });

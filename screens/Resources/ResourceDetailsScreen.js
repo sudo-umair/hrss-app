@@ -77,11 +77,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
       };
       const response = await approveResourceRequest(record);
       showMessage({
-        message:
-          response.status === "200"
-            ? "Request approved"
-            : "Request approval failed",
-        description: response.status === "200" ? "" : response.message,
+        message: response.message,
         type: response.status === "200" ? "success" : "warning",
         icon: response.status === "200" ? "success" : "warning",
       });
@@ -98,11 +94,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     };
     const response = await deleteResourceRequest(record);
     showMessage({
-      message:
-        response.status === "200"
-          ? "Request deleted"
-          : "Request deletion failed",
-      description: response.status === "200" ? "" : response.message,
+      message: response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });
@@ -119,9 +111,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     };
     const response = await hideResourceRequest(record);
     showMessage({
-      message:
-        response.status === "200" ? "Request hidden" : "Request hiding failed",
-      description: response.status === "200" ? "" : response.message,
+      message: response.message,
       type: response.status === "200" ? "success" : "warning",
       icon: response.status === "200" ? "success" : "warning",
     });

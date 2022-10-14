@@ -22,7 +22,6 @@ export default function VolunteersScreen({ navigation }) {
     } else {
       showMessage({
         message: response.message,
-        description: "Couldn't reach servers at the moment",
         type: "warning",
         icon: "warning",
       });

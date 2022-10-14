@@ -84,17 +84,12 @@ export default function AccountScreen() {
       }
       showMessage({
         message: response.message,
-        description:
-          response.status === "200"
-            ? ""
-            : "Couldn't reach servers at the moment",
         type: response.status === "200" ? "success" : "warning",
         icon: response.status === "200" ? "success" : "warning",
       });
     } else {
       showMessage({
-        message: "Account Update Failed",
-        description:
+        message:
           "Please fill out all fields with valid information and check for existing errors",
         type: "warning",
         icon: "warning",
