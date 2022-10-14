@@ -82,15 +82,13 @@ export default function SigninScreen() {
         await registerIndieID(record.email, appId, appToken);
       }
       showMessage({
-        message: response.status === "200" ? "Logged In" : "Login Failed",
-        description: response.status === "200" ? "" : response.message,
+        message: response.message,
         type: response.status === "200" ? "success" : "warning",
         icon: response.status === "200" ? "success" : "warning",
       });
     } else {
       showMessage({
-        message: "Login Failed",
-        description: "Please fill out all fields and check for existing errors",
+        message: "Please fill out all fields and check for existing errors",
         type: "warning",
         icon: "warning",
       });
@@ -143,6 +141,9 @@ export default function SigninScreen() {
         <Link style={styles.link} to={{ screen: "Signup" }}>
           Not a user? Sign Up
         </Link>
+        <Link style={styles.link} to={{ screen: "ForgotPassword" }}>
+          Forgot Password?
+        </Link>
       </View>
     </KeyboardAvoidingView>
   );
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 20,
   },
-
   passwordContainer: {
     flexDirection: "row",
   },

@@ -15,12 +15,13 @@ export default function InputField({
   onSubmitEditing,
   multiline,
   numberOfLines,
-  autoComplete,
   editable,
+  maxLength,
 }) {
   return (
     <TextInput
       style={[styles.input, style]}
+      maxLength={maxLength ?? 100}
       placeholder={placeholder ?? "Enter text"}
       value={value}
       onChangeText={onChangeText}

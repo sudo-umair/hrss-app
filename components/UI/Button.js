@@ -29,6 +29,7 @@ export default function Button({
               styles.buttonText,
               textSize && { fontSize: textSize },
               textColor && { color: textColor },
+              textDecoration && { textDecorationLine: textDecoration },
             ]}
           >
             {children}
