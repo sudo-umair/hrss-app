@@ -10,6 +10,7 @@ export default function Button({
   buttonColor,
   textSize,
   textColor,
+  textDecoration,
 }) {
   return (
     <View style={style}>
