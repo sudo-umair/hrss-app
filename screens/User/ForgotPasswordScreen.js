@@ -16,7 +16,6 @@ export default function ForgotPasswordScreen({ navigation, route }) {
   });
 
   const [enableOtpInput, setEnableOtpInput] = useState(false);
-  const [enableVerifyButton, setEnableVerifyButton] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [emailInfo, setEmailInfo] = useState("");
 
@@ -30,7 +29,6 @@ export default function ForgotPasswordScreen({ navigation, route }) {
       const response = await forgotPassword({ email: record.email });
       if (response.status === "200") {
         setEnableOtpInput(true);
-        setEnableVerifyButton(true);
       }
       showMessage({
         message: response.message,
@@ -67,6 +65,14 @@ export default function ForgotPasswordScreen({ navigation, route }) {
     }
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      setRecord({ email: "", otp: "" });
+
+      return () => {};
+    }, [])
+  );
+
   useLayoutEffect(() => {
     if (
       record.email.trim().includes("@") === true &&
@@ -79,13 +85,6 @@ export default function ForgotPasswordScreen({ navigation, route }) {
       setEmailInfo("Please provide a valid email address");
     }
   }, [record.email, record.password]);
-
-  useFocusEffect(
-    setRecord({
-      email: "",
-      otp: "",
-    })
-  );
 
   return (
     <SafeAreaView style={styles.rootContainer}>
@@ -126,7 +125,7 @@ export default function ForgotPasswordScreen({ navigation, route }) {
               </Button>
             </View>
           </View>
-          {enableVerifyButton && (
+          {enableOtpInput && (
             <Button style={styles.button} onPress={handleVerifyOtp}>
               Verify
             </Button>
