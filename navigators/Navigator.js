@@ -1,15 +1,15 @@
-import React, { useLayoutEffect } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import AfterAuthentication from "./AfterAuthentication";
-import BeforeAuthentication from "./BeforeAuthentication";
-import { useSelector, useDispatch } from "react-redux";
-import { checkCredentials } from "../utilities/routes/user";
-import { setUser, setIsConnected, setIsLoading } from "../store/user";
-import { checkForConnectionOnce } from "../utilities/helpers/intenet-connection";
-import LoadingScreen from "../screens/LoadingScreen";
-import NoConnectionScreen from "../screens/NoConnectionScreen";
-import { showMessage } from "react-native-flash-message";
+import React, { useLayoutEffect } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import AfterAuthentication from './AfterAuthentication';
+import BeforeAuthentication from './BeforeAuthentication';
+import { useSelector, useDispatch } from 'react-redux';
+import { checkCredentials } from '../utilities/routes/user';
+import { setUser, setIsConnected, setIsLoading } from '../store/user';
+import { checkForConnectionOnce } from '../utilities/helpers/intenet-connection';
+import LoadingScreen from '../screens/LoadingScreen';
+import NoConnectionScreen from '../screens/NoConnectionScreen';
+import { showMessage } from 'react-native-flash-message';
 
 export default function Navigator() {
   const Stack = createStackNavigator();
@@ -23,7 +23,7 @@ export default function Navigator() {
     if (status) {
       dispatch(setIsConnected(true));
     }
-    console.log("connected", status);
+    console.log('connected', status);
   };
 
   const checkForCredentialsInLocalStorage = async () => {
@@ -32,8 +32,8 @@ export default function Navigator() {
       dispatch(setUser(response?.user));
       showMessage({
         message: `Welcome back, ${response?.user?.name}`,
-        type: response.status === true ? "success" : "warning",
-        icon: response.status === true ? "success" : "warning",
+        type: 'success',
+        icon: 'success',
       });
     }
 
@@ -48,30 +48,30 @@ export default function Navigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        id="navigator"
+        id='navigator'
         screenOptions={{
           headerShown: false,
         }}
       >
         {isLoading ? (
-          <Stack.Screen name="Loading" component={LoadingScreen} />
+          <Stack.Screen name='Loading' component={LoadingScreen} />
         ) : isConnected ? (
           isLoggedIn ? (
             <Stack.Screen
-              name="AfterAuthentication"
+              name='AfterAuthentication'
               component={AfterAuthentication}
             />
           ) : (
             <Stack.Screen
-              name="BeforeAuthentication"
+              name='BeforeAuthentication'
               component={BeforeAuthentication}
             />
           )
         ) : (
           <Stack.Screen
-            name="NoConnection"
+            name='NoConnection'
             options={{
-              presentation: "modal",
+              presentation: 'modal',
             }}
             component={NoConnectionScreen}
             initialParams={{
