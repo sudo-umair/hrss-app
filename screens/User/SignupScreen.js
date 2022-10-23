@@ -1,25 +1,25 @@
-import { Link } from "@react-navigation/native";
-import React, { useLayoutEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Button from "../../components/UI/Button";
-import InputField from "../../components/UI/InputField";
-import PasswordEye from "../../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { Platform } from "react-native";
-import { signUp } from "../../utilities/routes/user";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+import { Link } from '@react-navigation/native';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Button from '../../components/UI/Button';
+import InputField from '../../components/UI/InputField';
+import PasswordEye from '../../components/UI/PasswordEye';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { Platform } from 'react-native';
+import { signUp } from '../../utilities/routes/user';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function SignupScreen({ navigation }) {
   const [record, setRecord] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    cnic: "",
-    phone: "",
+    fName: '',
+    lName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    cnic: '',
+    phone: '',
   });
 
   const L_Name = useRef();
@@ -30,17 +30,17 @@ export default function SignupScreen({ navigation }) {
   const Phone = useRef();
 
   const [passwordError, setPasswordError] = useState(false);
-  const [passwordInfo, setPasswordInfo] = useState("");
+  const [passwordInfo, setPasswordInfo] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
-  const [emailInfo, setEmailInfo] = useState("");
+  const [emailInfo, setEmailInfo] = useState('');
 
   const [cnicError, setCnicError] = useState(false);
-  const [cnicInfo, setCnicInfo] = useState("");
+  const [cnicInfo, setCnicInfo] = useState('');
 
   const [phoneError, setPhoneError] = useState(false);
-  const [phoneInfo, setPhoneInfo] = useState("");
+  const [phoneInfo, setPhoneInfo] = useState('');
 
   const onChangeRecord = (key, value) => {
     setRecord({ ...record, [key]: value });
@@ -49,43 +49,46 @@ export default function SignupScreen({ navigation }) {
   useLayoutEffect(() => {
     if (record.password.length < 6) {
       setPasswordError(true);
-      setPasswordInfo("Password must be at least 6 characters");
+      setPasswordInfo('Password must be at least 6 characters');
     } else if (record.password !== record.confirmPassword) {
       setPasswordError(true);
-      setPasswordInfo("Password does not match");
+      setPasswordInfo('Passwords do not match');
     } else {
       setPasswordError(false);
-      setPasswordInfo("");
+      setPasswordInfo('');
     }
 
     if (
-      record.email.includes("@") === true &&
-      record.email.endsWith(".com") === true
+      record.email.includes('@') === true &&
+      record.email.endsWith('.com') === true
     ) {
       setEmailError(false);
-      setEmailInfo("");
+      setEmailInfo('');
     } else {
       setEmailError(true);
-      setEmailInfo("Please provide a valid email address");
+      setEmailInfo('Please provide a valid email address');
     }
 
     if (record.cnic.length !== 13) {
       setCnicError(true);
-      setCnicInfo("Please provide a valid CNIC");
+      setCnicInfo('Cnic must be 13 characters');
+    } else if (record.cnic.includes('-')) {
+      setCnicError(true);
+      setCnicInfo('Please remove the dash from your CNIC');
     } else {
       setCnicError(false);
-      setCnicInfo("");
+      setCnicInfo('');
     }
 
-    if (record.phone.startsWith("03") === false) {
+    if (record.phone.startsWith('03') === false) {
       setPhoneError(true);
-      setPhoneInfo("Phone number must start with 03");
+      setPhoneInfo('Phone number must start with 03');
     } else if (record.phone.length !== 11) {
       setPhoneError(true);
-      setPhoneInfo("Please provide a valid phone number");
+      setPhoneInfo('Phone number must be 11 characters');
     } else {
       setPhoneError(false);
-      setPhoneInfo("");
+      setPhoneInfo('');
     }
   }, [
     record.password,
@@ -106,25 +109,25 @@ export default function SignupScreen({ navigation }) {
       const response = await signUp(record);
       showMessage({
         message: response.message,
-        type: response.status === "201" ? "success" : "warning",
-        icon: response.status === "201" ? "success" : "warning",
+        type: response.status === '201' ? 'success' : 'warning',
+        icon: response.status === '201' ? 'success' : 'warning',
       });
-      if (response.status === "201") {
-        navigation.navigate("Signin");
+      if (response.status === '201') {
+        navigation.navigate('Signin');
       }
     } else {
       showMessage({
         message:
-          "Please fill out all fields with valid information and check for existing errors",
-        type: "warning",
-        icon: "warning",
+          'Please fill out all fields with valid information and check for existing errors',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
 
   return (
     <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="always"
+      keyboardShouldPersistTaps='always'
       style={styles.rootContainer}
     >
       <View style={styles.container}>
@@ -133,28 +136,28 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.nameContainer}>
             <InputField
               style={styles.inputName}
-              placeholder="First Name"
+              placeholder='First Name'
               value={record.fName}
-              onChangeText={(text) => onChangeRecord("fName", text)}
-              autoCapitalize="words"
+              onChangeText={(text) => onChangeRecord('fName', text)}
+              autoCapitalize='words'
               autoFocus={true}
               onSubmitEditing={() => L_Name.current.focus()}
             />
             <InputField
               style={styles.inputName}
-              placeholder="Last Name"
+              placeholder='Last Name'
               value={record.lName}
-              onChangeText={(text) => onChangeRecord("lName", text)}
-              autoCapitalize="words"
+              onChangeText={(text) => onChangeRecord('lName', text)}
+              autoCapitalize='words'
               innerRef={L_Name}
               onSubmitEditing={() => Email.current.focus()}
             />
           </View>
           <InputField
-            placeholder="Email"
+            placeholder='Email'
             value={record.email}
-            onChangeText={(text) => onChangeRecord("email", text)}
-            keyboardType="email-address"
+            onChangeText={(text) => onChangeRecord('email', text)}
+            keyboardType='email-address'
             innerRef={Email}
             onSubmitEditing={() => Password.current.focus()}
           />
@@ -164,9 +167,9 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.passwordContainer}>
             <InputField
               style={styles.passwordInput}
-              placeholder="Password"
+              placeholder='Password'
               value={record.password}
-              onChangeText={(text) => onChangeRecord("password", text)}
+              onChangeText={(text) => onChangeRecord('password', text)}
               secureTextEntry={!showPassword}
               innerRef={Password}
               onSubmitEditing={() => ConfirmPassword.current.focus()}
@@ -178,9 +181,9 @@ export default function SignupScreen({ navigation }) {
             />
           </View>
           <InputField
-            placeholder="Confirm Password"
+            placeholder='Confirm Password'
             value={record.confirmPassword}
-            onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+            onChangeText={(text) => onChangeRecord('confirmPassword', text)}
             secureTextEntry={!showPassword}
             innerRef={ConfirmPassword}
             onSubmitEditing={() => Cnic.current.focus()}
@@ -191,10 +194,10 @@ export default function SignupScreen({ navigation }) {
           </Text>
 
           <InputField
-            placeholder="CNIC (without dashes)"
+            placeholder='CNIC (without dashes)'
             value={record.cnic}
-            onChangeText={(text) => onChangeRecord("cnic", text)}
-            keyboardType="phone-pad"
+            onChangeText={(text) => onChangeRecord('cnic', text)}
+            keyboardType='phone-pad'
             innerRef={Cnic}
             onSubmitEditing={() => Phone.current.focus()}
           />
@@ -202,10 +205,10 @@ export default function SignupScreen({ navigation }) {
             {cnicInfo}
           </Text>
           <InputField
-            placeholder="Phone Number (starting with 03)"
+            placeholder='Phone Number'
             value={record.phone}
-            onChangeText={(text) => onChangeRecord("phone", text)}
-            keyboardType="phone-pad"
+            onChangeText={(text) => onChangeRecord('phone', text)}
+            keyboardType='phone-pad'
             innerRef={Phone}
             onSubmitEditing={onSignUpHandler}
           />
@@ -220,7 +223,7 @@ export default function SignupScreen({ navigation }) {
         >
           Sign Up
         </Button>
-        <Link style={styles.link} to={{ screen: "Signin" }}>
+        <Link style={styles.link} to={{ screen: 'Signin' }}>
           Already a user? Sign In
         </Link>
       </View>
@@ -234,41 +237,41 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.background,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    padding: "5%",
+    margin: '5%',
+    padding: '5%',
     borderRadius: 10,
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: gs.colors.titleColor,
   },
   inputContainer: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginVertical: 20,
   },
   passwordContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   passwordInput: {
-    width: "85%",
+    width: '85%',
     marginRight: 15,
   },
   passwordEye: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   inputName: {
-    width: "48%",
-    maxWidth: Platform.OS === "web" ? 115 : "100%",
+    width: '48%',
+    maxWidth: Platform.OS === 'web' ? 115 : '100%',
   },
   nameContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   info: {
     height: 0,
@@ -282,10 +285,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   button: {
-    minWidth: "50%",
+    minWidth: '50%',
   },
   link: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderBottomWidth: 1,
     marginTop: 10,
     fontSize: 14,

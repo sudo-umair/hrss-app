@@ -1,24 +1,24 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useState, useRef, useLayoutEffect } from "react";
-import UserAvatar from "react-native-user-avatar";
-import { useSelector } from "react-redux";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import Button from "../../components/UI/Button";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import InputField from "../../components/UI/InputField";
-import PasswordEye from "../../components/UI/PasswordEye";
-import Label from "../../components/UI/Label";
-import { updateAccount } from "../../utilities/routes/user";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/user";
-import { setDataInLocalStorage } from "../../utilities/helpers/local-storage";
-import { useNavigation } from "@react-navigation/native";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useRef, useLayoutEffect } from 'react';
+import UserAvatar from 'react-native-user-avatar';
+import { useSelector } from 'react-redux';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import Button from '../../components/UI/Button';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import InputField from '../../components/UI/InputField';
+import PasswordEye from '../../components/UI/PasswordEye';
+import Label from '../../components/UI/Label';
+import { updateAccount } from '../../utilities/routes/user';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/user';
+import { setDataInLocalStorage } from '../../utilities/helpers/local-storage';
+import { useNavigation } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function AccountScreen() {
   const user = useSelector((state) => state.user);
-  const [record, setRecord] = useState({ ...user });
+  const [record, setRecord] = useState({ ...user, password: '' });
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -30,33 +30,32 @@ export default function AccountScreen() {
   const Password = useRef();
   const Phone = useRef();
 
-  const oldPassword = user?.password;
   const [showPassword, setShowPassword] = useState(false);
 
   const [passwordError, setPasswordError] = useState(false);
-  const [passwordInfo, setPasswordInfo] = useState("");
+  const [passwordInfo, setPasswordInfo] = useState('');
 
   const [phoneError, setPhoneError] = useState(false);
-  const [phoneInfo, setPhoneInfo] = useState("");
+  const [phoneInfo, setPhoneInfo] = useState('');
 
   useLayoutEffect(() => {
     if (record.password.length < 6) {
       setPasswordError(true);
-      setPasswordInfo("Password must be at least 6 characters");
+      setPasswordInfo('Password must be at least 6 characters');
     } else {
       setPasswordError(false);
-      setPasswordInfo("");
+      setPasswordInfo('');
     }
 
-    if (record.phone.startsWith("03") === false) {
+    if (record.phone.startsWith('03') === false) {
       setPhoneError(true);
-      setPhoneInfo("Phone number must start with 03");
+      setPhoneInfo('Phone number must start with 03');
     } else if (record.phone.length !== 11) {
       setPhoneError(true);
-      setPhoneInfo("Please provide a valid phone number");
+      setPhoneInfo('Please provide a valid phone number');
     } else {
       setPhoneError(false);
-      setPhoneInfo("");
+      setPhoneInfo('');
     }
   }),
     [record.password, record.phone];
@@ -71,50 +70,50 @@ export default function AccountScreen() {
     if (!passwordError && !phoneError) {
       const updatedRecord = {
         ...record,
-        oldPassword,
+        token: user.token,
       };
       const response = await updateAccount(updatedRecord);
       console.log(response);
-      if (response.status === "200") {
-        dispatch(setUser(record));
+      if (response.status === '200') {
+        dispatch(setUser(response.user));
         setDataInLocalStorage({
-          email: record.email,
-          password: record.password,
+          email: response.user.email,
+          token: response.user.token,
         });
       }
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
     } else {
       showMessage({
         message:
-          "Please fill out all fields with valid information and check for existing errors",
-        type: "warning",
-        icon: "warning",
+          'Please fill out all fields with valid information and check for existing errors',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
 
   const goToDeleteAccountScreen = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("DeleteAccount");
+    navigation.navigate('DeleteAccount');
   };
 
   return (
     <KeyboardAwareScrollView
       style={styles.rootContainer}
-      keyboardShouldPersistTaps="always"
+      keyboardShouldPersistTaps='always'
     >
       <View style={styles.container}>
-        <UserAvatar size={100} name={record?.name} />
-        <Text style={styles.name}>{record?.name}</Text>
+        <UserAvatar size={100} name={user.name} />
+        <Text style={styles.name}>{user.name}</Text>
         <Button
           onPress={goToDeleteAccountScreen}
           style={{
-            marginTop: "2%",
-            minWidth: "50%",
+            marginTop: '2%',
+            minWidth: '50%',
           }}
           buttonColor={gs.colors.buttonColor3}
         >
@@ -126,8 +125,9 @@ export default function AccountScreen() {
         <Label>Full Name</Label>
         <InputField
           value={record.name}
-          onChangeText={(text) => onChangeRecord("name", text)}
-          autoCapitalize="words"
+          onChangeText={(text) => onChangeRecord('name', text)}
+          placeholder='Full Name'
+          autoCapitalize='words'
           autoFocus={true}
           onSubmitEditing={() => Password.current.focus()}
         />
@@ -143,7 +143,8 @@ export default function AccountScreen() {
           <InputField
             style={styles.passwordInput}
             value={record.password}
-            onChangeText={(text) => onChangeRecord("password", text)}
+            placeholder='Password'
+            onChangeText={(text) => onChangeRecord('password', text)}
             secureTextEntry={!showPassword}
             innerRef={Password}
             onSubmitEditing={() => Phone.current.focus()}
@@ -161,9 +162,9 @@ export default function AccountScreen() {
         <Label>Phone Number</Label>
         <InputField
           value={record.phone}
-          placeholder="Phone Number (starting with 03)"
-          onChangeText={(text) => onChangeRecord("phone", text)}
-          keyboardType="phone-pad"
+          placeholder='Phone Number'
+          onChangeText={(text) => onChangeRecord('phone', text)}
+          keyboardType='phone-pad'
           innerRef={Phone}
           onSubmitEditing={onUpdateAccountHandler}
         />
@@ -173,8 +174,8 @@ export default function AccountScreen() {
         <Button
           style={{
             marginTop: 10,
-            alignSelf: "center",
-            minWidth: "50%",
+            alignSelf: 'center',
+            minWidth: '50%',
           }}
           buttonColor={gs.colors.buttonColor1}
           onPress={onUpdateAccountHandler}
@@ -189,48 +190,48 @@ export default function AccountScreen() {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "#F5FCFF",
+    backgroundColor: '#F5FCFF',
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "5%",
-    padding: "5%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '5%',
+    padding: '5%',
     backgroundColor: gs.colors.primary,
     borderRadius: 10,
   },
   profileContainer: {
-    marginHorizontal: "5%",
-    marginBottom: "5%",
-    padding: "5%",
+    marginHorizontal: '5%',
+    marginBottom: '5%',
+    padding: '5%',
     backgroundColor: gs.colors.primary,
     borderRadius: 10,
   },
   name: {
-    marginVertical: "2%",
+    marginVertical: '2%',
     fontSize: 20,
-    textAlign: "center",
-    color: "white",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
   },
   title: {
     fontSize: 20,
-    textAlign: "center",
-    color: "white",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   passwordContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   passwordInput: {
-    width: "85%",
+    width: '85%',
     marginRight: 15,
   },
   passwordEye: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   info: {
     height: 0,
