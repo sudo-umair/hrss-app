@@ -52,10 +52,10 @@ export async function resumeSession(record) {
     return response.data;
   } catch (error) {
     console.log(error);
-    return (res = {
+    return {
       status: false,
       message: error.message,
-    });
+    };
   }
 }
 
@@ -69,10 +69,10 @@ export async function signIn(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return {
       status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -86,10 +86,10 @@ export async function signUp(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return {
       status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -103,10 +103,10 @@ export async function signOut(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return {
       status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -119,10 +119,26 @@ export async function updateAccount(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return {
       status: 'error',
       message: err.message,
-    });
+    };
+  }
+}
+
+export async function updatePassword(record) {
+  try {
+    const response = await axios.put(
+      `${GLOBALS.BASE_URL}/users/update-password`,
+      record
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return {
+      status: 'error',
+      message: err.message,
+    };
   }
 }
 
@@ -137,9 +153,9 @@ export async function deleteAccount(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
+    return {
       status: 'error',
       message: err.message,
-    });
+    };
   }
 }

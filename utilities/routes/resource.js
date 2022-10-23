@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GLOBALS } from "../constants/config";
+import axios from 'axios';
+import { GLOBALS } from '../constants/config';
 
 export async function postResourceRequest(record) {
   try {
@@ -10,10 +10,10 @@ export async function postResourceRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -26,10 +26,10 @@ export async function getResourceRequestsList(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -41,11 +41,11 @@ export async function getTotalNumberOfRequests(record) {
     );
     return response.data;
   } catch (err) {
-    console.log(err, "ddd");
-    return (res = {
-      status: "error",
+    console.log(err, 'ddd');
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -58,10 +58,10 @@ export async function approveResourceRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -74,10 +74,10 @@ export async function deleteResourceRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -90,9 +90,9 @@ export async function hideResourceRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }

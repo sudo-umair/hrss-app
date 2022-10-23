@@ -34,7 +34,7 @@ export default function Navigator() {
     showMessage({
       message: response.status
         ? `Welcome back, ${response?.user?.name}`
-        : 'Please Sign In Again',
+        : 'Please Sign In to continue',
       type: response.status ? 'success' : 'warning',
       icon: response.status ? 'success' : 'warning',
     });

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GLOBALS } from "../constants/config";
+import axios from 'axios';
+import { GLOBALS } from '../constants/config';
 
 export async function getDonationsList() {
   try {
@@ -9,9 +9,9 @@ export async function getDonationsList() {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (response = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }

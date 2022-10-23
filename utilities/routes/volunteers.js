@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GLOBALS } from "../constants/config";
+import axios from 'axios';
+import { GLOBALS } from '../constants/config';
 
 export async function getVolunteerRequests() {
   try {
@@ -9,10 +9,10 @@ export async function getVolunteerRequests() {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -26,10 +26,10 @@ export async function applyForVolunteerRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -43,10 +43,10 @@ export async function withdrawVolunteerRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
 
@@ -60,9 +60,9 @@ export async function hideVolunteerRequest(record) {
     return response.data;
   } catch (err) {
     console.log(err);
-    return (res = {
-      status: "error",
+    return {
+      status: 'error',
       message: err.message,
-    });
+    };
   }
 }
