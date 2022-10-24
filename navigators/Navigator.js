@@ -22,6 +22,12 @@ export default function Navigator() {
     const status = await checkForConnectionOnce();
     if (status) {
       dispatch(setIsConnected(true));
+    } else {
+      showMessage({
+        message: 'Check your internet connection',
+        type: 'warning',
+        icon: 'warning',
+      });
     }
     console.log('connected', status);
   };
@@ -30,14 +36,12 @@ export default function Navigator() {
     const response = await checkCredentials();
     if (response.status) {
       dispatch(setUser(response?.user));
+      showMessage({
+        message: `Welcome back, ${response?.user?.name}`,
+        type: 'success',
+        icon: 'success',
+      });
     }
-    showMessage({
-      message: response.status
-        ? `Welcome back, ${response?.user?.name}`
-        : 'Please Sign In to continue',
-      type: response.status ? 'success' : 'warning',
-      icon: response.status ? 'success' : 'warning',
-    });
 
     dispatch(setIsLoading(false));
   };

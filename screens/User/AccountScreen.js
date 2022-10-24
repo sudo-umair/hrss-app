@@ -233,7 +233,7 @@ export default function AccountScreen() {
           <InputField
             style={styles.passwordInput}
             value={record.confirmNewPassword}
-            placeholder='Password'
+            placeholder='Confirm New Password'
             onChangeText={(text) => onChangeRecord('confirmNewPassword', text)}
             secureTextEntry={!showPassword}
             innerRef={ConfirmNewPassword}
