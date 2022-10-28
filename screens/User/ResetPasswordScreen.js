@@ -1,27 +1,27 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Button from "../../components/UI/Button";
-import InputField from "../../components/UI/InputField";
-import PasswordEye from "../../components/UI/PasswordEye";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { Platform } from "react-native";
-import { resetPassword } from "../../utilities/routes/otp";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Button from '../../components/UI/Button';
+import InputField from '../../components/UI/InputField';
+import PasswordEye from '../../components/UI/PasswordEye';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { Platform } from 'react-native';
+import { resetPassword } from '../../utilities/routes/otp';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ResetPasswordScreen({ navigation, route }) {
-  const email = route.params?.email ?? "";
+  const email = route.params?.email ?? '';
   const [record, setRecord] = useState({
-    password: "",
-    confirmPassword: "",
+    password: '',
+    confirmPassword: '',
   });
 
   const ConfirmPassword = useRef();
 
   const [passwordError, setPasswordError] = useState(false);
-  const [passwordInfo, setPasswordInfo] = useState("");
+  const [passwordInfo, setPasswordInfo] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const onChangeRecord = (key, value) => {
@@ -31,13 +31,13 @@ export default function ResetPasswordScreen({ navigation, route }) {
   useLayoutEffect(() => {
     if (record.password.length < 6) {
       setPasswordError(true);
-      setPasswordInfo("Password must be at least 6 characters");
+      setPasswordInfo('Password must be at least 6 characters');
     } else if (record.password !== record.confirmPassword) {
       setPasswordError(true);
-      setPasswordInfo("Password does not match");
+      setPasswordInfo('Password does not match');
     } else {
       setPasswordError(false);
-      setPasswordInfo("");
+      setPasswordInfo('');
     }
   }, [record.password, record.confirmPassword]);
 
@@ -52,21 +52,23 @@ export default function ResetPasswordScreen({ navigation, route }) {
       const response = await resetPassword({
         email,
         password: record.password,
-        userType: "user",
+        userType: 'user',
       });
-      if (response.status === "200") {
-        navigation.navigate("Signin");
+      if (response.status === '200') {
+        navigation.navigate('Signin', {
+          email,
+        });
       }
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
     } else {
       showMessage({
-        message: "Please enter a valid password",
-        type: "warning",
-        icon: "warning",
+        message: 'Please enter a valid password',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -74,7 +76,7 @@ export default function ResetPasswordScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.rootContainer}>
       <KeyboardAwareScrollView
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps='always'
         style={styles.rootContainer}
       >
         <View style={styles.container}>
@@ -83,9 +85,9 @@ export default function ResetPasswordScreen({ navigation, route }) {
             <View style={styles.passwordContainer}>
               <InputField
                 style={styles.passwordInput}
-                placeholder="Password"
+                placeholder='Password'
                 value={record.password}
-                onChangeText={(text) => onChangeRecord("password", text)}
+                onChangeText={(text) => onChangeRecord('password', text)}
                 secureTextEntry={!showPassword}
                 onSubmitEditing={() => ConfirmPassword.current.focus()}
               />
@@ -96,9 +98,9 @@ export default function ResetPasswordScreen({ navigation, route }) {
               />
             </View>
             <InputField
-              placeholder="Confirm Password"
+              placeholder='Confirm Password'
               value={record.confirmPassword}
-              onChangeText={(text) => onChangeRecord("confirmPassword", text)}
+              onChangeText={(text) => onChangeRecord('confirmPassword', text)}
               secureTextEntry={!showPassword}
               innerRef={ConfirmPassword}
             />
@@ -122,41 +124,41 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.background,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    padding: "5%",
+    margin: '5%',
+    padding: '5%',
     borderRadius: 10,
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: gs.colors.titleColor,
   },
   inputContainer: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginVertical: 20,
   },
   passwordContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   passwordInput: {
-    width: "85%",
+    width: '85%',
     marginRight: 15,
   },
   passwordEye: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   inputName: {
-    width: "48%",
-    maxWidth: Platform.OS === "web" ? 115 : "100%",
+    width: '48%',
+    maxWidth: Platform.OS === 'web' ? 115 : '100%',
   },
   nameContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   info: {
     height: 0,
@@ -170,10 +172,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   button: {
-    minWidth: "50%",
+    minWidth: '50%',
   },
   link: {
-    borderBottomColor: "white",
+    borderBottomColor: 'white',
     borderBottomWidth: 1,
     marginTop: 10,
     fontSize: 14,

@@ -113,7 +113,7 @@ export default function SignupScreen({ navigation }) {
         icon: response.status === '201' ? 'success' : 'warning',
       });
       if (response.status === '201') {
-        navigation.navigate('Signin');
+        navigation.navigate('Signin', { email: record.email });
       }
     } else {
       showMessage({

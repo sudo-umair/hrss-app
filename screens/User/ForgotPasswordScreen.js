@@ -1,23 +1,23 @@
-import React, { useLayoutEffect, useState } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
-import Button from "../../components/UI/Button";
-import InputField from "../../components/UI/InputField";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { forgotPassword, verifyOtp } from "../../utilities/routes/otp";
-import { useFocusEffect } from "@react-navigation/native";
+import React, { useLayoutEffect, useState } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import Button from '../../components/UI/Button';
+import InputField from '../../components/UI/InputField';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { forgotPassword, verifyOtp } from '../../utilities/routes/otp';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function ForgotPasswordScreen({ navigation, route }) {
   const [record, setRecord] = useState({
-    email: "",
-    otp: "",
+    email: route.params?.email ?? '',
+    otp: '',
   });
 
   const [enableOtpInput, setEnableOtpInput] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [emailInfo, setEmailInfo] = useState("");
+  const [emailInfo, setEmailInfo] = useState('');
 
   const onChangeRecord = (key, value) => {
     setRecord({ ...record, [key]: value.trim() });
@@ -27,19 +27,19 @@ export default function ForgotPasswordScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     if (!emailError) {
       const response = await forgotPassword({ email: record.email });
-      if (response.status === "200") {
+      if (response.status === '200') {
         setEnableOtpInput(true);
       }
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
     } else {
       showMessage({
-        message: "Please enter a valid email address",
-        type: "warning",
-        icon: "warning",
+        message: 'Please enter a valid email address',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -48,41 +48,33 @@ export default function ForgotPasswordScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     if (record.otp.length === 6) {
       const response = await verifyOtp(record);
-      if (response.status === "200") {
-        navigation.navigate("ResetPassword", { email: record.email });
+      if (response.status === '200') {
+        navigation.navigate('ResetPassword', { email: record.email });
       }
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
     } else {
       showMessage({
-        message: "Please enter a valid OTP",
-        type: "warning",
-        icon: "warning",
+        message: 'Please enter a valid OTP',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setRecord({ email: "", otp: "" });
-
-      return () => {};
-    }, [])
-  );
-
   useLayoutEffect(() => {
     if (
-      record.email.trim().includes("@") === true &&
-      record.email.trim().endsWith(".com") === true
+      record.email.trim().includes('@') === true &&
+      record.email.trim().endsWith('.com') === true
     ) {
-      setEmailInfo("");
+      setEmailInfo('');
       setEmailError(false);
     } else {
       setEmailError(true);
-      setEmailInfo("Please provide a valid email address");
+      setEmailInfo('Please provide a valid email address');
     }
   }, [record.email, record.password]);
 
@@ -93,10 +85,10 @@ export default function ForgotPasswordScreen({ navigation, route }) {
           <Text style={styles.title}>Forgot Password</Text>
           <View style={styles.inputContainer}>
             <InputField
-              placeholder="Email"
+              placeholder='Email'
               value={record.email}
-              onChangeText={(text) => onChangeRecord("email", text)}
-              keyboardType="email-address"
+              onChangeText={(text) => onChangeRecord('email', text)}
+              keyboardType='email-address'
             />
             <Text style={[styles.info, emailError && styles.infoActivated]}>
               {emailInfo}
@@ -108,18 +100,18 @@ export default function ForgotPasswordScreen({ navigation, route }) {
                   !enableOtpInput && styles.disabledOtpInput,
                 ]}
                 editable={enableOtpInput}
-                placeholder="Enter Otp here"
+                placeholder='Enter Otp here'
                 value={record.otp}
-                keyboardType="number-pad"
+                keyboardType='number-pad'
                 maxLength={6}
-                onChangeText={(text) => onChangeRecord("otp", text)}
+                onChangeText={(text) => onChangeRecord('otp', text)}
               />
               <Button
                 style={styles.otpButton}
-                title="Resend Otp"
+                title='Resend Otp'
                 onPress={handleForgotPassword}
-                mode="flat"
-                textDecoration={"underline"}
+                mode='flat'
+                textDecoration={'underline'}
               >
                 Send Otp
               </Button>
@@ -142,36 +134,36 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.background,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: gs.colors.primary,
     margin: 20,
-    margin: "5%",
-    padding: "5%",
+    margin: '5%',
+    padding: '5%',
     borderRadius: 10,
   },
   title: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: gs.colors.titleColor,
   },
   inputContainer: {
     marginVertical: 20,
-    width: "100%",
+    width: '100%',
   },
   otpContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   otpInput: {
-    width: "70%",
+    width: '70%',
   },
   disabledOtpInput: {
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
   },
   otpButton: {
     marginLeft: 10,
-    width: "30%",
-    justifyContent: "center",
+    width: '30%',
+    justifyContent: 'center',
   },
   info: {
     height: 0,
@@ -185,10 +177,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   buttonContainer: {
-    width: "40%",
+    width: '40%',
   },
 
   button: {
-    minWidth: "50%",
+    minWidth: '50%',
   },
 });

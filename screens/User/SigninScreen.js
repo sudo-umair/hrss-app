@@ -14,10 +14,10 @@ import { GLOBALS } from '../../utilities/constants/config';
 import { showMessage } from 'react-native-flash-message';
 import * as Haptics from 'expo-haptics';
 
-export default function SigninScreen() {
+export default function SigninScreen({ route, navigation }) {
   const { appId, appToken } = GLOBALS;
   const [record, setRecord] = useState({
-    email: '',
+    email: route.params?.email ?? '',
     password: '',
   });
 
@@ -69,7 +69,6 @@ export default function SigninScreen() {
       const response = await signIn(record);
       if (response.status === '200') {
         const { user } = response;
-
         setDataInLocalStorage({
           email: user.email,
           token: user.token,
@@ -137,7 +136,10 @@ export default function SigninScreen() {
         <Link style={styles.link} to={{ screen: 'Signup' }}>
           Not a user? Sign Up
         </Link>
-        <Link style={styles.link} to={{ screen: 'ForgotPassword' }}>
+        <Link
+          style={styles.link}
+          to={{ screen: 'ForgotPassword', params: { email: record.email } }}
+        >
           Forgot Password?
         </Link>
       </View>
