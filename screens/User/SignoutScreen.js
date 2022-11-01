@@ -19,7 +19,6 @@ export default function SignoutScreen() {
 
   const onSignOutHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    await signOut({ email, token });
     clearDataInLocalStorage();
     dispatch(removeUser());
     showMessage({
@@ -27,6 +26,7 @@ export default function SignoutScreen() {
       type: 'success',
       icon: 'success',
     });
+    await signOut({ email, token });
   };
 
   const animation = useRef(null);
