@@ -29,6 +29,9 @@ export default function SignupScreen({ navigation }) {
   const Cnic = useRef();
   const Phone = useRef();
 
+  const [nameError, setNameError] = useState('');
+  const [nameInfo, setNameInfo] = useState('');
+
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInfo, setPasswordInfo] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +50,14 @@ export default function SignupScreen({ navigation }) {
   };
 
   useLayoutEffect(() => {
+    if (record.fName.trim().length < 3 || record.lName.trim().length < 3) {
+      setNameError(true);
+      setNameInfo('Name must be at least 3 characters long');
+    } else {
+      setNameError(false);
+      setNameInfo('');
+    }
+
     if (record.password.length < 6) {
       setPasswordError(true);
       setPasswordInfo('Password must be at least 6 characters');
@@ -69,7 +80,7 @@ export default function SignupScreen({ navigation }) {
       setEmailInfo('Please provide a valid email address');
     }
 
-    if (record.cnic.length !== 13) {
+    if (record.cnic.length !== 13 || record.cnic.trim() === '') {
       setCnicError(true);
       setCnicInfo('Cnic must be 13 characters');
     } else if (record.cnic.includes('-')) {
@@ -82,15 +93,17 @@ export default function SignupScreen({ navigation }) {
 
     if (record.phone.startsWith('03') === false) {
       setPhoneError(true);
-      setPhoneInfo('Phone number must start with 03');
-    } else if (record.phone.length !== 11) {
+      setPhoneInfo('Mobile number must start with 03');
+    } else if (record.phone.trim().length !== 11) {
       setPhoneError(true);
-      setPhoneInfo('Phone number must be 11 characters');
+      setPhoneInfo('Mobile number must be 11 characters');
     } else {
       setPhoneError(false);
       setPhoneInfo('');
     }
   }, [
+    record.fName,
+    record.lName,
     record.password,
     record.confirmPassword,
     record.email,
@@ -105,7 +118,13 @@ export default function SignupScreen({ navigation }) {
 
   const onSignUpHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    if (!passwordError && !emailError && !cnicError) {
+    if (
+      !passwordError &&
+      !emailError &&
+      !cnicError &&
+      !phoneError &&
+      !nameError
+    ) {
       const response = await signUp(record);
       showMessage({
         message: response.message,
@@ -153,6 +172,9 @@ export default function SignupScreen({ navigation }) {
               onSubmitEditing={() => Email.current.focus()}
             />
           </View>
+          <Text style={[styles.info, nameError && styles.infoActivated]}>
+            {nameInfo}
+          </Text>
           <InputField
             placeholder='Email'
             value={record.email}
@@ -205,7 +227,7 @@ export default function SignupScreen({ navigation }) {
             {cnicInfo}
           </Text>
           <InputField
-            placeholder='Phone Number'
+            placeholder='Mobile Number (03xxxxxxxxx)'
             value={record.phone}
             onChangeText={(text) => onChangeRecord('phone', text)}
             keyboardType='phone-pad'

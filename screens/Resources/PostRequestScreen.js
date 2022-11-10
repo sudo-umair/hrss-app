@@ -1,14 +1,14 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useLayoutEffect, useState, useRef } from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import InputField from "../../components/UI/InputField";
-import Label from "../../components/UI/Label";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
-import Button from "../../components/UI/Button";
-import { postResourceRequest } from "../../utilities/routes/resource";
-import { useSelector } from "react-redux";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+import { View, Text, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useState, useRef } from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import InputField from '../../components/UI/InputField';
+import Label from '../../components/UI/Label';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import Button from '../../components/UI/Button';
+import { postResourceRequest } from '../../utilities/routes/resource';
+import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function PostRequestScreen({ navigation }) {
   const RESOURCE = useRef();
@@ -24,15 +24,15 @@ export default function PostRequestScreen({ navigation }) {
   const [missingFields, setMissingFields] = useState(false);
 
   const [record, setRecord] = useState({
-    userType: "user",
-    resourceName: "",
-    resourceQuantity: "",
-    resourceDuration: "",
-    resourceNotes: "",
+    userType: 'user',
+    resourceName: '',
+    resourceQuantity: '',
+    resourceDuration: '',
+    resourceNotes: '',
     requestedByName: name,
     requestedByEmail: email,
     requestedByPhone: phone,
-    requestedByAddress: "",
+    requestedByAddress: '',
   });
 
   const onChangeRecord = (key, value) => {
@@ -41,14 +41,14 @@ export default function PostRequestScreen({ navigation }) {
 
   const emptyFields = () => {
     setRecord({
-      resourceName: "",
-      resourceQuantity: "",
-      resourceDuration: "",
-      resourceNotes: "",
+      resourceName: '',
+      resourceQuantity: '',
+      resourceDuration: '',
+      resourceNotes: '',
       requestedByName: name,
       requestedByEmail: email,
       requestedByPhone: phone,
-      requestedByAddress: "",
+      requestedByAddress: '',
     });
   };
 
@@ -56,19 +56,19 @@ export default function PostRequestScreen({ navigation }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (missingFields) {
       showMessage({
-        message: "Please fill in all the required fields",
-        type: "warning",
-        icon: "warning",
+        message: 'Please fill in all the required fields',
+        type: 'warning',
+        icon: 'warning',
       });
     } else {
       try {
         const response = await postResourceRequest(record);
         showMessage({
           message: response.message,
-          type: response.status === "201" ? "success" : "warning",
-          icon: response.status === "201" ? "success" : "warning",
+          type: response.status === '201' ? 'success' : 'warning',
+          icon: response.status === '201' ? 'success' : 'warning',
         });
-        if (response.status === "201") {
+        if (response.status === '201') {
           emptyFields();
           navigation.goBack();
         }
@@ -80,27 +80,29 @@ export default function PostRequestScreen({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Request Resource Form",
-      headerTitleAlign: "center",
+      headerTitle: 'Request Resource Form',
+      headerTitleAlign: 'center',
     });
+  }, [navigation]);
 
+  useLayoutEffect(() => {
     if (
-      record.resourceName.trim() === "" ||
-      record.resourceQuantity.trim() === "" ||
-      record.resourceDuration.trim() === "" ||
-      record.requestedByAddress.trim() === "" ||
-      record.requestedByPhone.trim() === ""
+      record.resourceName.trim() === '' ||
+      record.resourceQuantity.trim() === '' ||
+      record.resourceDuration.trim() === '' ||
+      record.requestedByAddress.trim() === '' ||
+      record.requestedByPhone.trim() === ''
     ) {
       setMissingFields(true);
     } else {
       setMissingFields(false);
     }
-  }, [navigation, record]);
+  }, [record]);
 
   return (
     <KeyboardAwareScrollView
       style={styles.rootContainer}
-      keyboardShouldPersistTaps="always"
+      keyboardShouldPersistTaps='always'
     >
       <View style={styles.rootContainer}>
         <View style={styles.container}>
@@ -112,67 +114,67 @@ export default function PostRequestScreen({ navigation }) {
           <InputField value={record.requestedByEmail} editable={false} />
           <Label>Resource Name *</Label>
           <InputField
-            placeholder="Blood Bags"
+            placeholder='Blood Bags'
             value={record.resourceName}
-            onChangeText={(value) => onChangeRecord("resourceName", value)}
+            onChangeText={(value) => onChangeRecord('resourceName', value)}
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
-            returnKeyType="next"
-            autoCapitalize={"words"}
+            returnKeyType='next'
+            autoCapitalize={'words'}
           />
           <Label>Quantity *</Label>
           <InputField
-            placeholder="3"
-            keyboardType="decimal-pad"
+            placeholder='3'
+            keyboardType='decimal-pad'
             value={record.resourceQuantity}
-            onChangeText={(value) => onChangeRecord("resourceQuantity", value)}
+            onChangeText={(value) => onChangeRecord('resourceQuantity', value)}
             onSubmitEditing={() => DURATION.current.focus()}
             innerRef={QUANTITY}
-            returnKeyType="next"
+            returnKeyType='next'
           />
           <Label>Duration *</Label>
           <InputField
-            placeholder="1 Week"
+            placeholder='1 Week'
             value={record.resourceDuration}
-            onChangeText={(value) => onChangeRecord("resourceDuration", value)}
+            onChangeText={(value) => onChangeRecord('resourceDuration', value)}
             onSubmitEditing={() => PHONE.current.focus()}
             innerRef={DURATION}
-            returnKeyType="next"
-            autoCapitalize={"words"}
+            returnKeyType='next'
+            autoCapitalize={'words'}
           />
           <Label>Contact Number *</Label>
           <InputField
-            placeholder="Phone or Landline Number"
+            placeholder='Phone or Landline Number'
             value={record.requestedByPhone}
-            onChangeText={(value) => onChangeRecord("requestedByPhone", value)}
+            onChangeText={(value) => onChangeRecord('requestedByPhone', value)}
             onSubmitEditing={() => ADDRESS.current.focus()}
             innerRef={PHONE}
-            returnKeyType="next"
-            keyboardType={"phone-pad"}
+            returnKeyType='next'
+            keyboardType={'phone-pad'}
           />
           <Label>Address *</Label>
           <InputField
-            placeholder="House ABC, Street 8, ...."
+            placeholder='House ABC, Street 8, ....'
             value={record.requestedByAddress}
             onChangeText={(value) =>
-              onChangeRecord("requestedByAddress", value)
+              onChangeRecord('requestedByAddress', value)
             }
             onSubmitEditing={() => NOTES.current.focus()}
             innerRef={ADDRESS}
-            autoCapitalize={"words"}
-            returnKeyType="next"
+            autoCapitalize={'words'}
+            returnKeyType='next'
           />
           <Label>Any Additional Information</Label>
           <InputField
-            placeholder="Any additional information"
+            placeholder='Any additional information'
             multiline={true}
             numberOfLines={2}
             value={record.resourceNotes}
-            onChangeText={(value) => onChangeRecord("resourceNotes", value)}
-            autoCapitalize={"words"}
-            returnKeyType="done"
+            onChangeText={(value) => onChangeRecord('resourceNotes', value)}
+            autoCapitalize={'words'}
+            returnKeyType='done'
             style={{
-              textAlignVertical: "top",
+              textAlignVertical: 'top',
             }}
             innerRef={NOTES}
           />
@@ -197,26 +199,26 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    padding: "5%",
+    margin: '5%',
+    padding: '5%',
     borderRadius: 10,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: gs.colors.titleColor,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 10,
   },
   subTitle: {
     fontSize: 15,
     color: gs.colors.titleColor,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 10,
   },
   button: {
     marginTop: 10,
-    width: "50%",
-    alignSelf: "center",
+    width: '50%',
+    alignSelf: 'center',
   },
 });

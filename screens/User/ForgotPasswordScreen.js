@@ -113,7 +113,7 @@ export default function ForgotPasswordScreen({ navigation, route }) {
                 mode='flat'
                 textDecoration={'underline'}
               >
-                Send Otp
+                Send OTP
               </Button>
             </View>
           </View>
@@ -153,16 +153,15 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   otpInput: {
-    width: '70%',
+    width: '65%',
   },
   disabledOtpInput: {
     backgroundColor: '#ccc',
   },
   otpButton: {
-    marginLeft: 10,
-    width: '30%',
     justifyContent: 'center',
   },
   info: {

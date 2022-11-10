@@ -63,7 +63,7 @@ export default function AccountScreen() {
     if (record.phone.startsWith('03') === false) {
       setPhoneError(true);
       setPhoneInfo('Phone number must start with 03');
-    } else if (record.phone.length !== 11) {
+    } else if (record.phone.trim().length !== 11) {
       setPhoneError(true);
       setPhoneInfo('Please provide a valid phone number');
     } else {

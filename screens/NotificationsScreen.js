@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import React, { useState, useLayoutEffect } from "react";
-import { getIndieNotificationInbox } from "native-notify";
-import { useSelector } from "react-redux";
-import { GLOBALS } from "../utilities/constants/config";
-import RenderItem from "../components/Notifications/RenderItem";
-import NoNotifications from "../components/Notifications/NoNotifications";
-import Loader from "../components/UI/Loader";
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useLayoutEffect } from 'react';
+import { getIndieNotificationInbox } from 'native-notify';
+import { useSelector } from 'react-redux';
+import { GLOBALS } from '../utilities/constants/config';
+import RenderItem from '../components/Notifications/RenderItem';
+import NoNotifications from '../components/Notifications/NoNotifications';
+import Loader from '../components/UI/Loader';
 
 export default function NotificationsScreen({ navigation, route }) {
   const [notifications, setNotifications] = useState([]);
@@ -24,7 +24,7 @@ export default function NotificationsScreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     getNotificationInbox();
-    console.log("notifications", notifications);
+    console.log('notifications', notifications);
 
     return () => {
       setNotifications([]);
@@ -54,13 +54,13 @@ export default function NotificationsScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 14,
     marginVertical: 5,
     marginHorizontal: 10,
-    textAlign: "center",
+    textAlign: 'center',
   },
   subtitle: {},
   contentContainer: {
