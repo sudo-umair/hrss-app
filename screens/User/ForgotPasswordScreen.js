@@ -13,6 +13,7 @@ export default function ForgotPasswordScreen({ navigation, route }) {
   const [record, setRecord] = useState({
     email: route.params?.email ?? '',
     otp: '',
+    userType: 'user',
   });
 
   const [enableOtpInput, setEnableOtpInput] = useState(false);
@@ -23,10 +24,25 @@ export default function ForgotPasswordScreen({ navigation, route }) {
     setRecord({ ...record, [key]: value.trim() });
   };
 
+  useLayoutEffect(() => {
+    if (
+      record.email.trim().includes('@') === true &&
+      record.email.trim().endsWith('.com') === true
+    ) {
+      setEmailInfo('');
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+      setEmailInfo('Please provide a valid email address');
+    }
+  }, [record.email]);
+
   const handleForgotPassword = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    console.log('handleForgotPassword');
     if (!emailError) {
-      const response = await forgotPassword({ email: record.email });
+      console.log('handleForgotPassword');
+      const response = await forgotPassword(record);
       if (response.status === '200') {
         setEnableOtpInput(true);
       }
@@ -64,19 +80,6 @@ export default function ForgotPasswordScreen({ navigation, route }) {
       });
     }
   };
-
-  useLayoutEffect(() => {
-    if (
-      record.email.trim().includes('@') === true &&
-      record.email.trim().endsWith('.com') === true
-    ) {
-      setEmailInfo('');
-      setEmailError(false);
-    } else {
-      setEmailError(true);
-      setEmailInfo('Please provide a valid email address');
-    }
-  }, [record.email, record.password]);
 
   return (
     <SafeAreaView style={styles.rootContainer}>

@@ -16,6 +16,7 @@ export default function ResetPasswordScreen({ navigation, route }) {
   const [record, setRecord] = useState({
     password: '',
     confirmPassword: '',
+    userType: 'user',
   });
 
   const ConfirmPassword = useRef();

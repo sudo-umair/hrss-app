@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GLOBALS } from "../constants/config";
+import axios from 'axios';
+import { GLOBALS } from '../constants/config';
 
 export async function forgotPassword(record) {
   try {
@@ -12,7 +12,7 @@ export async function forgotPassword(record) {
   } catch (err) {
     console.log(err);
     return {
-      status: "error",
+      status: 'error',
       message: err.message,
     };
   }
@@ -29,7 +29,7 @@ export async function verifyOtp(record) {
   } catch (err) {
     console.log(err);
     return {
-      status: "error",
+      status: 'error',
       message: err.message,
     };
   }
@@ -46,7 +46,7 @@ export async function resetPassword(record) {
   } catch (err) {
     console.log(err);
     return {
-      status: "error",
+      status: 'error',
       message: err.message,
     };
   }
