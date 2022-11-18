@@ -148,8 +148,8 @@ export default function AccountScreen() {
       keyboardShouldPersistTaps='always'
     >
       <View style={styles.container}>
-        <UserAvatar size={100} name={user.name} />
-        <Text style={styles.name}>{user.name}</Text>
+        <UserAvatar size={100} name={user.name ?? ''} />
+        <Text style={styles.name}>{user.name ?? ''}</Text>
         <Button
           onPress={goToDeleteAccountScreen}
           style={{

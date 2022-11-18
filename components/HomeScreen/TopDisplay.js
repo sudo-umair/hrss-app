@@ -1,17 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import UserAvatar from "react-native-user-avatar";
-import Icon from "../UI/Icon";
-import { useSelector } from "react-redux";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { getTotalNumberOfRequests } from "../../utilities/routes/resource";
-import * as Haptics from "expo-haptics";
+import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import UserAvatar from 'react-native-user-avatar';
+import Icon from '../UI/Icon';
+import { useSelector } from 'react-redux';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { getTotalNumberOfRequests } from '../../utilities/routes/resource';
+import * as Haptics from 'expo-haptics';
 
 export default function TopDisplay() {
   const user = useSelector((state) => state.user);
-  const [name, setName] = useState("");
-  const [fName, setFName] = useState("");
+  const [name, setName] = useState('');
+  const [fName, setFName] = useState('');
   const [requestsCount, setRequestsCount] = useState(0);
 
   const navigation = useNavigation();
@@ -20,14 +20,14 @@ export default function TopDisplay() {
     const response = await getTotalNumberOfRequests({
       email: user.email,
     });
-    if (response.status === "200") {
+    if (response.status === '200') {
       setRequestsCount(response.data);
     }
   };
 
   useFocusEffect(() => {
-    setName(user.name ? user.name : "");
-    setFName(name?.split(" ")[0]);
+    setName(user.name ?? '');
+    setFName(name?.split(' ')[0] ?? '');
   });
 
   useFocusEffect(() => {
@@ -36,7 +36,7 @@ export default function TopDisplay() {
 
   const goToSignoutScreen = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("Signout");
+    navigation.navigate('Signout');
   };
 
   return (
@@ -48,9 +48,9 @@ export default function TopDisplay() {
         </View>
         <View style={styles.userCompleteDetails}>
           <Icon
-            lib="a"
-            name="logout"
-            color="white"
+            lib='a'
+            name='logout'
+            color='white'
             size={20}
             onPress={goToSignoutScreen}
           />
@@ -66,35 +66,35 @@ export default function TopDisplay() {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    padding: "5%",
+    margin: '5%',
+    padding: '5%',
     borderRadius: 10,
     elevation: 5,
   },
   user: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   userDetails: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "90%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '90%',
   },
   userCompleteDetails: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "10%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
   },
   userName: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginLeft: 10,
     color: gs.colors.titleColor,
   },
   resources: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 20,
     backgroundColor: gs.colors.background,
     borderRadius: 5,
@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   },
   requests: {
     fontSize: 16,
-    color: "black",
+    color: 'black',
     paddingRight: 10,
   },
   requestsNumber: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
+    fontWeight: 'bold',
+    color: 'black',
   },
 });

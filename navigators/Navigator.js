@@ -42,7 +42,6 @@ export default function Navigator() {
         icon: 'success',
       });
     }
-
     dispatch(setIsLoading(false));
   };
 

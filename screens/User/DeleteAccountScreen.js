@@ -1,32 +1,32 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useLayoutEffect, useRef } from "react";
-import { clearDataInLocalStorage } from "../../utilities/helpers/local-storage";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { removeUser } from "../../store/user";
-import AnimatedLottieView from "lottie-react-native";
-import Button from "../../components/UI/Button";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { deleteAccount } from "../../utilities/routes/user";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+import { View, Text, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useRef } from 'react';
+import { clearDataInLocalStorage } from '../../utilities/helpers/local-storage';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { removeUser } from '../../store/user';
+import AnimatedLottieView from 'lottie-react-native';
+import Button from '../../components/UI/Button';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { deleteAccount } from '../../utilities/routes/user';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function DeleteAccountScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const { email, password } = user;
+  const { email, token } = user;
 
   const onDeleteAccountHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    const response = await deleteAccount({ email, password });
-    if (response.status === "200") {
+    const response = await deleteAccount({ email, token });
+    if (response.status === '200') {
       dispatch(removeUser());
       clearDataInLocalStorage();
     }
     showMessage({
       message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
+      type: response.status === '200' ? 'success' : 'warning',
+      icon: response.status === '200' ? 'success' : 'warning',
     });
   };
 
@@ -34,7 +34,7 @@ export default function DeleteAccountScreen({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "Delete Account",
+      headerTitle: 'Delete Account',
     });
   }, [navigation]);
 
@@ -49,7 +49,7 @@ export default function DeleteAccountScreen({ navigation }) {
             width: 300,
             height: 300,
           }}
-          source={require("../../assets/animations/signout.json")}
+          source={require('../../assets/animations/signout.json')}
         />
         <Text style={styles.title}>Deleting Your Account??</Text>
         <Text style={styles.subTitle}>
@@ -58,7 +58,7 @@ export default function DeleteAccountScreen({ navigation }) {
         </Text>
       </View>
       <Button
-        style={{ minWidth: "40%" }}
+        style={{ minWidth: '40%' }}
         buttonColor={gs.colors.buttonColor3}
         onPress={onDeleteAccountHandler}
       >
@@ -71,25 +71,25 @@ export default function DeleteAccountScreen({ navigation }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: gs.colors.background,
   },
   container: {
-    alignItems: "center",
-    margin: "5%",
-    padding: "5%",
+    alignItems: 'center',
+    margin: '5%',
+    padding: '5%',
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "red",
+    fontWeight: 'bold',
+    color: 'red',
     marginTop: 10,
-    textAlign: "center",
+    textAlign: 'center',
   },
   subTitle: {
     fontSize: 16,
     color: gs.colors.text,
     marginTop: 15,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });

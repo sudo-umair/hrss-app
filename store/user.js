@@ -29,6 +29,7 @@ export const userSlice = createSlice({
       state.name = null;
       state.email = null;
       state.phone = null;
+      state.cnic = null;
       state.token = null;
       state.isLoggedIn = false;
     },
