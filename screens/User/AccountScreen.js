@@ -150,6 +150,7 @@ export default function AccountScreen() {
       <View style={styles.container}>
         <UserAvatar size={100} name={user.name ?? ''} />
         <Text style={styles.name}>{user.name ?? ''}</Text>
+        <Text style={styles.email}>{user.email ?? ''}</Text>
         <Button
           onPress={goToDeleteAccountScreen}
           style={{
@@ -286,11 +287,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   name: {
-    marginVertical: '2%',
+    marginTop: '2%',
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
+  },
+  email: {
+    marginBottom: '2%',
+    textAlign: 'center',
+    color: 'white',
   },
   title: {
     fontSize: 20,
