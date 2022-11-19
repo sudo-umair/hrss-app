@@ -128,6 +128,10 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           <Text style={styles.title}>Resource Requested</Text>
           <Text style={styles.details}>{request.resourceName}</Text>
         </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Request Status</Text>
+          <Text style={styles.details}>{request.requestStatus}</Text>
+        </View>
         <View style={styles.row}>
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Duration</Text>
@@ -182,10 +186,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <View style={styles.divider}></View>
           </>
         )}
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Request Status</Text>
-          <Text style={styles.details}>{request.requestStatus}</Text>
-        </View>
 
         {request.requestStatus !== 'Pending' &&
           request.requestedByEmail === email && (

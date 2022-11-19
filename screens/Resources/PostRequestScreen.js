@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
-    width: '50%',
     alignSelf: 'center',
   },
 });
