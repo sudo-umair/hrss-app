@@ -1,15 +1,15 @@
-import { StyleSheet, Text, View, Linking, ScrollView } from "react-native";
-import React, { useLayoutEffect } from "react";
-import Button from "../../components/UI/Button";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { StyleSheet, Text, View, Linking, ScrollView } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import Button from '../../components/UI/Button';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
 import {
   approveResourceRequest,
   deleteResourceRequest,
   hideResourceRequest,
-} from "../../utilities/routes/resource";
-import { useSelector } from "react-redux";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+} from '../../utilities/routes/resource';
+import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function ResourceDetailsScreen({ navigation, route }) {
   const request = route.params.item;
@@ -28,15 +28,15 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     const phoneBool =
-      phone.trim() === "Not Available" ? false : request.approvedByPhone;
+      phone.trim() === 'Not Available' ? false : request.approvedByPhone;
     if (phoneBool) {
       const url = `tel:${phone}`;
       Linking.openURL(url);
     } else {
       showMessage({
-        message: "Phone number not available",
-        type: "warning",
-        icon: "warning",
+        message: 'Phone number not available',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -45,16 +45,16 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     const emailBool =
-      email.trim() === "Not Available" ? false : request.requestedByEmail;
+      email.trim() === 'Not Available' ? false : request.requestedByEmail;
 
     if (emailBool) {
       const url = `mailto:${email}`;
       Linking.openURL(url);
     } else {
       showMessage({
-        message: "Email not available",
-        type: "warning",
-        icon: "warning",
+        message: 'Email not available',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -63,14 +63,14 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (request.requestedByEmail === user.email) {
       showMessage({
-        message: "You cannot approve your own request",
-        type: "warning",
-        icon: "warning",
+        message: 'You cannot approve your own request',
+        type: 'warning',
+        icon: 'warning',
       });
     } else {
       const record = {
         id: request._id,
-        requestStatus: "Approved",
+        requestStatus: 'Approved',
         approvedByName: name,
         approvedByEmail: email,
         approvedByPhone: phone,
@@ -78,10 +78,10 @@ export default function ResourceDetailsScreen({ navigation, route }) {
       const response = await approveResourceRequest(record);
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
-      if (response.status === "200") {
+      if (response.status === '200') {
         navigation.goBack();
       }
     }
@@ -91,31 +91,32 @@ export default function ResourceDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: request._id,
+      email,
     };
     const response = await deleteResourceRequest(record);
     showMessage({
       message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
+      type: response.status === '200' ? 'success' : 'warning',
+      icon: response.status === '200' ? 'success' : 'warning',
     });
-    if (response.status === "200") {
+    if (response.status === '200') {
       navigation.goBack();
     }
   };
 
-  const hideRequest = async (id) => {
+  const hideRequest = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
-      id,
+      id: request._id,
       email,
     };
     const response = await hideResourceRequest(record);
     showMessage({
       message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
+      type: response.status === '200' ? 'success' : 'warning',
+      icon: response.status === '200' ? 'success' : 'warning',
     });
-    if (response.status === "200") {
+    if (response.status === '200') {
       navigation.goBack();
     }
   };
@@ -137,7 +138,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Text style={styles.details}>{request.resourceQuantity}</Text>
           </View>
         </View>
-        {request.resourceNotes !== "" && (
+        {request.resourceNotes !== '' && (
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Additional Notes</Text>
             <Text style={styles.details}>{request.resourceNotes}</Text>
@@ -186,7 +187,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{request.requestStatus}</Text>
         </View>
 
-        {request.requestStatus !== "Pending" &&
+        {request.requestStatus !== 'Pending' &&
           request.requestedByEmail === email && (
             <>
               <View style={styles.detailsContainer}>
@@ -219,7 +220,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </>
           )}
 
-        {request.requestStatus !== "Approved" &&
+        {request.requestStatus !== 'Approved' &&
           request.requestedByEmail !== email && (
             <Button
               style={styles.button}
@@ -230,7 +231,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </Button>
           )}
 
-        {request.requestStatus !== "Approved" &&
+        {request.requestStatus !== 'Approved' &&
           request.requestedByEmail === email && (
             <Button
               style={styles.button}
@@ -242,19 +243,19 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             </Button>
           )}
 
-        {request.requestStatus === "Pending" &&
+        {request.requestStatus === 'Pending' &&
           request.requestedByEmail !== email && (
             <Button
               style={styles.button}
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
-              onPress={hideRequest.bind(this, request._id)}
+              onPress={hideRequest}
             >
               Hide Request
             </Button>
           )}
 
-        {request.requestStatus === "Approved" &&
+        {request.requestStatus === 'Approved' &&
           request.approvedByEmail !== email && (
             <Button
               style={styles.button}
@@ -276,14 +277,14 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    paddingVertical: "5%",
-    paddingHorizontal: "10%",
-    justifyContent: "center",
-    alignItems: "center",
+    margin: '5%',
+    paddingVertical: '5%',
+    paddingHorizontal: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -293,43 +294,43 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 10,
   },
   detailsContainer: {
-    marginVertical: "2%",
-    marginHorizontal: "5%",
+    marginVertical: '2%',
+    marginHorizontal: '5%',
   },
   title: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
-    marginHorizontal: "2%",
-    textAlign: "center",
+    marginHorizontal: '2%',
+    textAlign: 'center',
   },
   details: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    marginHorizontal: "2%",
-    textAlign: "center",
+    marginHorizontal: '2%',
+    textAlign: 'center',
   },
   email: {
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   button: {
-    marginTop: "2%",
-    minWidth: "60%",
+    marginTop: '2%',
+    minWidth: '60%',
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   divider: {
-    borderColor: "white",
+    borderColor: 'white',
     borderBottomWidth: 1,
     borderRadius: 10,
-    width: "80%",
-    marginVertical: "5%",
+    width: '80%',
+    marginVertical: '5%',
   },
 });
