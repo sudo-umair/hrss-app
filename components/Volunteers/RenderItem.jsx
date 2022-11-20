@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 function RenderItem({ item, screen }) {
-  const [applicantStatus, setApplicantStatus] = useState("");
+  const [applicantStatus, setApplicantStatus] = useState('');
   const navigation = useNavigation();
 
   const user = useSelector((state) => state.user);
@@ -20,14 +20,14 @@ function RenderItem({ item, screen }) {
   };
 
   {
-    screen === "myRequests" &&
+    screen === 'myRequests' &&
       useLayoutEffect(() => {
         checkApplicantStatus();
       }, [navigation]);
   }
 
   const goToVolunteerRequest = () => {
-    navigation.navigate("VolunteerRequestDetails", {
+    navigation.navigate('VolunteerRequestDetails', {
       item,
       screen,
     });
@@ -39,20 +39,20 @@ function RenderItem({ item, screen }) {
         <Text
           style={[
             styles.title,
-            screen === "myRequests" && {
-              width: "80%",
+            screen === 'myRequests' && {
+              width: '80%',
             },
           ]}
         >
           {item.volunteerRequestTitle}
         </Text>
-        {screen === "myRequests" && (
+        {screen === 'myRequests' && (
           <Text
             style={[
               styles.requestStatus,
-              applicantStatus === "Denied" && styles.denied,
-              applicantStatus === "Applied" && styles.applied,
-              applicantStatus === "Approved" && styles.approved,
+              applicantStatus === 'Rejected' && styles.rejected,
+              applicantStatus === 'Applied' && styles.applied,
+              applicantStatus === 'Approved' && styles.approved,
             ]}
           >
             {applicantStatus}
@@ -70,56 +70,56 @@ export default React.memo(RenderItem);
 const styles = StyleSheet.create({
   container: {
     backgroundColor: gs.colors.primary,
-    padding: "4%",
-    marginVertical: "2%",
-    marginHorizontal: "4%",
+    padding: '4%',
+    marginVertical: '2%',
+    marginHorizontal: '4%',
     borderRadius: 15,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 3,
   },
   title: {
     fontSize: 16,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "left",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   counter: {
-    width: "20%",
+    width: '20%',
     fontSize: 12,
-    color: "white",
-    textAlign: "left",
-    marginTop: "3%",
-    textAlign: "center",
-    alignSelf: "flex-start",
+    color: 'white',
+    textAlign: 'left',
+    marginTop: '3%',
+    textAlign: 'center',
+    alignSelf: 'flex-start',
   },
   text: {
     fontSize: 12,
-    color: "white",
-    textAlign: "left",
+    color: 'white',
+    textAlign: 'left',
     marginTop: 3,
   },
   requestStatus: {
     maxHeight: 25,
     maxWidth: 60,
     fontSize: 10,
-    color: "white",
+    color: 'white',
     paddingVertical: 3,
     paddingHorizontal: 6,
     borderRadius: 25,
-    marginLeft: "auto",
-    textAlign: "center",
+    marginLeft: 'auto',
+    textAlign: 'center',
   },
   applied: {
-    backgroundColor: "yellow",
-    color: "black",
+    backgroundColor: 'yellow',
+    color: 'black',
   },
   approved: {
-    backgroundColor: "green",
+    backgroundColor: 'green',
   },
   rejected: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
   },
 });

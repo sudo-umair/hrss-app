@@ -1,19 +1,19 @@
-import { ScrollView, StyleSheet, Text, View, Alert } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import Button from "../../components/UI/Button";
-import { Linking } from "react-native";
+import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import Button from '../../components/UI/Button';
+import { Linking } from 'react-native';
 import {
   applyForVolunteerRequest,
   withdrawVolunteerRequest,
   hideVolunteerRequest,
-} from "../../utilities/routes/volunteers";
-import { useSelector } from "react-redux";
-import { showMessage } from "react-native-flash-message";
-import * as Haptics from "expo-haptics";
+} from '../../utilities/routes/volunteers';
+import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
+import * as Haptics from 'expo-haptics';
 
 export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
-  const [applicantStatus, setApplicantStatus] = useState("");
+  const [applicantStatus, setApplicantStatus] = useState('');
   const user = useSelector((state) => state.user);
   const { name, email, phone, cnic } = user;
   const { item, screen } = route.params;
@@ -29,19 +29,19 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
 
   const acceptVolunteerRequest = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    if (item.requestStatus === "Disabled") {
+    if (item.requestStatus === 'Disabled') {
       showMessage({
-        message: "Hospital is not accepting volunteers anymore",
-        type: "warning",
-        icon: "warning",
+        message: 'Hospital is not accepting volunteers anymore',
+        type: 'warning',
+        icon: 'warning',
       });
     } else if (
       item.applicants.find((applicant) => applicant.applicantEmail === email)
     ) {
       showMessage({
-        message: "You have already applied for this request",
-        type: "warning",
-        icon: "warning",
+        message: 'You have already applied for this request',
+        type: 'warning',
+        icon: 'warning',
       });
     } else {
       const record = {
@@ -53,13 +53,13 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       };
       const response = await applyForVolunteerRequest(record);
 
-      if (response.status === "200") {
+      if (response.status === '200') {
         navigation.goBack();
       }
       showMessage({
         message: response.message,
-        type: response.status === "200" ? "success" : "warning",
-        icon: response.status === "200" ? "success" : "warning",
+        type: response.status === '200' ? 'success' : 'warning',
+        icon: response.status === '200' ? 'success' : 'warning',
       });
     }
   };
@@ -74,9 +74,9 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       Linking.openURL(url);
     } else {
       showMessage({
-        message: "Phone number is not available",
-        type: "warning",
-        icon: "warning",
+        message: 'Phone number is not available',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -91,9 +91,9 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       Linking.openURL(url);
     } else {
       showMessage({
-        message: "Email is not available",
-        type: "warning",
-        icon: "warning",
+        message: 'Email is not available',
+        type: 'warning',
+        icon: 'warning',
       });
     }
   };
@@ -107,23 +107,23 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     const response = await withdrawVolunteerRequest(record);
     showMessage({
       message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
+      type: response.status === '200' ? 'success' : 'warning',
+      icon: response.status === '200' ? 'success' : 'warning',
     });
-    if (response.status === "200") {
+    if (response.status === '200') {
       Alert.alert(
-        "Hide Request",
-        "Do you want to hide this request too?",
+        'Hide Request',
+        'Do you want to hide this request too?',
         [
           {
-            text: "No",
-            style: "No",
+            text: 'No',
+            style: 'No',
             onPress: () => {
               navigation.goBack();
             },
           },
           {
-            text: "Yes",
+            text: 'Yes',
             onPress: hideRequest,
           },
         ],
@@ -139,13 +139,13 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       applicantEmail: email,
     };
     const response = await hideVolunteerRequest(record);
-    if (response.status === "200") {
+    if (response.status === '200') {
       navigation.goBack();
     }
     showMessage({
       message: response.message,
-      type: response.status === "200" ? "success" : "warning",
-      icon: response.status === "200" ? "success" : "warning",
+      type: response.status === '200' ? 'success' : 'warning',
+      icon: response.status === '200' ? 'success' : 'warning',
     });
   };
 
@@ -154,7 +154,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       headerTitle: item?.hospitalName,
     });
 
-    screen === "myRequests" && checkApplicantStatus();
+    screen === 'myRequests' && checkApplicantStatus();
   }, [navigation]);
 
   return (
@@ -174,41 +174,43 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           <Text style={styles.details}>{item.volunteersRequired}</Text>
         </View>
 
-        {screen === "myRequests" && (
+        {screen === 'myRequests' && (
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Request Status</Text>
             <Text style={styles.details}>{applicantStatus}</Text>
           </View>
         )}
-        {screen === "all" && (
+        {screen === 'all' && (
           <Button
             onPress={acceptVolunteerRequest}
             textSize={14}
             style={styles.button}
           >
-            {item.requestStatus === "Enabled" && "Apply"}
+            {item.requestStatus === 'Enabled' && 'Apply'}
           </Button>
         )}
 
-        {screen === "myRequests" && item.requestStatus === "Enabled" && (
-          <Button
-            onPress={withdrawRequest}
-            textSize={14}
-            buttonColor={gs.colors.buttonColor3}
-            style={styles.button}
-          >
-            Withdraw Request
-          </Button>
-        )}
+        {screen === 'myRequests' &&
+          item.requestStatus === 'Enabled' &&
+          applicantStatus === 'Applied' && (
+            <Button
+              onPress={withdrawRequest}
+              textSize={14}
+              buttonColor={gs.colors.buttonColor3}
+              style={styles.button}
+            >
+              Withdraw Request
+            </Button>
+          )}
 
-        {screen === "all" && (
+        {screen === 'all' && (
           <Button
             onPress={hideRequest}
             textSize={14}
             buttonColor={gs.colors.buttonColor3}
             style={styles.button}
           >
-            {item.requestStatus === "Enabled" && "Hide Request"}
+            {item.requestStatus === 'Enabled' && 'Hide Request'}
           </Button>
         )}
 
@@ -246,14 +248,14 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: gs.colors.primary,
-    margin: "5%",
-    paddingVertical: "5%",
-    paddingHorizontal: "10%",
-    justifyContent: "center",
-    alignItems: "center",
+    margin: '5%',
+    paddingVertical: '5%',
+    paddingHorizontal: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -263,36 +265,36 @@ const styles = StyleSheet.create({
   },
   requestTitle: {
     fontSize: 18,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: "2%",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: '2%',
   },
   detailsContainer: {
-    marginVertical: "2%",
+    marginVertical: '2%',
   },
   title: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
-    textAlign: "center",
+    textAlign: 'center',
   },
   details: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
   email: {
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   button: {
-    minWidth: "60%",
-    marginTop: "2%",
+    minWidth: '60%',
+    marginTop: '2%',
   },
   divider: {
-    borderColor: "white",
+    borderColor: 'white',
     borderBottomWidth: 1,
     borderRadius: 10,
-    width: "80%",
-    marginVertical: "5%",
+    width: '80%',
+    marginVertical: '5%',
   },
 });
