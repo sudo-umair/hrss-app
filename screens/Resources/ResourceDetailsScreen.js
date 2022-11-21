@@ -67,7 +67,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const approveRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (request.requestedByEmail === user.email) {
       showMessage({
         message: 'You cannot approve your own request',
@@ -95,7 +94,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const deleteRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: request._id,
       email,
@@ -112,7 +110,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const hideRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: request._id,
       email,
@@ -233,6 +230,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               style={styles.button}
               textSize={14}
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 Alert.alert(
                   'Approve Request',
                   'Are you sure you want to approve this request?',
@@ -259,6 +257,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 Alert.alert(
                   'Delete Request',
                   'Are you sure you want to delete your request?',
@@ -284,6 +283,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 Alert.alert(
                   'Hide Request',
                   'Are you sure you want to hide this request?',

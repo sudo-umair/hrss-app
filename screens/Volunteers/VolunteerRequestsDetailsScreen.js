@@ -28,7 +28,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const acceptVolunteerRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (item.requestStatus === 'Disabled') {
       showMessage({
         message: 'Hospital is not accepting volunteers anymore',
@@ -52,7 +51,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         applicantCnic: cnic,
       };
       const response = await applyForVolunteerRequest(record);
-
       if (response.status === '200') {
         navigation.goBack();
       }
@@ -68,7 +66,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const phoneNumber =
       item.hospitalPhone.trim() === NaN ? false : item.hospitalPhone;
-
     if (phoneNumber) {
       const url = `tel:${phoneNumber}`;
       Linking.openURL(url);
@@ -85,7 +82,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const email =
       item.hospitalEmail.trim() === NaN ? false : item.hospitalEmail;
-
     if (email) {
       const url = `mailto:${email}`;
       Linking.openURL(url);
@@ -99,37 +95,35 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
   };
 
   const withdrawRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: item._id,
       applicantEmail: email,
     };
     const response = await withdrawVolunteerRequest(record);
+    if (response.status === '200') {
+      navigation.goBack();
+    }
     showMessage({
       message: response.message,
       type: response.status === '200' ? 'success' : 'warning',
       icon: response.status === '200' ? 'success' : 'warning',
     });
-    if (response.status === '200') {
-      navigation.goBack();
-    }
   };
 
   const hideRequest = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const record = {
       id: item._id,
       applicantEmail: email,
     };
     const response = await hideVolunteerRequest(record);
+    if (response.status === '200') {
+      navigation.goBack();
+    }
     showMessage({
       message: response.message,
       type: response.status === '200' ? 'success' : 'warning',
       icon: response.status === '200' ? 'success' : 'warning',
     });
-    if (response.status === '200') {
-      navigation.goBack();
-    }
   };
 
   useLayoutEffect(() => {
@@ -167,6 +161,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         {screen === 'all' && (
           <Button
             onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
               Alert.alert(
                 'Confirm',
                 'Are you sure you want to apply for this request?',
@@ -193,6 +188,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           applicantStatus === 'Applied' && (
             <Button
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 Alert.alert(
                   'Withdraw Request',
                   'Do you want to withdraw your request?',
@@ -220,6 +216,8 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         {screen === 'all' && (
           <Button
             onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+
               Alert.alert(
                 'Hide Request',
                 'Do you want to hide this request?',
