@@ -111,24 +111,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       icon: response.status === '200' ? 'success' : 'warning',
     });
     if (response.status === '200') {
-      Alert.alert(
-        'Hide Request',
-        'Do you want to hide this request too?',
-        [
-          {
-            text: 'No',
-            style: 'No',
-            onPress: () => {
-              navigation.goBack();
-            },
-          },
-          {
-            text: 'Yes',
-            onPress: hideRequest,
-          },
-        ],
-        { cancelable: false }
-      );
+      navigation.goBack();
     }
   };
 
@@ -139,14 +122,14 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
       applicantEmail: email,
     };
     const response = await hideVolunteerRequest(record);
-    if (response.status === '200') {
-      navigation.goBack();
-    }
     showMessage({
       message: response.message,
       type: response.status === '200' ? 'success' : 'warning',
       icon: response.status === '200' ? 'success' : 'warning',
     });
+    if (response.status === '200') {
+      navigation.goBack();
+    }
   };
 
   useLayoutEffect(() => {
@@ -180,9 +163,24 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
             <Text style={styles.details}>{applicantStatus}</Text>
           </View>
         )}
+
         {screen === 'all' && (
           <Button
-            onPress={acceptVolunteerRequest}
+            onPress={() => {
+              Alert.alert(
+                'Confirm',
+                'Are you sure you want to apply for this request?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  { text: 'OK', onPress: () => acceptVolunteerRequest() },
+                ],
+                { cancelable: false }
+              );
+            }}
             textSize={14}
             style={styles.button}
           >
@@ -194,7 +192,23 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
           item.requestStatus === 'Enabled' &&
           applicantStatus === 'Applied' && (
             <Button
-              onPress={withdrawRequest}
+              onPress={() => {
+                Alert.alert(
+                  'Withdraw Request',
+                  'Do you want to withdraw your request?',
+                  [
+                    {
+                      text: 'No',
+                      style: 'No',
+                    },
+                    {
+                      text: 'Yes',
+                      onPress: withdrawRequest,
+                    },
+                  ],
+                  { cancelable: false }
+                );
+              }}
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
               style={styles.button}
@@ -205,7 +219,23 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
 
         {screen === 'all' && (
           <Button
-            onPress={hideRequest}
+            onPress={() => {
+              Alert.alert(
+                'Hide Request',
+                'Do you want to hide this request?',
+                [
+                  {
+                    text: 'No',
+                    style: 'No',
+                  },
+                  {
+                    text: 'Yes',
+                    onPress: hideRequest,
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
             textSize={14}
             buttonColor={gs.colors.buttonColor3}
             style={styles.button}

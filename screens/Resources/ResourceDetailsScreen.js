@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Linking, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Linking,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import Button from '../../components/UI/Button';
 import { GlobalStyles as gs } from '../../utilities/constants/styles';
@@ -225,7 +232,21 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Button
               style={styles.button}
               textSize={14}
-              onPress={approveRequest}
+              onPress={() => {
+                Alert.alert(
+                  'Approve Request',
+                  'Are you sure you want to approve this request?',
+                  [
+                    {
+                      text: 'Cancel',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    { text: 'OK', onPress: approveRequest },
+                  ],
+                  { cancelable: false }
+                );
+              }}
             >
               Approve Request
             </Button>
@@ -237,7 +258,20 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               style={styles.button}
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
-              onPress={deleteRequest}
+              onPress={() => {
+                Alert.alert(
+                  'Delete Request',
+                  'Are you sure you want to delete your request?',
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                    { text: 'OK', onPress: deleteRequest },
+                  ],
+                  { cancelable: false }
+                );
+              }}
             >
               Delete Request
             </Button>
@@ -249,7 +283,21 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               style={styles.button}
               textSize={14}
               buttonColor={gs.colors.buttonColor3}
-              onPress={hideRequest}
+              onPress={() => {
+                Alert.alert(
+                  'Hide Request',
+                  'Are you sure you want to hide this request?',
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+
+                    { text: 'OK', onPress: hideRequest },
+                  ],
+                  { cancelable: false }
+                );
+              }}
             >
               Hide Request
             </Button>
