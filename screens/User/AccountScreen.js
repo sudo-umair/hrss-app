@@ -25,6 +25,8 @@ export default function AccountScreen() {
     confirmNewPassword: '',
   });
 
+  const [originalRecord, setOriginalRecord] = useState(record);
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -44,6 +46,16 @@ export default function AccountScreen() {
 
   const [phoneError, setPhoneError] = useState(false);
   const [phoneInfo, setPhoneInfo] = useState('');
+
+  const checkIfRecordChanged = () => {
+    if (record.name !== originalRecord.name) {
+      return true;
+    }
+    if (record.phone !== originalRecord.phone) {
+      return true;
+    }
+    return false;
+  };
 
   useLayoutEffect(() => {
     if (record.password.length < 6) {
@@ -89,25 +101,33 @@ export default function AccountScreen() {
 
   const onUpdateAccountHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    if (!phoneError) {
-      const response = await updateAccount(record);
-      console.log(response);
-      if (response.status === '200') {
-        dispatch(setUser(response.user));
-        setDataInLocalStorage({
-          email: response.user.email,
-          token: response.user.token,
+    if (checkIfRecordChanged()) {
+      if (!phoneError) {
+        const response = await updateAccount(record);
+        console.log(response);
+        if (response.status === '200') {
+          dispatch(setUser(response.user));
+          setDataInLocalStorage({
+            email: response.user.email,
+            token: response.user.token,
+          });
+        }
+        showMessage({
+          message: response.message,
+          type: response.status === '200' ? 'success' : 'warning',
+          icon: response.status === '200' ? 'success' : 'warning',
+        });
+      } else {
+        showMessage({
+          message:
+            'Please fill out all fields with valid information and check for existing errors',
+          type: 'warning',
+          icon: 'warning',
         });
       }
-      showMessage({
-        message: response.message,
-        type: response.status === '200' ? 'success' : 'warning',
-        icon: response.status === '200' ? 'success' : 'warning',
-      });
     } else {
       showMessage({
-        message:
-          'Please fill out all fields with valid information and check for existing errors',
+        message: 'No changes were made to the account',
         type: 'warning',
         icon: 'warning',
       });
