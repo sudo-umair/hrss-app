@@ -199,7 +199,6 @@ export default function AccountScreen() {
           onChangeText={(text) => onChangeRecord('name', text)}
           placeholder='Full Name'
           autoCapitalize='words'
-          autoFocus={true}
           onSubmitEditing={() => Phone.current.focus()}
         />
         <Label>Phone Number</Label>

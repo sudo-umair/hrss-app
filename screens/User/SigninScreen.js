@@ -101,6 +101,7 @@ export default function SigninScreen({ route, navigation }) {
             onChangeText={(text) => onChangeRecord('email', text)}
             keyboardType='email-address'
             onSubmitEditing={() => Password.current.focus()}
+            autoFocus={true}
           />
           <Text style={[styles.info, emailError && styles.infoActivated]}>
             {emailInfo}

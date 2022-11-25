@@ -119,7 +119,6 @@ export default function PostRequestScreen({ navigation }) {
             onChangeText={(value) => onChangeRecord('resourceName', value)}
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
-            returnKeyType='next'
             autoCapitalize={'words'}
           />
           <Label>Quantity *</Label>

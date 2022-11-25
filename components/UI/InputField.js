@@ -1,6 +1,6 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import React from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
 
 export default function InputField({
   style,
@@ -17,25 +17,27 @@ export default function InputField({
   numberOfLines,
   editable,
   maxLength,
+  autoFocus,
 }) {
   return (
     <TextInput
       style={[styles.input, style]}
       maxLength={maxLength ?? 100}
-      placeholder={placeholder ?? "Enter text"}
+      placeholder={placeholder ?? 'Enter text'}
       value={value}
       onChangeText={onChangeText}
-      autoCapitalize={autoCapitalize ?? "none"}
+      autoCapitalize={autoCapitalize ?? 'none'}
       secureTextEntry={secureTextEntry || false}
-      keyboardType={keyboardType ?? "default"}
+      keyboardType={keyboardType ?? 'default'}
       ref={innerRef}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
-      returnKeyType={returnKeyType ?? "next"}
+      returnKeyType={returnKeyType ?? 'google'}
       multiline={multiline ?? false}
       numberOfLines={numberOfLines ?? 1}
       editable={editable ?? true}
       enablesReturnKeyAutomatically={true}
+      autoFocus={autoFocus ?? false}
     />
   );
 }
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 15,
     fontSize: 16,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,

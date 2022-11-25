@@ -201,7 +201,7 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
                 );
               }}
               buttonColor={gs.colors.buttonColor3}
-              style={[styles.button, { marginTop: '3%' }]}
+              style={styles.button}
             >
               {item.requestStatus === 'Enabled' && 'Hide Request'}
             </Button>
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   button: {
+    marginTop: '3%',
     minWidth: '60%',
-    marginTop: '2%',
   },
   divider: {
     borderColor: 'white',
