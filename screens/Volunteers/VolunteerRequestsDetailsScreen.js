@@ -159,28 +159,53 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
         )}
 
         {screen === 'all' && (
-          <Button
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-              Alert.alert(
-                'Confirm',
-                'Are you sure you want to apply for this request?',
-                [
-                  {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                  },
-                  { text: 'OK', onPress: () => acceptVolunteerRequest() },
-                ],
-                { cancelable: false }
-              );
-            }}
-            textSize={14}
-            style={styles.button}
-          >
-            {item.requestStatus === 'Enabled' && 'Apply'}
-          </Button>
+          <>
+            <Button
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                Alert.alert(
+                  'Confirm',
+                  'Are you sure you want to apply for this request?',
+                  [
+                    {
+                      text: 'Cancel',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    { text: 'OK', onPress: () => acceptVolunteerRequest() },
+                  ],
+                  { cancelable: false }
+                );
+              }}
+              style={styles.button}
+            >
+              {item.requestStatus === 'Enabled' && 'Apply'}
+            </Button>
+            <Button
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                Alert.alert(
+                  'Hide Request',
+                  'Do you want to hide this request?',
+                  [
+                    {
+                      text: 'No',
+                      style: 'No',
+                    },
+                    {
+                      text: 'Yes',
+                      onPress: hideRequest,
+                    },
+                  ],
+                  { cancelable: false }
+                );
+              }}
+              buttonColor={gs.colors.buttonColor3}
+              style={[styles.button, { marginTop: '3%' }]}
+            >
+              {item.requestStatus === 'Enabled' && 'Hide Request'}
+            </Button>
+          </>
         )}
 
         {screen === 'myRequests' &&
@@ -212,35 +237,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
               Withdraw Request
             </Button>
           )}
-
-        {screen === 'all' && (
-          <Button
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-
-              Alert.alert(
-                'Hide Request',
-                'Do you want to hide this request?',
-                [
-                  {
-                    text: 'No',
-                    style: 'No',
-                  },
-                  {
-                    text: 'Yes',
-                    onPress: hideRequest,
-                  },
-                ],
-                { cancelable: false }
-              );
-            }}
-            textSize={14}
-            buttonColor={gs.colors.buttonColor3}
-            style={styles.button}
-          >
-            {item.requestStatus === 'Enabled' && 'Hide Request'}
-          </Button>
-        )}
 
         <View style={styles.divider}></View>
         <View style={styles.detailsContainer}>

@@ -152,7 +152,8 @@ export default function ResourceDetailsScreen({ navigation, route }) {
             <Text style={styles.details}>{request.resourceNotes}</Text>
           </View>
         )}
-        <View style={styles.divider}></View>
+
+        <View style={styles.divider} />
 
         {request.requestedByEmail !== email && (
           <>
@@ -187,7 +188,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
                 Call {request.requestedByName}
               </Button>
             )}
-            <View style={styles.divider}></View>
           </>
         )}
 
@@ -221,33 +221,69 @@ export default function ResourceDetailsScreen({ navigation, route }) {
                   Call {request.requestedByName}
                 </Button>
               )}
+              {request.requestStatus === 'Approved' &&
+                request.approvedByEmail !== email && (
+                  <Button
+                    style={styles.button}
+                    textSize={14}
+                    onPress={call.bind(this, request.approvedByPhone)}
+                  >
+                    Call {request.approvedByName}
+                  </Button>
+                )}
             </>
           )}
 
         {request.requestStatus !== 'Approved' &&
           request.requestedByEmail !== email && (
-            <Button
-              style={styles.button}
-              textSize={14}
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                Alert.alert(
-                  'Approve Request',
-                  'Are you sure you want to approve this request?',
-                  [
-                    {
-                      text: 'Cancel',
-                      onPress: () => console.log('Cancel Pressed'),
-                      style: 'cancel',
-                    },
-                    { text: 'OK', onPress: approveRequest },
-                  ],
-                  { cancelable: false }
-                );
-              }}
-            >
-              Approve Request
-            </Button>
+            <>
+              <View style={styles.divider} />
+              <Button
+                style={styles.button}
+                textSize={14}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                  Alert.alert(
+                    'Approve Request',
+                    'Are you sure you want to approve this request?',
+                    [
+                      {
+                        text: 'Cancel',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                      },
+                      { text: 'OK', onPress: approveRequest },
+                    ],
+                    { cancelable: false }
+                  );
+                }}
+              >
+                Approve Request
+              </Button>
+              <Button
+                style={[styles.button, { marginTop: '3%' }]}
+                textSize={14}
+                buttonColor={gs.colors.buttonColor3}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                  Alert.alert(
+                    'Hide Request',
+                    'Are you sure you want to hide this request?',
+                    [
+                      {
+                        text: 'Cancel',
+                        style: 'cancel',
+                      },
+
+                      { text: 'OK', onPress: hideRequest },
+                    ],
+                    { cancelable: false }
+                  );
+                }}
+              >
+                Hide Request
+              </Button>
+            </>
           )}
 
         {request.requestStatus !== 'Approved' &&
@@ -273,44 +309,6 @@ export default function ResourceDetailsScreen({ navigation, route }) {
               }}
             >
               Delete Request
-            </Button>
-          )}
-
-        {request.requestStatus === 'Pending' &&
-          request.requestedByEmail !== email && (
-            <Button
-              style={styles.button}
-              textSize={14}
-              buttonColor={gs.colors.buttonColor3}
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                Alert.alert(
-                  'Hide Request',
-                  'Are you sure you want to hide this request?',
-                  [
-                    {
-                      text: 'Cancel',
-                      style: 'cancel',
-                    },
-
-                    { text: 'OK', onPress: hideRequest },
-                  ],
-                  { cancelable: false }
-                );
-              }}
-            >
-              Hide Request
-            </Button>
-          )}
-
-        {request.requestStatus === 'Approved' &&
-          request.approvedByEmail !== email && (
-            <Button
-              style={styles.button}
-              textSize={14}
-              onPress={call.bind(this, request.approvedByPhone)}
-            >
-              Call {request.approvedByName}
             </Button>
           )}
       </View>
