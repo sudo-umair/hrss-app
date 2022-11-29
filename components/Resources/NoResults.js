@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
 export default function NoResults() {
   return (
     <View style={styles.noResultsContainer}>
-      <Text style={styles.noResultsText}>No Data Found</Text>
+      <Text style={styles.noResultsText}>No Records...</Text>
     </View>
   );
 }
@@ -12,13 +12,13 @@ export default function NoResults() {
 const styles = StyleSheet.create({
   noResultsContainer: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   noResultsText: {
-    marginVertical: "10%",
-    paddingHorizontal: "10%",
-    textAlign: "center",
+    marginVertical: '25%',
+    paddingHorizontal: '10%',
+    textAlign: 'center',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
