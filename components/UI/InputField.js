@@ -32,7 +32,7 @@ export default function InputField({
       ref={innerRef}
       onSubmitEditing={onSubmitEditing}
       blurOnSubmit={false}
-      returnKeyType={returnKeyType ?? 'google'}
+      returnKeyType={returnKeyType ?? 'done'}
       multiline={multiline ?? false}
       numberOfLines={numberOfLines ?? 1}
       editable={editable ?? true}
