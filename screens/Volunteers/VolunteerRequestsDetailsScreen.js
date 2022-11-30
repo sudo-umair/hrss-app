@@ -13,19 +13,9 @@ import { showMessage } from 'react-native-flash-message';
 import * as Haptics from 'expo-haptics';
 
 export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
-  const [applicantStatus, setApplicantStatus] = useState('');
   const user = useSelector((state) => state.user);
   const { name, email, phone, cnic } = user;
-  const { item, screen } = route.params;
-
-  //for my requests
-  const checkApplicantStatus = () => {
-    item.applicants.forEach((applicant) => {
-      if (applicant.applicantEmail === email) {
-        setApplicantStatus(applicant.applicantRequestStatus);
-      }
-    });
-  };
+  const { item, screen, applicantStatus } = route.params;
 
   const acceptVolunteerRequest = async () => {
     if (item.requestStatus === 'Disabled') {
@@ -130,8 +120,6 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
     navigation.setOptions({
       headerTitle: item?.hospitalName,
     });
-
-    screen === 'myRequests' && checkApplicantStatus();
   }, [navigation]);
 
   return (

@@ -19,17 +19,15 @@ function RenderItem({ item, screen }) {
     });
   };
 
-  {
-    screen === 'myRequests' &&
-      useLayoutEffect(() => {
-        checkApplicantStatus();
-      }, [navigation]);
-  }
+  useLayoutEffect(() => {
+    checkApplicantStatus();
+  }, [item]);
 
   const goToVolunteerRequest = () => {
     navigation.navigate('VolunteerRequestDetails', {
       item,
       screen,
+      applicantStatus,
     });
   };
 

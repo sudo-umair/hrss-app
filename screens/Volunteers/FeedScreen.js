@@ -8,10 +8,12 @@ import { getVolunteerRequests } from '../../utilities/routes/volunteers';
 import { showMessage } from 'react-native-flash-message';
 
 export default function FeedScreen({ navigation, route }) {
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchText, setSearchText] = useState('');
   const [filteredRequests, setFilteredRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchText, setSearchText] = useState('');
+
   const { screen } = route.params;
 
   const user = useSelector((state) => state.user);
