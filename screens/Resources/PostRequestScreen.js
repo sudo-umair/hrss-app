@@ -14,9 +14,7 @@ export default function PostRequestScreen({ navigation }) {
   const RESOURCE = useRef();
   const QUANTITY = useRef();
   const DURATION = useRef();
-  const PHONE = useRef();
   const ADDRESS = useRef();
-  const NOTES = useRef();
 
   const user = useSelector((state) => state.user);
   const { name, email, phone } = user;
@@ -110,8 +108,7 @@ export default function PostRequestScreen({ navigation }) {
             Please fill out the form below to request a resource.
           </Text>
           <Text style={styles.subTitle}>Use one form for each request *</Text>
-          <Label>Email</Label>
-          <InputField value={record.requestedByEmail} editable={false} />
+
           <Label>Resource Name *</Label>
           <InputField
             placeholder='Blood Bags'
@@ -136,20 +133,10 @@ export default function PostRequestScreen({ navigation }) {
             placeholder='1 Week'
             value={record.resourceDuration}
             onChangeText={(value) => onChangeRecord('resourceDuration', value)}
-            onSubmitEditing={() => PHONE.current.focus()}
+            onSubmitEditing={() => ADDRESS.current.focus()}
             innerRef={DURATION}
             returnKeyType='next'
             autoCapitalize={'words'}
-          />
-          <Label>Contact Number *</Label>
-          <InputField
-            placeholder='Phone or Landline Number'
-            value={record.requestedByPhone}
-            onChangeText={(value) => onChangeRecord('requestedByPhone', value)}
-            onSubmitEditing={() => ADDRESS.current.focus()}
-            innerRef={PHONE}
-            returnKeyType='next'
-            keyboardType={'phone-pad'}
           />
           <Label>Address *</Label>
           <InputField
@@ -158,16 +145,19 @@ export default function PostRequestScreen({ navigation }) {
             onChangeText={(value) =>
               onChangeRecord('requestedByAddress', value)
             }
-            onSubmitEditing={() => NOTES.current.focus()}
             innerRef={ADDRESS}
             autoCapitalize={'words'}
-            returnKeyType='next'
+            multiline={true}
+            numberOfLines={2}
+            style={{
+              textAlignVertical: 'top',
+            }}
           />
           <Label>Any Additional Information</Label>
           <InputField
             placeholder='Any additional information'
             multiline={true}
-            numberOfLines={2}
+            numberOfLines={3}
             value={record.resourceNotes}
             onChangeText={(value) => onChangeRecord('resourceNotes', value)}
             autoCapitalize={'words'}
@@ -175,7 +165,6 @@ export default function PostRequestScreen({ navigation }) {
             style={{
               textAlignVertical: 'top',
             }}
-            innerRef={NOTES}
           />
           <View style={styles.button}>
             <Button

@@ -20,7 +20,6 @@ export default function FeedScreen({ navigation, route }) {
 
   const getResourceRequests = async () => {
     setIsLoading(true);
-    console.log('running getResourceRequests');
     const response = await getResourceRequestsList({
       userType: 'user',
     });
