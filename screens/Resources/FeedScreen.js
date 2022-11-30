@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, View, RefreshControl } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import RenderItem from '../../components/Resources/RenderItem';
 import NoResults from '../../components/Resources/NoResults';
@@ -95,6 +95,7 @@ export default function FeedScreen({ navigation, route }) {
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
+        windowSize={10}
         contentContainerStyle={styles.listContent}
         style={styles.listContainer}
         onRefresh={getResourceRequests}

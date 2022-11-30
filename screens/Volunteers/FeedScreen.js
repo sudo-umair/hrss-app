@@ -1,10 +1,11 @@
 import { StyleSheet, View, FlatList } from 'react-native';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import RenderItem from '../../components/Volunteers/RenderItem';
 import NoResults from '../../components/Resources/NoResults';
 import SearchBar from '../../components/UI/SearchBar';
 import { useSelector } from 'react-redux';
 import { getVolunteerRequests } from '../../utilities/routes/volunteers';
+import { showMessage } from 'react-native-flash-message';
 
 export default function FeedScreen({ navigation, route }) {
   const [searchResults, setSearchResults] = useState([]);
