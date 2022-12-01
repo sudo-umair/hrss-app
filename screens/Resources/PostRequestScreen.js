@@ -17,7 +17,7 @@ export default function PostRequestScreen({ navigation }) {
   const ADDRESS = useRef();
 
   const user = useSelector((state) => state.user);
-  const { name, email, phone } = user;
+  const { name, email, phone, address } = user;
 
   const [missingFields, setMissingFields] = useState(false);
 
@@ -30,7 +30,7 @@ export default function PostRequestScreen({ navigation }) {
     requestedByName: name,
     requestedByEmail: email,
     requestedByPhone: phone,
-    requestedByAddress: '',
+    requestedByAddress: address,
   });
 
   const onChangeRecord = (key, value) => {
@@ -46,7 +46,7 @@ export default function PostRequestScreen({ navigation }) {
       requestedByName: name,
       requestedByEmail: email,
       requestedByPhone: phone,
-      requestedByAddress: '',
+      requestedByAddress: address,
     });
   };
 
@@ -88,7 +88,6 @@ export default function PostRequestScreen({ navigation }) {
       record.resourceName.trim() === '' ||
       record.resourceQuantity.trim() === '' ||
       record.resourceDuration.trim() === '' ||
-      record.requestedByAddress.trim() === '' ||
       record.requestedByPhone.trim() === ''
     ) {
       setMissingFields(true);
@@ -108,7 +107,6 @@ export default function PostRequestScreen({ navigation }) {
             Please fill out the form below to request a resource.
           </Text>
           <Text style={styles.subTitle}>Use one form for each request *</Text>
-
           <Label>Resource Name *</Label>
           <InputField
             placeholder='Blood Bags'
@@ -137,21 +135,6 @@ export default function PostRequestScreen({ navigation }) {
             innerRef={DURATION}
             returnKeyType='next'
             autoCapitalize={'words'}
-          />
-          <Label>Address *</Label>
-          <InputField
-            placeholder='House ABC, Street 8, ....'
-            value={record.requestedByAddress}
-            onChangeText={(value) =>
-              onChangeRecord('requestedByAddress', value)
-            }
-            innerRef={ADDRESS}
-            autoCapitalize={'words'}
-            multiline={true}
-            numberOfLines={2}
-            style={{
-              textAlignVertical: 'top',
-            }}
           />
           <Label>Any Additional Information</Label>
           <InputField
