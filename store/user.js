@@ -5,6 +5,7 @@ const initialState = {
   email: null,
   phone: null,
   cnic: null,
+  address: null,
   token: null,
   isLoggedIn: false,
   isLoading: true,
@@ -16,11 +17,12 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action) => {
-      const { name, email, phone, cnic, token } = action.payload;
+      const { name, email, phone, cnic, address, token } = action.payload;
       state.name = name;
       state.email = email;
       state.phone = phone;
       state.cnic = cnic;
+      state.address = address;
       state.token = token;
       state.isLoggedIn = true;
     },
@@ -30,6 +32,7 @@ export const userSlice = createSlice({
       state.email = null;
       state.phone = null;
       state.cnic = null;
+      state.address = null;
       state.token = null;
       state.isLoggedIn = false;
     },

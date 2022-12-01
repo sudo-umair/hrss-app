@@ -12,11 +12,10 @@ import { updateAccount, updatePassword } from '../../utilities/routes/user';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/user';
 import { setDataInLocalStorage } from '../../utilities/helpers/local-storage';
-import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import * as Haptics from 'expo-haptics';
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   const user = useSelector((state) => state.user);
   const [record, setRecord] = useState({
     ...user,
@@ -25,10 +24,10 @@ export default function AccountScreen() {
     confirmNewPassword: '',
   });
 
+  console.log('record', record);
   const [originalRecord, setOriginalRecord] = useState(record);
 
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const onChangeRecord = (key, value) => {
     setRecord({ ...record, [key]: value });
@@ -38,14 +37,21 @@ export default function AccountScreen() {
   const NewPassword = useRef();
   const ConfirmNewPassword = useRef();
   const Phone = useRef();
+  const Address = useRef();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [nameError, setNameError] = useState(false);
+  const [nameInfo, setNameInfo] = useState(false);
 
   const [passwordError, setPasswordError] = useState(false);
   const [passwordInfo, setPasswordInfo] = useState('');
 
   const [phoneError, setPhoneError] = useState(false);
   const [phoneInfo, setPhoneInfo] = useState('');
+
+  const [addressError, setAddressError] = useState(false);
+  const [addressInfo, setAddressInfo] = useState('');
 
   const checkIfRecordChanged = () => {
     if (record.name !== originalRecord.name) {
@@ -54,10 +60,21 @@ export default function AccountScreen() {
     if (record.phone !== originalRecord.phone) {
       return true;
     }
+    if (record.address !== originalRecord.address) {
+      return true;
+    }
     return false;
   };
 
   useLayoutEffect(() => {
+    if (record.name.length < 4) {
+      setNameError(true);
+      setNameInfo('Name must be at least 4 characters long');
+    } else {
+      setNameError(false);
+      setNameInfo('');
+    }
+
     if (record.password.length < 6) {
       setPasswordError(true);
       setPasswordInfo('Password must be at least 6 characters');
@@ -82,8 +99,22 @@ export default function AccountScreen() {
       setPhoneError(false);
       setPhoneInfo('');
     }
-  }),
-    [record.password, record.phone];
+
+    if (record.address.trim().length < 10) {
+      setAddressError(true);
+      setAddressInfo('Address must be at least 10 characters');
+    } else {
+      setAddressError(false);
+      setAddressInfo('');
+    }
+  }, [
+    record.password,
+    record.phone,
+    record.address,
+    record.name,
+    record.newPassword,
+    record.confirmNewPassword,
+  ]);
 
   const showPasswordHandler = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -91,22 +122,23 @@ export default function AccountScreen() {
   };
 
   const clearPasswordInputs = () => {
-    setRecord({
-      ...record,
+    setRecord((prevRecord) => ({
+      ...prevRecord,
       password: '',
       newPassword: '',
       confirmNewPassword: '',
-    });
+    }));
   };
 
   const onUpdateAccountHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (checkIfRecordChanged()) {
-      if (!phoneError) {
+      if (!phoneError && !addressError && !nameError) {
         const response = await updateAccount(record);
         console.log(response);
         if (response.status === '200') {
           dispatch(setUser(response.user));
+          setOriginalRecord(response.user);
           setDataInLocalStorage({
             email: response.user.email,
             token: response.user.token,
@@ -191,7 +223,7 @@ export default function AccountScreen() {
             { alignSelf: 'center', marginBottom: '4%' },
           ]}
         >
-          Once set Email or Cnic cant be changed
+          Once set Email and Cnic can't be changed
         </Text>
         <Label>Full Name</Label>
         <InputField
@@ -200,7 +232,12 @@ export default function AccountScreen() {
           placeholder='Full Name'
           autoCapitalize='words'
           onSubmitEditing={() => Phone.current.focus()}
+          returnKeyType='next'
+          keyboardType={'default'}
         />
+        <Text style={[styles.info, nameError && styles.infoActivated]}>
+          {nameInfo}
+        </Text>
         <Label>Phone Number</Label>
         <InputField
           value={record.phone}
@@ -208,10 +245,28 @@ export default function AccountScreen() {
           onChangeText={(text) => onChangeRecord('phone', text)}
           keyboardType='phone-pad'
           innerRef={Phone}
-          onSubmitEditing={onUpdateAccountHandler}
+          onSubmitEditing={() => Address.current.focus()}
+          maxLength={11}
+          returnKeyType='next'
         />
         <Text style={[styles.info, phoneError && styles.infoActivated]}>
           {phoneInfo}
+        </Text>
+        <Label>Address</Label>
+        <InputField
+          value={record.address}
+          placeholder='Address'
+          onChangeText={(text) => onChangeRecord('address', text)}
+          keyboardType='default'
+          innerRef={Address}
+          multiline={true}
+          numberOfLines={2}
+          style={{
+            textAlignVertical: 'top',
+          }}
+        />
+        <Text style={[styles.info, addressError && styles.infoActivated]}>
+          {addressInfo}
         </Text>
         <Button
           style={{
