@@ -264,6 +264,7 @@ export default function AccountScreen({ navigation }) {
           style={{
             textAlignVertical: 'top',
           }}
+          autoCapitalize='words'
         />
         <Text style={[styles.info, addressError && styles.infoActivated]}>
           {addressInfo}
