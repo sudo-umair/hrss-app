@@ -260,7 +260,7 @@ export default function AccountScreen({ navigation }) {
           keyboardType='default'
           innerRef={Address}
           multiline={true}
-          numberOfLines={2}
+          numberOfLines={1}
           style={{
             textAlignVertical: 'top',
           }}

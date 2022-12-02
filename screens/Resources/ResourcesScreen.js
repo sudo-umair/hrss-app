@@ -16,8 +16,13 @@ export default function ResourcesScreen({ navigation }) {
         'You need to add your address before you can request a resource.',
         [
           {
-            text: 'OK',
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Add Address',
             style: 'default',
+            onPress: () => navigation.navigate('Account'),
           },
         ],
         { cancelable: false }
@@ -42,7 +47,7 @@ export default function ResourcesScreen({ navigation }) {
         marginRight: 10,
       },
     });
-  }, []);
+  }, [address]);
 
   return <ResourcesTabs />;
 }
