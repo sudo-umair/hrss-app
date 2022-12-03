@@ -93,20 +93,6 @@ export default function UpdateAccount({ navigation }) {
     }
   }, [record.phone, record.address, record.name]);
 
-  const showUpdateAccountAlert = () => {
-    Alert.alert(
-      'Information!',
-      'You cannot update your email address or cnic number as per our policy.',
-      [
-        {
-          text: 'OK',
-          style: 'default',
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-
   const onUpdateAccountHandler = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     if (checkIfRecordChanged()) {
@@ -160,12 +146,28 @@ export default function UpdateAccount({ navigation }) {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      Alert.alert(
+        'Information!',
+        'You cannot update your email address or cnic number as per our policy.',
+        [
+          {
+            text: 'OK',
+            style: 'default',
+          },
+        ],
+        { cancelable: true }
+      );
+    }, 200);
+  }, []);
+
   return (
     <KeyboardAwareScrollView
       style={styles.rootContainer}
       keyboardShouldPersistTaps='always'
     >
-      <View onLayout={showUpdateAccountAlert} style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>Update Account</Text>
         <Text
           style={[

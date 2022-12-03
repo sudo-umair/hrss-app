@@ -26,6 +26,11 @@ export default function AccountScreen({ navigation }) {
     navigation.navigate('UpdatePassword');
   };
 
+  const goToSignOutScreen = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    navigation.navigate('Signout');
+  };
+
   return (
     <KeyboardAwareScrollView
       style={styles.rootContainer}
@@ -34,18 +39,16 @@ export default function AccountScreen({ navigation }) {
       <View style={styles.container}>
         <UserAvatar size={100} name={user.name ?? ''} />
         <Text style={styles.name}>{user.name ?? ''}</Text>
-        <Button
-          onPress={goToDeleteAccountScreen}
-          style={{
-            marginTop: '2%',
-            minWidth: '50%',
-          }}
-          buttonColor={gs.colors.buttonColor3}
-        >
-          Delete Account
-        </Button>
       </View>
-      <Pressable onPress={goToUpdateAccountScreen} style={styles.button}>
+      <Pressable
+        style={[
+          styles.button,
+          {
+            marginTop: '10%',
+          },
+        ]}
+        onPress={goToUpdateAccountScreen}
+      >
         <Icon
           mode='icon'
           lib='mc'
@@ -59,6 +62,14 @@ export default function AccountScreen({ navigation }) {
         <Icon mode='icon' lib='mc' name='shield-key' color='white' size={30} />
         <Text style={styles.buttonText}>Update Password</Text>
       </Pressable>
+      <Pressable style={styles.button} onPress={goToDeleteAccountScreen}>
+        <Icon mode='icon' lib='a' name='deleteuser' color='white' size={30} />
+        <Text style={styles.buttonText}>Delete Account</Text>
+      </Pressable>
+      <Pressable style={styles.button} onPress={goToSignOutScreen}>
+        <Icon mode='icon' lib='mc' name='logout' color='white' size={30} />
+        <Text style={styles.buttonText}>Sign Out</Text>
+      </Pressable>
     </KeyboardAwareScrollView>
   );
 }
@@ -69,8 +80,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   name: {
-    marginVertical: '2%',
-    fontSize: 16,
+    marginTop: '2%',
+    fontSize: 18,
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
@@ -89,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginHorizontal: '5%',
-    marginTop: '5%',
+    marginTop: '3%',
     padding: '3%',
     backgroundColor: gs.colors.primary,
     borderRadius: 10,
