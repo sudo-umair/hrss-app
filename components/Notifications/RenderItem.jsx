@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import Icon from "../UI/Icon";
-import { deleteIndieNotificationInbox } from "native-notify";
-import { GLOBALS } from "../../utilities/constants/config";
-import { useSelector } from "react-redux";
-import { showMessage } from "react-native-flash-message";
-import { add5Hours } from "../../utilities/helpers/date-time";
-import * as Haptics from "expo-haptics";
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import Icon from '../UI/Icon';
+import { deleteIndieNotificationInbox } from 'native-notify';
+import { GLOBALS } from '../../utilities/constants/config';
+import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
+import { add5Hours } from '../../utilities/helpers/date-time';
+import * as Haptics from 'expo-haptics';
 
 const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
   const user = useSelector((state) => state.user);
@@ -24,13 +24,13 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
     );
     setNotifications(notifications);
     showMessage({
-      message: "Notification deleted",
-      type: "success",
-      icon: "success",
+      message: 'Notification deleted',
+      type: 'success',
+      icon: 'success',
     });
   };
 
-  console.log("item", item);
+  console.log('item', item);
 
   return (
     <View style={styles.notificationContainer}>
@@ -40,9 +40,9 @@ const RenderItem = React.memo(({ item, onPress, setNotifications }) => {
           onPress={() => {
             deleteNotification(item.notification_id);
           }}
-          lib="m"
-          name="clear"
-          color={"red"}
+          lib='m'
+          name='clear'
+          color={'red'}
           size={20}
         />
       </View>
@@ -58,13 +58,12 @@ export default RenderItem;
 
 const styles = StyleSheet.create({
   notificationContainer: {
-    marginHorizontal: "2%",
-    marginVertical: "1%",
-    paddingHorizontal: "2%",
-    paddingVertical: "3%",
-    borderRadius: 10,
-    backgroundColor: "white",
-    shadowColor: "#000",
+    marginHorizontal: '2%',
+    marginBottom: '2%',
+    padding: '2%',
+    // paddingVertical: '3%',
+    backgroundColor: 'white',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -74,22 +73,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   notificationTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    width: "90%",
+    fontSize: 14,
+    fontWeight: 'bold',
+    width: '90%',
   },
   notificationMessage: {
-    marginRight: "5%",
-    marginTop: "2%",
+    marginRight: '5%',
+    fontSize: 12,
   },
   notificationDate: {
-    marginTop: "2%",
-    marginHorizontal: "7%",
+    marginRight: '2%',
     fontSize: 12,
-    textAlign: "right",
+    textAlign: 'right',
   },
 });

@@ -1,15 +1,14 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useLayoutEffect } from 'react';
 import { getIndieNotificationInbox } from 'native-notify';
 import { useSelector } from 'react-redux';
 import { GLOBALS } from '../utilities/constants/config';
 import RenderItem from '../components/Notifications/RenderItem';
 import NoNotifications from '../components/Notifications/NoNotifications';
-import Loader from '../components/UI/Loader';
 
 export default function NotificationsScreen({ navigation, route }) {
   const [notifications, setNotifications] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
   const { email } = user;
@@ -17,6 +16,7 @@ export default function NotificationsScreen({ navigation, route }) {
   const { appId, appToken } = GLOBALS;
 
   const getNotificationInbox = async () => {
+    setIsLoading(true);
     const inbox = await getIndieNotificationInbox(email, appId, appToken);
     setNotifications(inbox);
     setIsLoading(false);
@@ -33,19 +33,15 @@ export default function NotificationsScreen({ navigation, route }) {
 
   return (
     <View style={styles.rootContainer}>
-      <Text style={styles.title}>
-        Your notifications for resource requests and volunteer applications will
-        be displayed here.
-      </Text>
       <FlatList
         data={notifications}
         keyExtractor={(item) => item.notification_id}
         renderItem={({ item }) => (
           <RenderItem setNotifications={setNotifications} item={item} />
         )}
-        ListEmptyComponent={isLoading ? Loader : NoNotifications}
-        style={styles.content}
-        contentContainerStyle={styles.contentContainer}
+        onRefresh={getNotificationInbox}
+        refreshing={isLoading}
+        ListEmptyComponent={!isLoading && <NoNotifications />}
       />
     </View>
   );
@@ -63,8 +59,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {},
-  contentContainer: {
-    marginTop: 10,
-  },
+  contentContainer: {},
   content: {},
 });
