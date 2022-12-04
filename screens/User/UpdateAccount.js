@@ -253,37 +253,12 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     borderRadius: 10,
   },
-
-  name: {
-    marginVertical: '2%',
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  accInfo: {
-    marginBottom: '2%',
-    textAlign: 'center',
-    color: 'white',
-  },
   title: {
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  passwordContainer: {
-    flexDirection: 'row',
-  },
-  passwordInput: {
-    width: '85%',
-    marginRight: 15,
-  },
-  passwordEye: {
-    alignItems: 'center',
-    paddingTop: 15,
-    justifyContent: 'center',
   },
   info: {
     height: 0,

@@ -184,18 +184,6 @@ const styles = StyleSheet.create({
     backgroundColor: gs.colors.primary,
     borderRadius: 10,
   },
-  name: {
-    marginVertical: '2%',
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  accInfo: {
-    marginBottom: '2%',
-    textAlign: 'center',
-    color: 'white',
-  },
   title: {
     fontSize: 20,
     textAlign: 'center',
