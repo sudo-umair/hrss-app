@@ -21,7 +21,7 @@ export default function ForgotPasswordScreen({ navigation, route }) {
   const [emailInfo, setEmailInfo] = useState('');
 
   const onChangeRecord = (key, value) => {
-    setRecord({ ...record, [key]: value.trim() });
+    setRecord({ ...record, [key]: value });
   };
 
   useLayoutEffect(() => {

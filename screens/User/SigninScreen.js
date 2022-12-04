@@ -33,7 +33,7 @@ export default function SigninScreen({ route, navigation }) {
   const [emailInfo, setEmailInfo] = useState('');
 
   const onChangeRecord = (key, value) => {
-    setRecord({ ...record, [key]: value.trim() });
+    setRecord({ ...record, [key]: value });
   };
 
   useLayoutEffect(() => {
