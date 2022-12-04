@@ -1,10 +1,15 @@
 import { View, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useLayoutEffect } from 'react';
-import { getIndieNotificationInbox } from 'native-notify';
+import {
+  getIndieNotificationInbox,
+  deleteIndieNotificationInbox,
+} from 'native-notify';
 import { useSelector } from 'react-redux';
 import { GLOBALS } from '../utilities/constants/config';
 import RenderItem from '../components/Notifications/RenderItem';
 import NoNotifications from '../components/Notifications/NoNotifications';
+import * as Haptics from 'expo-haptics';
+import { showMessage } from 'react-native-flash-message';
 
 export default function NotificationsScreen({ navigation, route }) {
   const [notifications, setNotifications] = useState([]);
@@ -22,9 +27,28 @@ export default function NotificationsScreen({ navigation, route }) {
     setIsLoading(false);
   };
 
+  const deleteNotification = async (notification_id) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    try {
+      await deleteIndieNotificationInbox(
+        email,
+        notification_id,
+        appId,
+        appToken
+      );
+      showMessage({
+        message: 'Notification deleted',
+        type: 'success',
+        icon: 'success',
+      });
+      getNotificationInbox();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useLayoutEffect(() => {
     getNotificationInbox();
-    console.log('notifications', notifications);
 
     return () => {
       setNotifications([]);
@@ -37,7 +61,7 @@ export default function NotificationsScreen({ navigation, route }) {
         data={notifications}
         keyExtractor={(item) => item.notification_id}
         renderItem={({ item }) => (
-          <RenderItem setNotifications={setNotifications} item={item} />
+          <RenderItem item={item} onPress={deleteNotification} />
         )}
         onRefresh={getNotificationInbox}
         refreshing={isLoading}
