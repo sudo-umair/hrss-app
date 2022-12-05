@@ -19,17 +19,15 @@ export default function Navigator() {
   const { isLoggedIn, isConnected, isLoading } = user;
 
   const checkForInternetConnection = async () => {
-    const status = await checkForConnectionOnce();
-    if (status) {
-      dispatch(setIsConnected(true));
-    } else {
+    const isInternetReachable = await checkForConnectionOnce();
+    dispatch(setIsConnected(isInternetReachable));
+    if (!isInternetReachable) {
       showMessage({
-        message: 'Check your internet connection',
+        message: 'No internet connection',
         type: 'warning',
         icon: 'warning',
       });
     }
-    console.log('connected', status);
   };
 
   const checkForCredentialsInLocalStorage = async () => {
@@ -76,9 +74,6 @@ export default function Navigator() {
         ) : (
           <Stack.Screen
             name='NoConnection'
-            options={{
-              presentation: 'modal',
-            }}
             component={NoConnectionScreen}
             initialParams={{
               checkForInternetConnection,
