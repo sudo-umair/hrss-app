@@ -33,6 +33,7 @@ export default function Navigator() {
   };
 
   const checkForCredentialsInLocalStorage = async () => {
+    dispatch(setIsLoading(true));
     const response = await checkCredentials();
     if (response.status) {
       dispatch(setUser(response?.user));

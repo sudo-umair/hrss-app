@@ -22,7 +22,7 @@ export default function ResourcesScreen({ navigation }) {
           {
             text: 'Add Address',
             style: 'default',
-            onPress: () => navigation.navigate('Account'),
+            onPress: () => navigation.navigate('UpdateAccount'),
           },
         ],
         { cancelable: false }
