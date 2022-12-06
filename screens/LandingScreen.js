@@ -1,84 +1,88 @@
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import React from "react";
-import GradientContainer from "../components/UI/GradientContainer";
-import { GlobalStyles as gs } from "../utilities/constants/styles";
-import Button from "../components/UI/Button";
-import * as Haptics from "expo-haptics";
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import React from 'react';
+import { GlobalStyles as gs } from '../utilities/constants/styles';
+import Button from '../components/UI/Button';
+import * as Haptics from 'expo-haptics';
+import BACKGROUND_IMAGE from '../assets/images/LandingPage.png';
 
 export default function LandingScreen({ navigation }) {
   const onPressLogin = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("Authentication", { screen: "Signin" });
+    navigation.navigate('Authentication', { screen: 'Signin' });
   };
 
   const onPressSignup = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("Authentication", { screen: "Signup" });
+    navigation.navigate('Authentication', { screen: 'Signup' });
   };
 
   return (
-    <GradientContainer colors={["transparent", "#3b2a25"]}>
-      <ImageBackground
-        source={require("../assets/images/LandingPage.png")}
-        style={styles.backgroundImageContainer}
-        imageStyle={styles.backgroundImage}
-        resizeMode="cover"
-      >
-        <View style={styles.container}>
-          <Text style={styles.title}>Share {"&"} Care</Text>
-          <Text style={styles.subtitle}>
-            Share and Care is a platform that connects hospitals and people
-            among themselves so they can help each other during any pandemic by
-            sharing resources like beds, ventilators, medicines, etc. and also
-            by donating to various charities and NGOs.
-          </Text>
-          <Button
-            style={styles.button}
-            buttonColor={gs.colors.buttonColor1}
-            onPress={onPressLogin}
-            textSize={18}
-          >
-            Sign In
-          </Button>
-          <Button
-            style={styles.button}
-            buttonColor={gs.colors.buttonColor2}
-            onPress={onPressSignup}
-            textSize={18}
-          >
-            Sign up
-          </Button>
-        </View>
-      </ImageBackground>
-    </GradientContainer>
+    <ImageBackground
+      source={BACKGROUND_IMAGE}
+      style={styles.rootContainer}
+      imageStyle={styles.backgroundImage}
+      resizeMode='cover'
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Share & Care</Text>
+        <Text style={styles.subtitle}>
+          Share & Care is a platform bringing hospitals and people together in
+          the time of need!
+        </Text>
+        <Button
+          style={{
+            ...styles.button,
+            marginTop: '5%',
+          }}
+          buttonColor={gs.colors.buttonColor1}
+          onPress={onPressLogin}
+          textSize={18}
+        >
+          SIGN IN
+        </Button>
+        <Button
+          style={styles.button}
+          buttonColor={gs.colors.buttonColor2}
+          onPress={onPressSignup}
+          textSize={18}
+        >
+          SIGN UP
+        </Button>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  backgroundImageContainer: {
+  rootContainer: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   backgroundImage: {},
   container: {
-    flex: 1,
-    marginTop: "15%",
-    marginHorizontal: "5%",
-    position: "absolute",
-    alignItems: "center",
-    top: "50%",
+    // flex: 1,
+    // marginTop: '15%',
+    marginHorizontal: '5%',
+    alignItems: 'center',
+    position: 'absolute',
+    // top: '55%',
+    bottom: '10%',
   },
   title: {
     fontSize: 40,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   subtitle: {
-    marginVertical: "2%",
-    textAlign: "center",
+    fontSize: 16,
+    marginVertical: '2%',
+    textAlign: 'center',
   },
   button: {
-    width: "60%",
-    marginVertical: "2%",
+    width: '70%',
+    marginVertical: '2%',
+    borderRadius: 25,
+    overflow: 'hidden',
   },
 });

@@ -243,10 +243,10 @@ export default function SignupScreen({ navigation }) {
           onPress={onSignUpHandler}
           style={styles.button}
         >
-          Sign Up
+          SIGN UP
         </Button>
         <Link style={styles.link} to={{ screen: 'Signin' }}>
-          Already a user? Sign In
+          Already A User? SIGN IN
         </Link>
       </View>
     </KeyboardAwareScrollView>

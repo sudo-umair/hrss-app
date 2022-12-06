@@ -132,10 +132,10 @@ export default function SigninScreen({ route, navigation }) {
           onPress={onSignInHandler}
           style={styles.button}
         >
-          Sign In
+          SIGN IN
         </Button>
         <Link style={styles.link} to={{ screen: 'Signup' }}>
-          Not a user? Sign Up
+          Not A User? SIGN UP
         </Link>
         <Link
           style={styles.link}

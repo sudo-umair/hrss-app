@@ -14,14 +14,10 @@ export default function Authentication() {
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          // headerTitleAlign: 'center',
-          // tabBarHideOnKeyboard: true,
-          // tabBarShowLabel: false,
+          tabBarHideOnKeyboard: true,
           tabBarLabelStyle: {
             fontSize: 12,
             marginBottom: 3,
-            textAlign: 'center',
-            justifyContent: 'center',
           },
           tabBarStyle: {
             height: 50,
@@ -42,7 +38,7 @@ export default function Authentication() {
                 size={30}
               />
             ),
-            tabBarLabel: 'Sign In',
+            tabBarLabel: 'SIGN IN',
           }}
         />
         <Tab.Screen
@@ -59,7 +55,7 @@ export default function Authentication() {
                 onPress={() => console.log('pressed')}
               />
             ),
-            tabBarLabel: 'Sign Up',
+            tabBarLabel: 'SIGN UP',
           }}
         />
       </Tab.Navigator>

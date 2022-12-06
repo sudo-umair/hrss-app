@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import HomeSreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/HomeScreen';
 import SignoutScreen from '../screens/User/SignoutScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import NoConnectionScreen from '../screens/NoConnectionScreen';
@@ -21,7 +21,7 @@ export default function AfterAuthentication() {
 
   return (
     <Stack.Navigator screenOptions={{}}>
-      <Stack.Screen name='HomeScreen' component={HomeSreen} />
+      <Stack.Screen name='HomeScreen' component={HomeScreen} />
       <Stack.Screen name='NoInternet' component={NoConnectionScreen} />
       <Stack.Screen
         name='Notifications'
