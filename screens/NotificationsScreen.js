@@ -1,5 +1,5 @@
 import { View, StyleSheet, FlatList } from 'react-native';
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   getIndieNotificationInbox,
   deleteIndieNotificationInbox,
@@ -47,12 +47,12 @@ export default function NotificationsScreen({ navigation, route }) {
     }
   };
 
-  useLayoutEffect(() => {
-    getNotificationInbox();
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getNotificationInbox();
+    });
 
-    return () => {
-      setNotifications([]);
-    };
+    return unsubscribe;
   }, []);
 
   return (
