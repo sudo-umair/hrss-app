@@ -4,14 +4,14 @@ import {
   getPushDataObject,
 } from 'native-notify';
 import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import TopDisplay from '../components/HomeScreen/TopDisplay';
 import BottomDisplay from '../components/HomeScreen/BottomDisplay';
-import { GlobalStyles as gs } from '../utilities/constants/styles';
 import Icon from '../components/UI/Icon';
-import { useSelector } from 'react-redux';
+import { GlobalStyles as gs } from '../utilities/constants/styles';
 import { GLOBALS } from '../utilities/constants/config';
+import { useSelector } from 'react-redux';
 import * as Haptics from 'expo-haptics';
-import { useIsFocused } from '@react-navigation/native';
 
 export default function HomeScreen({ navigation, route }) {
   const { email } = useSelector((state) => state.user);
@@ -19,26 +19,22 @@ export default function HomeScreen({ navigation, route }) {
 
   const [unReadCount, setUnReadCount] = useState(0);
 
-  const isFocused = useIsFocused();
   let pushData = getPushDataObject();
 
   const screens = ['Resources', 'Volunteers', 'Account'];
 
-  const getUnreadNotificationCount = async () => {
-    const count = await getUnreadIndieNotificationInboxCount(
-      email,
-      appId,
-      appToken
-    );
-    setUnReadCount(count);
-  };
+  useFocusEffect(() => {
+    const getUnreadNotificationCount = async () => {
+      setUnReadCount(
+        await getUnreadIndieNotificationInboxCount(email, appId, appToken)
+      );
+    };
+    getUnreadNotificationCount();
+    return () => {};
+  });
 
   useEffect(() => {
-    isFocused && getUnreadNotificationCount();
-  }, []);
-
-  useEffect(() => {
-    // console.log(pushData);
+    console.log(pushData);
     if (pushData.screen) {
       if (screens.includes(pushData.screen)) {
         navigation.navigate(pushData.screen);
