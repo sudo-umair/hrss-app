@@ -18,14 +18,15 @@ export default function App() {
       <Provider store={store}>
         <Navigator />
       </Provider>
-      <StatusBar style='auto' animated />
       <FlashMessage
         hideOnPress={true}
         duration={2000}
         animated={true}
         position='top'
-        style={{ zIndex: 100, paddingTop: '10%' }}
+        style={{ zIndex: 100, marginTop: '7%' }}
+        floating={true}
       />
+      <StatusBar style='dark' />
     </>
   );
 }
