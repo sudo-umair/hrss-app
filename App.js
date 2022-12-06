@@ -14,10 +14,11 @@ export default function App() {
   registerNNPushToken(appId, appToken);
 
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <Provider store={store}>
         <Navigator />
       </Provider>
+      <StatusBar style='dark' />
       <FlashMessage
         hideOnPress={true}
         duration={2000}
@@ -26,7 +27,6 @@ export default function App() {
         style={{ zIndex: 100, marginTop: '7%' }}
         floating={true}
       />
-      <StatusBar style='dark' />
-    </>
+    </View>
   );
 }
