@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   requests: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
-    paddingRight: 10,
+    marginRight: '1%',
   },
   requestsNumber: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: 'black',
   },
