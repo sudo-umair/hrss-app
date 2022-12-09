@@ -128,10 +128,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   return (
     <ScrollView style={styles.rootContainer}>
       <View style={styles.container}>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>Resource Requested</Text>
-          <Text style={styles.details}>{request.resourceName}</Text>
-        </View>
+        <Text style={styles.name}>{request.resourceName}</Text>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Request Status</Text>
           <Text style={styles.details}>{request.requestStatus}</Text>
@@ -342,7 +339,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: '2%',
   },
   detailsContainer: {
     marginVertical: '2%',

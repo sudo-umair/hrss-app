@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import BottomDisplayButton from './BottomDisplayButton';
 import { GlobalStyles as gs } from '../../utilities/constants/styles';
@@ -15,7 +15,7 @@ export default function BottomDisplay() {
     navigation.navigate('Resources');
   };
 
-  const goToDontationsScreen = () => {
+  const goToDonationsScreen = () => {
     navigation.navigate('Donations');
   };
 
@@ -27,37 +27,33 @@ export default function BottomDisplay() {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <BottomDisplayButton
-          name='news'
-          size={24}
-          color={gs.colors.primary}
-          lib='e'
+          name='medical-services'
+          lib='m'
           title='Resources'
+          size={50}
           onPress={goToResourcesScreen}
         />
         <BottomDisplayButton
           name='volunteer-activism'
-          size={24}
-          color={gs.colors.primary}
           title='Volunteer'
           lib='m'
+          size={50}
           onPress={goToVolunteersScreen}
         />
       </View>
       <View style={styles.buttonContainer}>
         <BottomDisplayButton
           name='heart-plus'
-          size={24}
-          color={gs.colors.primary}
-          title='Donatations'
+          title='Donations'
           lib='mc'
-          onPress={goToDontationsScreen}
+          size={50}
+          onPress={goToDonationsScreen}
         />
         <BottomDisplayButton
           lib='mc'
           name='account-circle'
-          size={24}
-          color={gs.colors.primary}
           title='Account'
+          size={50}
           onPress={goToAccountScreen}
         />
       </View>
@@ -68,9 +64,9 @@ export default function BottomDisplay() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: gs.colors.background,
-    marginTop: '10%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: '10%',
   },
   buttonContainer: {
     flexDirection: 'row',

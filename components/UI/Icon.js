@@ -5,6 +5,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   AntDesign,
+  FontAwesome,
   FontAwesome5,
   Entypo,
   Feather,
@@ -42,6 +43,8 @@ export default function Icon({
     Icon = <AntDesign name={name} color={color} size={size} />;
   } else if (lib === 'f') {
     Icon = <FontAwesome5 name={name} color={color} size={size} />;
+  } else if (lib === 'fa') {
+    Icon = <FontAwesome name={name} color={color} size={size} />;
   } else if (lib === 'i') {
     Icon = <Ionicons name={name} color={color} size={size} />;
   } else if (lib === 'e') {
