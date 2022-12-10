@@ -16,17 +16,14 @@ export default function DonationDetailsScreen({ navigation, route }) {
 
   const openDialer = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    const phoneNumber = donation.phone?.trim() === '' ? false : donation.phone;
-    if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      Linking.openURL(url);
-    } else {
-      showMessage({
-        message: 'Phone number not available',
-        type: 'warning',
-        icon: 'warning',
-      });
-    }
+    const url = `tel:${donation.phone}`;
+    Linking.openURL(url);
+  };
+
+  const sendEmail = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    const url = `mailto:${donation.email}`;
+    Linking.openURL(url);
   };
 
   const openWebsite = () => {
@@ -50,11 +47,13 @@ export default function DonationDetailsScreen({ navigation, route }) {
         <Text style={styles.name}>{donation.name}</Text>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Email</Text>
-          <Text style={styles.details}>{donation.email}</Text>
+          <Text onPress={sendEmail} style={[styles.details, styles.link]}>
+            {donation.email}
+          </Text>
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>Website</Text>
-          <Text onPress={openWebsite} style={[styles.details, styles.website]}>
+          <Text onPress={openWebsite} style={[styles.details, styles.link]}>
             {donation.website || 'Not Available'}
           </Text>
         </View>
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
     textAlign: 'center',
   },
-  website: {
+  link: {
     textDecorationLine: 'underline',
   },
   button: {
