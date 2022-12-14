@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
 
 export default function FeedScreen({ navigation, route }) {
-  const { filterType } = route.params;
+  const { screen } = route.params;
   const [isLoading, setIsLoading] = useState(false);
 
   const user = useSelector((state) => state.user);
@@ -36,7 +36,7 @@ export default function FeedScreen({ navigation, route }) {
   };
 
   const filterRequests = (requests) => {
-    if (filterType === 'all') {
+    if (screen === 'all') {
       const filteredRequestsReversed = requests
         .filter(
           (item) =>
@@ -46,12 +46,12 @@ export default function FeedScreen({ navigation, route }) {
         )
         .reverse();
       setFilteredRequests(filteredRequestsReversed);
-    } else if (filterType === 'myRequests') {
+    } else if (screen === 'myRequests') {
       const filteredRequestsReversed = requests
         .filter((item) => item.requestedByEmail === email)
         .reverse();
       setFilteredRequests(filteredRequestsReversed);
-    } else if (filterType === 'approved') {
+    } else if (screen === 'approved') {
       const filteredRequestsReversed = requests
         .filter(
           (item) =>
@@ -87,7 +87,7 @@ export default function FeedScreen({ navigation, route }) {
       />
       <FlatList
         data={searchText === '' ? filteredRequests : searchResults}
-        renderItem={({ item }) => <RenderItem item={item} />}
+        renderItem={({ item }) => <RenderItem item={item} screen={screen} />}
         keyExtractor={(item) => item._id.toString()}
         ListEmptyComponent={NoResults}
         keyboardDismissMode='on-drag'

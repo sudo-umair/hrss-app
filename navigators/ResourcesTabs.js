@@ -1,40 +1,40 @@
-import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import FeedScreen from "../screens/Resources/FeedScreen";
+import React from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import FeedScreen from '../screens/Resources/FeedScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function ResourcesTabs({ navigation, route }) {
   return (
-    <Tab.Navigator backBehavior="none" keyboardDismissMode="on-drag">
+    <Tab.Navigator backBehavior='none' keyboardDismissMode='on-drag'>
       <Tab.Screen
-        name="Feed"
+        name='Feed'
         options={{
-          tabBarLabel: "Feed",
+          tabBarLabel: 'Feed',
         }}
         component={FeedScreen}
         initialParams={{
-          filterType: "all",
+          screen: 'all',
         }}
       />
       <Tab.Screen
-        name="MyRequests"
+        name='MyRequests'
         options={{
-          tabBarLabel: "My Requests",
+          tabBarLabel: 'My Requests',
         }}
         component={FeedScreen}
         initialParams={{
-          filterType: "myRequests",
+          screen: 'myRequests',
         }}
       />
       <Tab.Screen
-        name="ApprovedRequests"
+        name='ApprovedRequests'
         options={{
-          tabBarLabel: "Approved",
+          tabBarLabel: 'Approved',
         }}
         component={FeedScreen}
         initialParams={{
-          filterType: "approved",
+          screen: 'approved',
         }}
       />
     </Tab.Navigator>

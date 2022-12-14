@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import React from "react";
-import { GlobalStyles as gs } from "../../utilities/constants/styles";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import React from 'react';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
+import { useNavigation } from '@react-navigation/native';
 
-const RenderItem = React.memo(({ item }) => {
+const RenderItem = React.memo(({ item, screen }) => {
   const navigation = useNavigation();
 
   const goToDetailsScreen = () => {
-    navigation.navigate("ResourceDetails", { item });
+    navigation.navigate('ResourceDetails', { item });
   };
 
   return (
@@ -17,7 +17,7 @@ const RenderItem = React.memo(({ item }) => {
         <Text
           style={[
             styles.requestStatus,
-            item.requestStatus === "Pending" ? styles.pending : styles.approved,
+            item.requestStatus === 'Pending' ? styles.pending : styles.approved,
           ]}
         >
           {item.requestStatus}
@@ -28,7 +28,11 @@ const RenderItem = React.memo(({ item }) => {
         <Text style={styles.details}>Duration: {item.resourceDuration}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.details}>Requested by: {item.requestedByName}</Text>
+        <Text style={styles.details}>
+          {screen === 'myRequests'
+            ? `Approved by: ${item.approvedByName}`
+            : `Requested by: ${item.requestedByName}`}
+        </Text>
       </View>
     </Pressable>
   );
@@ -39,43 +43,43 @@ export default RenderItem;
 const styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: gs.colors.primary,
-    padding: "5%",
-    marginVertical: "2%",
+    padding: '5%',
+    marginVertical: '2%',
     borderRadius: 7,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     elevation: 5,
     borderRadius: 15,
   },
   row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 3,
   },
   title: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 5,
-    color: "white",
+    color: 'white',
   },
   requestStatus: {
     fontSize: 10,
-    color: "white",
+    color: 'white',
     paddingVertical: 3,
     paddingHorizontal: 6,
     borderRadius: 25,
-    textAlign: "center",
-    alignSelf: "flex-start",
+    textAlign: 'center',
+    alignSelf: 'flex-start',
   },
   pending: {
-    backgroundColor: "yellow",
-    color: "black",
+    backgroundColor: 'yellow',
+    color: 'black',
   },
   approved: {
-    backgroundColor: "green",
+    backgroundColor: 'green',
   },
   details: {
     fontSize: 12,
-    color: "white",
+    color: 'white',
   },
 });
