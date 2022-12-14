@@ -33,10 +33,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
 
   const call = (phone) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-
-    const phoneBool =
-      phone.trim() === 'Not Available' ? false : request.approvedByPhone;
-    if (phoneBool) {
+    if (phone) {
       const url = `tel:${phone}`;
       Linking.openURL(url);
     } else {
@@ -49,12 +46,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
   };
 
   const sendEmail = (email) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-
-    const emailBool =
-      email.trim() === 'Not Available' ? false : request.requestedByEmail;
-
-    if (emailBool) {
+    if (email) {
       const url = `mailto:${email}`;
       Linking.openURL(url);
     } else {
@@ -161,7 +153,7 @@ export default function ResourceDetailsScreen({ navigation, route }) {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   Alert.alert(
                     'Approve Request',
-                    'Are you sure you want to approve this request?',
+                    'I assure the resources are available and are of good quality!',
                     [
                       {
                         text: 'Cancel',

@@ -152,8 +152,8 @@ export default function VolunteerRequestsDetailsScreen({ navigation, route }) {
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 Alert.alert(
-                  'Confirm',
-                  'Are you sure you want to apply for this request?',
+                  'Apply to Volunteer',
+                  'Are you sure you want to apply for this request? You will be notified if your request is approved or not!',
                   [
                     {
                       text: 'Cancel',
