@@ -28,7 +28,7 @@ export default function ResourcesScreen({ navigation }) {
         { cancelable: false }
       );
     } else {
-      navigation.navigate('PostRequest');
+      navigation.navigate('ResourceRequest');
     }
   };
 

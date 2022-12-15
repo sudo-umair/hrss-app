@@ -29,7 +29,7 @@ const RenderItem = React.memo(({ item, screen }) => {
       </View>
       <View style={styles.row}>
         <Text style={styles.details}>
-          {screen === 'myRequests'
+          {screen === 'myRequests' && item.requestStatus === 'Approved'
             ? `Approved by: ${item.approvedByName}`
             : `Requested by: ${item.requestedByName}`}
         </Text>

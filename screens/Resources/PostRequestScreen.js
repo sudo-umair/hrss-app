@@ -5,12 +5,18 @@ import InputField from '../../components/UI/InputField';
 import Label from '../../components/UI/Label';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import Button from '../../components/UI/Button';
-import { postResourceRequest } from '../../utilities/routes/resource';
+import {
+  postResourceRequest,
+  updateResourceRequest,
+} from '../../utilities/routes/resource';
 import { useSelector } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
 import * as Haptics from 'expo-haptics';
 
-export default function PostRequestScreen({ navigation }) {
+export default function PostRequestScreen({ navigation, route }) {
+  const { request } = route.params ?? {};
+  console.log(request);
+
   const RESOURCE = useRef();
   const QUANTITY = useRef();
   const DURATION = useRef();
@@ -23,10 +29,11 @@ export default function PostRequestScreen({ navigation }) {
 
   const [record, setRecord] = useState({
     userType: 'user',
-    resourceName: '',
-    resourceQuantity: '',
-    resourceDuration: '',
-    resourceNotes: '',
+    id: request?._id ?? '',
+    resourceName: request?.resourceName ?? '',
+    resourceQuantity: request?.resourceQuantity ?? '',
+    resourceDuration: request?.resourceDuration ?? '',
+    resourceNotes: request?.resourceNotes ?? '',
     requestedByName: name,
     requestedByEmail: email,
     requestedByPhone: phone,
@@ -76,9 +83,33 @@ export default function PostRequestScreen({ navigation }) {
     }
   };
 
+  const onUpdateRequest = async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    if (missingFields) {
+      showMessage({
+        message: 'Please fill in all the required fields',
+        type: 'warning',
+        icon: 'warning',
+      });
+    } else {
+      try {
+        const response = await updateResourceRequest(record);
+        console.log(response);
+        showMessage({
+          message: response.message,
+          type: (response.status = '200' ? 'success' : 'warning'),
+          icon: (response.status = '200' ? 'success' : 'warning'),
+        });
+        navigation.navigate('Resources');
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: 'Request Resource Form',
+      headerTitle: request ? 'Update Request' : 'Post Request',
       headerTitleAlign: 'center',
     });
   }, [navigation]);
@@ -104,9 +135,12 @@ export default function PostRequestScreen({ navigation }) {
       <View style={styles.rootContainer}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Please fill out the form below to request a resource.
+            Please {request ? 'update the' : 'fill out'} the form below to{' '}
+            {request ? 'update the' : 'post a'} resource request.
           </Text>
-          <Text style={styles.subTitle}>Use one form for each request *</Text>
+          {!request && (
+            <Text style={styles.subTitle}>Use one form for each request *</Text>
+          )}
           <Label>Resource Name *</Label>
           <InputField
             placeholder='Blood Bags'
@@ -152,9 +186,9 @@ export default function PostRequestScreen({ navigation }) {
           <View style={styles.button}>
             <Button
               buttonColor={gs.colors.buttonColor2}
-              onPress={onPostRequest}
+              onPress={request ? onUpdateRequest : onPostRequest}
             >
-              Request Resource
+              {request ? 'Update' : 'Post'} Request
             </Button>
           </View>
         </View>

@@ -17,6 +17,22 @@ export async function postResourceRequest(record) {
   }
 }
 
+export async function updateResourceRequest(record) {
+  try {
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/resources/updateRequest`,
+      record
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return {
+      status: 'error',
+      message: err.message,
+    };
+  }
+}
+
 export async function getResourceRequestsList(record) {
   try {
     const response = await axios.post(

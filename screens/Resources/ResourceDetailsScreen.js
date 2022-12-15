@@ -195,28 +195,43 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           )}
         {request.requestStatus !== 'Approved' &&
           request.requestedByEmail === email && (
-            <Button
-              style={styles.button}
-              textSize={14}
-              buttonColor={gs.colors.buttonColor3}
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                Alert.alert(
-                  'Delete Request',
-                  'Are you sure you want to delete your request?',
-                  [
-                    {
-                      text: 'Cancel',
-                      style: 'cancel',
-                    },
-                    { text: 'OK', onPress: deleteRequest },
-                  ],
-                  { cancelable: false }
-                );
-              }}
-            >
-              Delete Request
-            </Button>
+            <>
+              <Button
+                style={styles.button}
+                textSize={14}
+                buttonColor={gs.colors.buttonColor1}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                  navigation.navigate('ResourceRequest', {
+                    request,
+                  });
+                }}
+              >
+                Update Request
+              </Button>
+              <Button
+                style={styles.button}
+                textSize={14}
+                buttonColor={gs.colors.buttonColor3}
+                onPress={() => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                  Alert.alert(
+                    'Delete Request',
+                    'Are you sure you want to delete your request?',
+                    [
+                      {
+                        text: 'Cancel',
+                        style: 'cancel',
+                      },
+                      { text: 'OK', onPress: deleteRequest },
+                    ],
+                    { cancelable: false }
+                  );
+                }}
+              >
+                Delete Request
+              </Button>
+            </>
           )}
 
         {request.requestedByEmail !== email && (

@@ -52,13 +52,7 @@ export default function AfterAuthentication() {
       {/* Resources */}
       <Stack.Group name='Resources'>
         <Stack.Screen name='Resources' component={ResourcesScreen} />
-        <Stack.Screen
-          name='PostRequest'
-          options={{
-            presentation: 'modal',
-          }}
-          component={PostRequestScreen}
-        />
+        <Stack.Screen name='ResourceRequest' component={PostRequestScreen} />
         <Stack.Screen
           name='ResourceDetails'
           component={ResourceDetailsScreen}
