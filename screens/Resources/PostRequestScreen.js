@@ -15,7 +15,6 @@ import * as Haptics from 'expo-haptics';
 
 export default function PostRequestScreen({ navigation, route }) {
   const { request } = route.params ?? {};
-  console.log(request);
 
   const RESOURCE = useRef();
   const QUANTITY = useRef();
@@ -94,7 +93,6 @@ export default function PostRequestScreen({ navigation, route }) {
     } else {
       try {
         const response = await updateResourceRequest(record);
-        console.log(response);
         showMessage({
           message: response.message,
           type: (response.status = '200' ? 'success' : 'warning'),
