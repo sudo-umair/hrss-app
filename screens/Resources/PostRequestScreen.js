@@ -95,8 +95,8 @@ export default function PostRequestScreen({ navigation, route }) {
         const response = await updateResourceRequest(record);
         showMessage({
           message: response.message,
-          type: (response.status = '200' ? 'success' : 'warning'),
-          icon: (response.status = '200' ? 'success' : 'warning'),
+          type: response.status === '200' ? 'success' : 'warning',
+          icon: response.status === '200' ? 'success' : 'warning',
         });
         navigation.navigate('Resources');
       } catch (err) {
