@@ -17,10 +17,8 @@ export default function HomeScreen({ navigation, route }) {
   const { email } = useSelector((state) => state.user);
   const { appId, appToken } = GLOBALS;
 
-  const [unReadCount, setUnReadCount] = useState(0);
-
   let pushData = getPushDataObject();
-
+  const [unReadCount, setUnReadCount] = useState(0);
   const screens = ['Resources', 'Volunteers', 'Account'];
 
   useFocusEffect(() => {

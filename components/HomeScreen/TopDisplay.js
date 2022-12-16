@@ -5,7 +5,7 @@ import UserAvatar from 'react-native-user-avatar';
 import Icon from '../UI/Icon';
 import { useSelector } from 'react-redux';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { getTotalNumberOfRequests } from '../../utilities/routes/resource';
+import { fetchStats } from '../../utilities/routes/user';
 import * as Haptics from 'expo-haptics';
 
 export default function TopDisplay() {
@@ -17,7 +17,7 @@ export default function TopDisplay() {
   const navigation = useNavigation();
 
   const getTotalRequests = async () => {
-    const response = await getTotalNumberOfRequests({
+    const response = await fetchStats({
       email: user.email,
     });
     if (response.status === '200') {

@@ -4,7 +4,7 @@ import { GLOBALS } from '../constants/config';
 export async function getVolunteerRequests() {
   try {
     const response = await axios.get(
-      `${GLOBALS.BASE_URL}/volunteers/fetchAllRequests`
+      `${GLOBALS.BASE_URL}/volunteers/fetchRequests`
     );
     return response.data;
   } catch (err) {
@@ -19,7 +19,7 @@ export async function getVolunteerRequests() {
 export async function applyForVolunteerRequest(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/volunteers/applyForVolunteerRequest`,
+      `${GLOBALS.BASE_URL}/volunteers/applyForRequest`,
       record
     );
     console.log(response.data);
@@ -36,7 +36,7 @@ export async function applyForVolunteerRequest(record) {
 export async function withdrawVolunteerRequest(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/volunteers/withdrawVolunteerRequest`,
+      `${GLOBALS.BASE_URL}/volunteers/withdrawApplication`,
       record
     );
     console.log(response.data);
@@ -53,7 +53,7 @@ export async function withdrawVolunteerRequest(record) {
 export async function hideVolunteerRequest(record) {
   try {
     const response = await axios.post(
-      `${GLOBALS.BASE_URL}/volunteers/hideVolunteerRequest`,
+      `${GLOBALS.BASE_URL}/volunteers/hideRequest`,
       record
     );
     console.log(response.data);

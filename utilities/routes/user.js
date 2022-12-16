@@ -159,3 +159,19 @@ export async function deleteAccount(record) {
     };
   }
 }
+
+export async function fetchStats(record) {
+  try {
+    const response = await axios.post(
+      `${GLOBALS.BASE_URL}/users/fetchStats`,
+      record
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err, 'ddd');
+    return {
+      status: 'error',
+      message: err.message,
+    };
+  }
+}

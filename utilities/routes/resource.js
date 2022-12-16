@@ -49,22 +49,6 @@ export async function getResourceRequestsList(record) {
   }
 }
 
-export async function getTotalNumberOfRequests(record) {
-  try {
-    const response = await axios.post(
-      `${GLOBALS.BASE_URL}/resources/totalNumberOfRequests`,
-      record
-    );
-    return response.data;
-  } catch (err) {
-    console.log(err, 'ddd');
-    return {
-      status: 'error',
-      message: err.message,
-    };
-  }
-}
-
 export async function approveResourceRequest(record) {
   try {
     const response = await axios.put(
