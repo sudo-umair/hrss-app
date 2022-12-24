@@ -125,11 +125,9 @@ export default function ResourceDetailsScreen({ navigation, route }) {
           <Text style={styles.title}>Request Status</Text>
           <Text style={styles.details}>{request.requestStatus}</Text>
         </View>
-        <View style={styles.row}>
-          <View style={styles.detailsContainer}>
-            <Text style={styles.title}>Duration</Text>
-            <Text style={styles.details}>{request.resourceDuration}</Text>
-          </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Duration</Text>
+          <Text style={styles.details}>{request.resourceDuration}</Text>
           <View style={styles.detailsContainer}>
             <Text style={styles.title}>Quantity</Text>
             <Text style={styles.details}>{request.resourceQuantity}</Text>
@@ -340,6 +338,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    overflow: 'hidden',
   },
   name: {
     fontSize: 18,
@@ -370,10 +369,6 @@ const styles = StyleSheet.create({
   button: {
     marginTop: '3%',
     minWidth: '60%',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   divider: {
     borderColor: 'white',

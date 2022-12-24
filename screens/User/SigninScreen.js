@@ -102,6 +102,7 @@ export default function SigninScreen({ route, navigation }) {
             keyboardType='email-address'
             onSubmitEditing={() => Password.current.focus()}
             autoFocus={true}
+            textContentType='emailAddress'
           />
           <Text style={[styles.info, emailError && styles.infoActivated]}>
             {emailInfo}
@@ -115,6 +116,7 @@ export default function SigninScreen({ route, navigation }) {
               secureTextEntry={!showPassword}
               innerRef={Password}
               onSubmitEditing={onSignInHandler}
+              textContentType='password'
             />
             <PasswordEye
               onPress={showPasswordHandler}

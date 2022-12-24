@@ -107,7 +107,7 @@ export default function PostRequestScreen({ navigation, route }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: request ? 'Update Request' : 'Post Request',
+      headerTitle: request ? 'Update Request' : 'Post A New Request',
       headerTitleAlign: 'center',
     });
   }, [navigation]);
@@ -147,27 +147,41 @@ export default function PostRequestScreen({ navigation, route }) {
             onSubmitEditing={() => QUANTITY.current.focus()}
             innerRef={RESOURCE}
             autoCapitalize={'words'}
+            maxLength={15}
           />
-          <Label>Quantity *</Label>
-          <InputField
-            placeholder='3'
-            keyboardType='decimal-pad'
-            value={record.resourceQuantity}
-            onChangeText={(value) => onChangeRecord('resourceQuantity', value)}
-            onSubmitEditing={() => DURATION.current.focus()}
-            innerRef={QUANTITY}
-            returnKeyType='next'
-          />
-          <Label>Duration *</Label>
-          <InputField
-            placeholder='1 Week'
-            value={record.resourceDuration}
-            onChangeText={(value) => onChangeRecord('resourceDuration', value)}
-            onSubmitEditing={() => ADDRESS.current.focus()}
-            innerRef={DURATION}
-            returnKeyType='next'
-            autoCapitalize={'words'}
-          />
+          <View style={styles.row}>
+            <View style={styles.col}>
+              <Label>Quantity *</Label>
+              <InputField
+                placeholder='3'
+                keyboardType='decimal-pad'
+                value={record.resourceQuantity}
+                onChangeText={(value) =>
+                  onChangeRecord('resourceQuantity', value)
+                }
+                onSubmitEditing={() => DURATION.current.focus()}
+                innerRef={QUANTITY}
+                returnKeyType='next'
+                maxLength={3}
+              />
+            </View>
+            <View style={styles.col}>
+              <Label>Duration *</Label>
+              <InputField
+                placeholder='1 Week'
+                value={record.resourceDuration}
+                onChangeText={(value) =>
+                  onChangeRecord('resourceDuration', value)
+                }
+                onSubmitEditing={() => ADDRESS.current.focus()}
+                innerRef={DURATION}
+                returnKeyType='next'
+                autoCapitalize={'words'}
+                maxLength={8}
+              />
+            </View>
+          </View>
+
           <Label>Any Additional Information</Label>
           <InputField
             placeholder='Any additional information'
@@ -180,6 +194,7 @@ export default function PostRequestScreen({ navigation, route }) {
             style={{
               textAlignVertical: 'top',
             }}
+            maxLength={100}
           />
           <View style={styles.button}>
             <Button
@@ -218,6 +233,13 @@ const styles = StyleSheet.create({
     color: gs.colors.titleColor,
     textAlign: 'center',
     marginBottom: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  col: {
+    width: '48%',
   },
   button: {
     marginTop: 10,

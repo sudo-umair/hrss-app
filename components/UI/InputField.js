@@ -18,6 +18,7 @@ export default function InputField({
   editable,
   maxLength,
   autoFocus,
+  textContentType,
 }) {
   return (
     <TextInput
@@ -38,6 +39,7 @@ export default function InputField({
       editable={editable ?? true}
       enablesReturnKeyAutomatically={true}
       autoFocus={autoFocus ?? false}
+      textContentType={textContentType ?? 'none'}
     />
   );
 }

@@ -25,10 +25,19 @@ const RenderItem = React.memo(({ item, screen }) => {
       </View>
       <View style={styles.row}>
         <Text style={styles.details}>Quantity: {item.resourceQuantity}</Text>
-        <Text style={styles.details}>Duration: {item.resourceDuration}</Text>
+        <Text
+          style={[
+            styles.details,
+            {
+              textAlign: 'right',
+            },
+          ]}
+        >
+          Duration: {item.resourceDuration}
+        </Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.details}>
+        <Text style={[styles.details, { width: '100%' }]}>
           {screen === 'myRequests' && item.requestStatus === 'Approved'
             ? `Approved by: ${item.approvedByName}`
             : `Requested by: ${item.requestedByName}`}
@@ -49,18 +58,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     elevation: 5,
     borderRadius: 15,
+    overflow: 'hidden',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     marginBottom: 3,
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
     color: 'white',
+    maxWidth: '80%',
   },
   requestStatus: {
     fontSize: 10,
@@ -81,5 +94,7 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 12,
     color: 'white',
+    width: '48%',
+    textAlign: 'left',
   },
 });

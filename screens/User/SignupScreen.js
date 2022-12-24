@@ -182,6 +182,7 @@ export default function SignupScreen({ navigation }) {
             keyboardType='email-address'
             innerRef={Email}
             onSubmitEditing={() => Password.current.focus()}
+            textContentType='emailAddress'
           />
           <Text style={[styles.info, emailError && styles.infoActivated]}>
             {emailInfo}
@@ -195,6 +196,7 @@ export default function SignupScreen({ navigation }) {
               secureTextEntry={!showPassword}
               innerRef={Password}
               onSubmitEditing={() => ConfirmPassword.current.focus()}
+              textContentType='password'
             />
             <PasswordEye
               onPress={showPasswordHandler}
@@ -233,6 +235,7 @@ export default function SignupScreen({ navigation }) {
             keyboardType='phone-pad'
             innerRef={Phone}
             onSubmitEditing={onSignUpHandler}
+            textContentType='telephoneNumber'
           />
           <Text style={[styles.info, phoneError && styles.infoActivated]}>
             {phoneInfo}
