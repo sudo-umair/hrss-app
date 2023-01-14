@@ -7,14 +7,15 @@ import registerNNPushToken from 'native-notify';
 import { GLOBALS } from './utilities/constants/config';
 import FlashMessage from 'react-native-flash-message';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { GlobalStyles as gs } from './utilities/constants/styles';
 
 export default function App() {
   const { appId, appToken } = GLOBALS;
   registerNNPushToken(appId, appToken);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.rootContainer}>
       <Provider store={store}>
         <Navigator />
       </Provider>
@@ -30,3 +31,10 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: gs.colors.background,
+  },
+});

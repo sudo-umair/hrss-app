@@ -6,6 +6,7 @@ import SearchBar from '../../components/UI/SearchBar';
 import { getResourceRequestsList } from '../../utilities/routes/resource';
 import { useSelector } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
 
 export default function FeedScreen({ navigation, route }) {
   const { screen } = route.params;
@@ -107,7 +108,7 @@ export default function FeedScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: gs.colors.background,
     paddingTop: '4%',
   },
 

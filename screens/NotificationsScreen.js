@@ -10,6 +10,7 @@ import RenderItem from '../components/Notifications/RenderItem';
 import NoNotifications from '../components/Notifications/NoNotifications';
 import * as Haptics from 'expo-haptics';
 import { showMessage } from 'react-native-flash-message';
+import { GlobalStyles as gs } from '../utilities/constants/styles';
 
 export default function NotificationsScreen({ navigation, route }) {
   const [notifications, setNotifications] = useState([]);
@@ -74,7 +75,7 @@ export default function NotificationsScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: gs.colors.background,
   },
   title: {
     fontSize: 14,

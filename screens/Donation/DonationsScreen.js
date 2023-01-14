@@ -5,6 +5,7 @@ import SearchBar from '../../components/UI/SearchBar';
 import RenderItem from '../../components/Donations/RenderItem';
 import NoResults from '../../components/Resources/NoResults';
 import { showMessage } from 'react-native-flash-message';
+import { GlobalStyles as gs } from '../../utilities/constants/styles';
 
 export default function DonationsScreen({ navigation, route }) {
   const [donationResults, setDonationResults] = useState([]);
@@ -71,7 +72,7 @@ export default function DonationsScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: gs.colors.background,
   },
   searchBar: {
     borderColor: 'gray',

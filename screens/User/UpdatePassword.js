@@ -176,7 +176,7 @@ export default function UpdatePassword({ navigation }) {
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: gs.colors.background,
   },
   container: {
     margin: '5%',

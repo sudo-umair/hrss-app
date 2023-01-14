@@ -62,12 +62,9 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {},
   container: {
-    // flex: 1,
-    // marginTop: '15%',
     marginHorizontal: '5%',
     alignItems: 'center',
     position: 'absolute',
-    // top: '55%',
     bottom: '10%',
   },
   title: {
